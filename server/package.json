@@ -4,8 +4,11 @@
   "description": "TeamDaily Server",
   "main": "src",
   "scripts": {
-    "start": "cross-env NODE_ENV=development babel-node src/api.js",
+    "start": "cross-env babel-node src/api.js",
     "babel-node": "babel-node"
+  },
+  "engines": {
+    "node": "7.x"
   },
   "repository": {
     "type": "git",
@@ -26,15 +29,15 @@
     "moment": "^2.18.1",
     "morgan": "^1.8.2",
     "mysql": "^2.13.0",
-    "uuid": "^3.1.0"
-  },
-  "devDependencies": {
+    "uuid": "^3.1.0",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.5.2",
-    "dotenv": "^4.0.0",
+    "dotenv": "^4.0.0"
+  },
+  "devDependencies": {
     "faker": "^4.1.0",
     "immutable": "^3.8.1",
     "nodemon": "^1.11.0",

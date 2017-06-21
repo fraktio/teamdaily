@@ -8,6 +8,8 @@ const url = url => process.env.API + url;
 const wrapMany = req =>
   req.then(res => List(res.data));
 
+axios.defaults.withCredentials = true;
+
 export default {
   getEntries: d =>
     wrapMany(axios.get(url('/api/message/') + d.format('GGGG') + '/' + d.format('WW'))),
