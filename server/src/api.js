@@ -24,7 +24,8 @@ const weekAmount = 25;
 const app = express();
 app.use(cors({
   origin: true,
-  credentials: true
+  credentials: true,
+  allowedHeaders: ['Authorization', 'Content-Type', 'Credentials']
 }));
 app.set('json spaces', 2);
 app.use(bodyParser.json());
