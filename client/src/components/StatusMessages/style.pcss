@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em 2em 1em;
+  align-items: flex-start;
+}
+
+.box {
+  border-radius: 6px;
+  min-width: 23%;
+  max-width: 23%;
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .box {
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+}

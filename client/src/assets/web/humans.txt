@@ -1,0 +1,14 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+  Fraktio
+
+# THANKS
+
+  Fraktio
+
+# TECH
+
+  <3 React <3

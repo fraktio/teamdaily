@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  margin: 0;
+  padding: 0.5rem;
+  position: relative;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-weight: bold;
+  padding: 0 0.5rem;
+  text-decoration: none;
+
+  h1 {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    margin: 0;
+  }
+}
+
+.tabs {
+  display: flex;
+}
+
+.tab {
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  display: block;
+  line-height: 2rem;
+  padding: 0 0.5rem;
+  text-decoration: none;
+  transition: all 250ms ease-in;
+
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.activeTab {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 1);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}

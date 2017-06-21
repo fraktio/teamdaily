@@ -1,0 +1,101 @@
+.container {
+  color: #444;
+  background: #f0f0f0;
+  padding: 1em;
+}
+
+.buttonGroup {
+  display: flex;
+}
+
+.buttonGroup button {
+  border: 0;
+  padding: 1em 1.5em;
+  margin: 0;
+  width: 25%;
+  border-radius: 0;
+}
+
+.buttonGroup button:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.buttonGroup button:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.smallButtons {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+}
+
+.smallButtons button {
+  padding: .5em .6em;
+  max-height: 23px;
+}
+
+.control {
+  padding: 1em 0;
+}
+
+.label {
+  color: #EB4F26;
+  font-size: 1.15em;
+  font-weight: 500;
+  padding-bottom: .5em;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.input {
+  width: 100%;
+  padding: 1em;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  color: #444;
+}
+
+.input:focus {
+  outline: 0;
+  border-color: #aaa;
+}
+
+.floatLeft {
+  float: right;
+}
+
+.floatLeft a {
+  display: inline-block;
+  border-radius: 4px;
+  margin-right: 12px;
+  padding: .2em .5em;
+  color: #666;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.floatLeft a:hover {
+  border-color: #aaa;
+  background: #dfdfdf;
+}
+
+.projectsSaved {
+  margin-left: 1em;
+  line-height: 1.2em;
+  color: #a0a0a0;
+}
+
+@media screen and (max-width: 900px) {
+  .buttonGroup {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .buttonGroup button, .buttonGroup button:first-child, .buttonGroup button:last-child {
+    width: 100%;
+    border-radius: 8px;
+  }
+}

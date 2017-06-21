@@ -1,0 +1,140 @@
+:global {
+
+  @import "../../node_modules/normalize.css/normalize.css";
+
+  body {
+    background-color: #2B2B2B;
+    font-family: "Raleway", sans-serif;
+    margin: 0;
+    padding-top: 0;
+  }
+  * { box-sizing: border-box; }
+  a {
+    color: #efefef;
+    &:hover {
+      transition: .2s all;
+    }
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .green, .yellow, .red, .blue, .orange {
+    color: #f0f0f0;
+  }
+  .green {
+    background-color: #449d44;
+  }
+  .yellow {
+    background-color: #ec971f;
+  }
+  .red {
+    background-color: #d9534f;
+  }
+  .blue {
+    background-color: #428bca;
+  }
+  .orange {
+    background-color: #FC563B;
+  }
+  .empty {
+    background-color: #d3d3d3;
+  }
+  .menu-green {
+    box-shadow: 0 0 6px 1px rgba(0,0,0,0.20), inset 3px 0 0 0 #449d44;
+  }
+  .menu-yellow {
+    box-shadow: 0 0 6px 1px rgba(0,0,0,0.20), inset 3px 0 0 0 #ec971f;
+  }
+  .menu-red {
+    box-shadow: 0 0 6px 1px rgba(0,0,0,0.20), inset 3px 0 0 0 #d9534f;
+  }
+  .menu-blue {
+    box-shadow: 0 0 6px 1px rgba(0,0,0,0.20), inset 3px 0 0 0 #428bca;
+  }
+  .menu-orange {
+    box-shadow: 0 0 6px 1px rgba(0,0,0,0.20), inset 3px 0 0 0 #FC563B;
+  }
+  .menu-empty {
+    box-shadow: 0 0 6px 1px rgba(0,0,0,0.20), inset 3px 0 0 0 #d3d3d3;
+  }
+  /************************************************************************
+  *************************************************************************
+  *************************************************************************
+  *************************************************************************
+  *************************************************************************
+  *************************************************************************
+  ALLA OLEVA ON TUUHEAA, MUOKSI VAROEN
+  */
+  .matrix-data-container {
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    tr:hover td {
+      border-bottom: 1px solid #fff;
+    }
+  }
+  .matrix-data-container table {
+    table-layout: fixed;
+    th {
+      width: 150px;
+      padding: 0;
+      text-align: center;
+      border: 1px solid gray;
+    }
+    th.fixed-width {
+      column-width: 25px;
+      width: 25px;
+      &.wide {
+        column-width: 50px;
+        width: 50px;
+      }
+    }
+    td {
+      padding: 0;
+      text-align: center;
+      border: 1px solid gray;
+    }
+    span.counter-ball {
+      background: red;
+      border-radius: 50%;
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      font-size: 12px;
+      line-height: 14px;
+      margin-left: 5px;
+      &:empty {
+        display: none;
+      }
+    }
+  }
+  #modal-container {
+    .user-data-modal {
+      padding: 10px;
+      border: 1px solid gray;
+    }
+    .chart-div {
+      padding: 10px;
+      border: 1px solid gray;
+    }
+    h1 {
+      margin: 0 0 10px;
+    }
+    div {
+      margin-bottom: 10px;
+      .message {
+        padding: 10px;
+      }
+    }
+    button {
+      margin: 0;
+    }
+  }
+  .clickable {
+    cursor: pointer;
+    cursor: hand;
+  }
+
+}

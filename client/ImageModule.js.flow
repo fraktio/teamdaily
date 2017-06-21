@@ -1,0 +1,3 @@
+declare module "ImageModule" {
+  declare export default string;
+}

@@ -1,0 +1,46 @@
+.container {
+  color: #f0f0f0;
+  padding: 1em;
+  padding-bottom: 0;
+  font-size: .9rem;
+}
+
+.container:last-child {
+  padding-bottom: 1em;
+}
+
+.header {
+  display: inline-block;
+}
+
+.name {
+  display: inline-block;
+  padding: 0 1em;
+  background: rgba(0,0,0,.05);
+  border-radius: 0 0.6em 0.6em 0;
+  margin-left: -1em;
+  line-height: 1.4em;
+}
+
+.message {
+  margin: .5em 0;
+}
+
+.created {
+  transition: opacity 0.2s;
+  opacity: 0;
+  font-family: monospace;
+  margin-right: 8px;
+  padding: 0 6px;
+}
+
+.container:hover .created {
+  opacity: 1;
+}
+
+@media screen and (max-width: 900px) {
+  .created {
+    opacity: 1;
+    text-align: right;
+  }
+}

@@ -1,0 +1,107 @@
+.container {
+  height: 100vh;
+}
+
+.employee {
+  text-align: left;
+  border-top: 1px solid #444;
+  border-right: 1px solid #444;
+  padding-left: .5em;
+}
+
+.colorCell {
+  text-align: center;
+  border-color: rgba(0,0,0,.10) !important;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.table {
+  table-layout: fixed;
+  color: #ddd;
+  max-width: 100vw;
+  height: 100vh;
+}
+
+.tr > td:last-of-type {
+   z-index: 9999999999999999;
+}
+
+.tr {
+  box-shadow: 0 0 0px rgba(0,0,0,0);
+  transition: box-shadow .2s;
+}
+
+.tr:hover {
+  position: relative;
+  background: rgba(255,255,255,.1);
+  filter: brightness(1.3);
+  z-index: 10;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2);
+
+  td {
+    box-shadow: inset 0px 0 20px 0 rgba(0,0,0,.2);
+    border-color: transparent;
+  }
+}
+
+.th {
+  width: 150px;
+  padding: 0;
+  text-align: left;
+  border-right: 1px solid #444;
+  padding: .2em 0;
+  padding-left: .5em;
+}
+
+.td {
+  padding: 0;
+  border: 1px solid #444;
+}
+
+.fixedWidth {
+  column-width: 25px;
+  width: 25px;
+  height: 2.5em;
+  border-right: 1px solid #444;
+}
+
+.wide {
+  column-width: 50px;
+  width: 50px;
+}
+
+.week {
+  text-align: right;
+  padding-right: .5em;
+}
+.weekAlignLeft {
+  text-align: left;
+  padding-right: .5em;
+}
+
+.modalContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+
+  .message {
+    font-size: 40px;
+  }
+}
+
+.modalContent {
+    color: #fff;
+    background-color: #2B2B2B;
+    padding: 12px;
+    margin: 12px;
+    border-radius: 3px;
+    width: 100%
+}

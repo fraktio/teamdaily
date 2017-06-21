@@ -1,0 +1,10 @@
+/.idea
+/vendor
+node_modules/
+composer.phar
+dist/*
+.DS_Store
+coverage/
+webpack-assets.json
+npm-debug.log
+yarn-error.log

@@ -1,0 +1,29 @@
+import React from 'react';
+import userDataExtractor from 'services/userDataExtractor';
+import WeeklyGraph from 'components/WeeklyMatrix/WeeklyGraph';
+import EmployeeName from 'components/EmployeeName';
+import moment from 'moment';
+
+import cx from 'classnames';
+
+export default ({ data, weeklyData }) => {
+  const entries = weeklyData.filter(d =>
+    d.name === data.user
+  ).filter(d =>
+    d.week === data.week
+  );
+
+  return (
+    <div>
+      <div className="user-data-modal">
+        <h1 className="matrix-title"><EmployeeName name={data.user} /> - viikko {data.week}</h1>
+        {entries.map(entry =>
+          <div className={cx(entry.color, 'message')} key={'entry-' + entry.id}>
+            <p>{moment(entry.created).locale('fi').format('dddd D.M.YYYY HH:mm:ss')}</p>
+            <p>{entry.message}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

@@ -1,0 +1,43 @@
+{
+  "name": "teamdaily-server",
+  "version": "3.0.0",
+  "description": "TeamDaily Server",
+  "main": "src",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development babel-node src/api.js",
+    "babel-node": "babel-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fraktio/teamdaily-os"
+  },
+  "keywords": [
+    "TeamDaily"
+  ],
+  "author": "Fraktio",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
+    "http-auth": "^3.1.3",
+    "moment": "^2.18.1",
+    "morgan": "^1.8.2",
+    "mysql": "^2.13.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "dotenv": "^4.0.0",
+    "faker": "^4.1.0",
+    "immutable": "^3.8.1",
+    "nodemon": "^1.11.0",
+    "random-js": "^1.0.8"
+  }
+}
