@@ -3,7 +3,7 @@
 By popular request, here's the open sourced version of our internal "Team Daily" tool which we use
 to measure our people's business and happiness and such.
 
-Jaani talks about this software in (his mighty blog post)[https://fraktio.fi/blogi/sisainen-kehitys-case-teamdaily/].
+Jaani talks about this software in [his mighty blog post](https://fraktio.fi/blogi/sisainen-kehitys-case-teamdaily/).
 
 ## Installation
 
