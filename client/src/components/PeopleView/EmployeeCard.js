@@ -11,14 +11,16 @@ export default class EmployeeCard extends Component {
         const projects = employee.employeeProjects;
 
         return (
-            <div className={`${styles.masonryCard} ${color}`} onClick={() => handleClick(employee, projects)}>
-                <h4 className={styles.employeeTitle}>{employee.name}</h4>
+            <div className={styles.masonryCard} onClick={() => handleClick(employee, projects)}>
+                <div className={`${styles.masonryCardInner} ${color}`}>
+                    <h4 className={styles.employeeTitle}>{employee.name}</h4>
 
-                {lastEntry && <p>{lastEntry.message}</p>}
+                    {lastEntry && <p>{lastEntry.message}</p>}
 
-                <div className={styles.projectsContainer}>
-                    {projects &&
-                    projects.map(p => <button className={styles.project} key={p.name}>{p.name}</button>)}
+                    <div className={styles.projectsContainer}>
+                        {projects &&
+                        projects.map(p => <button className={styles.project} key={p.name}>{p.name}</button>)}
+                    </div>
                 </div>
             </div>
         );

@@ -31,6 +31,10 @@ export default class PeopleView extends Component {
         .concat(sortedEmployees.green)
         .concat(sortedEmployees.withoutEntry));
 
+        const masonryOptions = {
+            transitionDuration: 0
+        };
+
         return (
             <div>
             {
@@ -44,7 +48,7 @@ export default class PeopleView extends Component {
                     changeWeek={entryActions.changeWeek}
                     date={date}/>
             }
-            <Masonry>
+            <Masonry options={masonryOptions}>
                 {orderedEmployees.map(e => {
                     return <EmployeeCard
                         key={e.name}
