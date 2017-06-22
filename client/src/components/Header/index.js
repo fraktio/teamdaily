@@ -42,6 +42,13 @@ export default class Header extends Component {
             >
               Kirjaus
             </Link>
+            <Link
+              to="/admin"
+              className={styles.tab}
+              activeClassName={styles.activeTab}
+            >
+              Admin
+            </Link>
           </nav>
         </div>
         {renderWeekSelector &&

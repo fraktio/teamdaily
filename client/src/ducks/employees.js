@@ -7,9 +7,9 @@ const LOAD = 'teamdaily/employees/LOAD';
 export default function reducer(state = List(), action) {
   switch (action.type) {
     case LOAD:
-    return action.sortedEmployees;
+      return action.sortedEmployees;
     default:
-    return state;
+      return state;
   }
 }
 
@@ -34,5 +34,21 @@ export function fetchEmployees(d) {
     api.getEmployees().then(employees => {
       dispatch(receiveEmployees(employees));
     });
+  };
+};
+
+export function addEmployee(employee) {
+  return dispatch => {
+    api.addEmployee(employee)
+      .then(dispatch(fetchEmployees()))
+      .catch(dispatch(fetchEmployees()));
+  };
+};
+
+export function deleteEmployee(id) {
+  return dispatch => {
+    api.deleteEmployee(id)
+      .then(dispatch(fetchEmployees()))
+      .catch(dispatch(fetchEmployees()));
   };
 };

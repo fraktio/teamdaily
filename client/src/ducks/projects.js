@@ -52,5 +52,13 @@ export function addProject(project) {
     api.addProject(project)
       .then(dispatch(fetchProjects()))
       .catch(dispatch(fetchProjects()));
-  }
-}
+  };
+};
+
+export function deleteProject(id) {
+  return dispatch => {
+    api.deleteProject(id)
+      .then(dispatch(fetchProjects()))
+      .catch(dispatch(fetchProjects()));
+  };
+};
