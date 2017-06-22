@@ -7,6 +7,13 @@ Jaani talks about this software in [his mighty blog post](https://fraktio.fi/blo
 
 ## Installation
 
+### Dockerized installation
+
+* `docker-compose up`
+* `curl http://localhost:8765`
+
+### Manual installation for grumpy senior employees
+
 ### server
 
 TeamDaily uses a MySQL database. You can find an example kekkonized
