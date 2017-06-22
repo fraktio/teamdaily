@@ -2,7 +2,6 @@ import React from 'react';
 import { Router, Route, IndexRoute, Redirect } from 'react-router';
 
 import App from 'containers/AppContainer';
-import MobileStatus from 'containers/MobileStatusContainer';
 import Week from 'containers/WeekContainer';
 import Info from 'containers/InfoContainer';
 import ProjectMatrix from 'containers/ProjectMatrixContainer';
@@ -19,7 +18,6 @@ export const createRouter = (history) => (
       <Route name="index" path="index" component={Menu}/>
       <Route name="info" path="info" component={Info} />
       <Route name="matrix" path="matrix" component={WeeklyMatrix} />
-      <Route name="mobile" path="mobile" component={MobileStatus} />
       <Route name="people" path="people" component={PeopleView} />
       <Route name="projects" path="projects" component={ProjectView} />
       <Route name="week" path="week" component={Week}/>

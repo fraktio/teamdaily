@@ -8,7 +8,6 @@ export default () => (
     <div className={styles.menu}>
       <h1 className={styles.heading}>TeamDaily</h1>
 
-      <Link to="/mobile" className={styles.menuButton}>Enter weekly status (mobile)</Link>
       <Link to="/week" className={styles.menuButton}>Enter weekly status (legacy)</Link>
       <Link to="/matrix" className={styles.menuButton}>Matrix view</Link>
       <Link to="/projects" className={styles.menuButton}>Project matrix</Link>

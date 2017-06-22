@@ -81,7 +81,6 @@ export default class App extends Component {
           <Route exact path='/week' component={Week}/>
           <Route exact path="/index" component={Menu}/>
           <Route exact path="/info" component={Info} />
-          <Route exact path="/mobile" component={MobileStatus} />
           <Route exact path="/people" component={PeopleView} />
           <Route exact path="/projects" component={ProjectView} />
           <Redirect from='/' to='/week' />
