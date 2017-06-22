@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { alphabeticalSort } from '../../utils/helpers';
 import styles from './style';
 import { Icon } from 'react-fa';
 
@@ -22,7 +23,7 @@ export default class EmployeeCard extends Component {
 
                 <div className={styles.projectsContainer}>
                     {projects &&
-                    projects.sort((a, b) => a.name > b.name).map(p => <button className={styles.project} key={p.name}>{p.name}</button>)}
+                    projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(p => <button className={styles.project} key={p.name}>{p.name}</button>)}
                 </div>
             </div>
         );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { alphabeticalSort } from '../../utils/helpers';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
@@ -10,7 +11,7 @@ export default class ProjectView extends Component {
     render() {
         const { employees, projects, entries, date, entryActions } = this.props;
 
-        const projectsWithEmployees = projects.sort((a, b) => a.name > b.name).map(p => {
+        const projectsWithEmployees = projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(p => {
             p.employees = employees
             .filter(e => e.projects)
             .filter(e => e.projects.includes(p.id))
