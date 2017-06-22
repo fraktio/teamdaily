@@ -62,7 +62,7 @@ export default class PeopleView extends Component {
 function sortEmployeesByImportance(employees, entries, projects) {
     return employees.reduce((list, e, r) => {
         e.entry = entries.filter(entry => entry.name === e.name);
-        e.employeeProjects = projects.filter(p => {
+        e.employeeProjects = projects.sort((a, b) => a.name > b.name).filter(p => {
             if (!e.projects) return null;
             return e.projects.includes(p.id);
         });

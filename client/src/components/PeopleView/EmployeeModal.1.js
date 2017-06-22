@@ -146,7 +146,7 @@ export default class EmployeeModal extends React.Component {
                     Mitkä projektit odottavat panostasi?
                     <div className={modalStyles.projects}>
                         {e.employeeProjects &&
-                        e.employeeProjects.map(p => <button className={styles.project} key={p.id}>{p.name}</button>)}
+                        e.employeeProjects.sort((a, b) => a.name > b.name).map(p => <button className={styles.project} key={p.id}>{p.name}</button>)}
                     </div>
                 </div>
             </ModalDialog>

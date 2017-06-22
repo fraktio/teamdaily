@@ -141,7 +141,7 @@ export default class StatusForm extends Component {
             <span className={styles.projectsSaved}>{employeeProjectsSavedNotification ? 'Projektit tallennettu!' : ''}</span>
           </div>
           <div className={styles.smallButtons}>
-            {projects.map(project =>
+            {projects.sort((a, b) => a.name > b.name).map(project =>
               <Button
                 key={project.id}
                 onClick={this.toggleActiveProject.bind(this, project.id)}

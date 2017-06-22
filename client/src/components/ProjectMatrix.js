@@ -17,7 +17,7 @@ export default ({ employees, projects, employeeProjects }) => {
           <thead>
             <tr>
               <th>Projekti</th>
-              {projects.map(project => {
+              {projects.sort((a, b) => a.name > b.name).map(project => {
                 const employees = employeeProjects.filter(ep =>
                   ep.project_id == project.id
                 );
@@ -40,8 +40,8 @@ export default ({ employees, projects, employeeProjects }) => {
                 <td>
                   <EmployeeName name={employee.name} /> <span className="counter-ball">{employee.projects && employee.projects.length ? employee.projects.length : ''}</span>
                 </td>
-                {projects.map((project) => {
-                  const employeeProject = employeeProjects.filter((ep) =>
+                {projects.sort((a, b) => a.name > b.name).map((project) => {
+                  const employeeProject = employeeProjects.sort((a, b) => a.name > b.name).filter((ep) =>
                     ep.employee_id == employee.id && ep.project_id == project.id
                   ).size;
 
