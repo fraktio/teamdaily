@@ -1,0 +1,71 @@
+version: '3'
+
+services:
+
+  # Client
+  client:
+      image: node:7.10
+      environment:
+        - API=http://server:5678
+      volumes:
+        - ./client:/app
+        - client_node_modules:/app/node_modules
+      networks:
+        - client-server
+      ports:
+        - "127.0.0.1:8765:8765"
+      working_dir: /app
+      command: bash -c "yarn && yarn start"
+
+  # Server
+  server:
+      image: node:7.10
+      environment:
+        - HOST=0.0.0.0
+        - PORT=5678
+        - DB_HOST=localhost
+        - DB_NAME=teamdaily
+        - DB_USER=docker
+        - DB_PASSWORD=dockerpassu
+      volumes:
+        - ./server:/app
+        - server_node_modules:/app/node_modules
+      networks:
+        - client-server
+        - server-database
+      working_dir: /app
+      command: bash -c "cd /app && yarn && yarn start"
+
+  # Database
+  database:
+      image: mariadb:10.1
+      environment:
+        - MYSQL_DATABASE=teamdaily
+        - MYSQL_USER=docker
+        - MYSQL_PASSWORD=dockerpassu
+        - MYSQL_ROOT_PASSWORD=lamantiini
+      volumes:
+        - ./database_dump:/docker-entrypoint-initdb.d
+        - mariadb:/var/lib/mysql
+      networks:
+        - server-database
+      command: --silent-startup
+
+volumes:
+
+  # node_modules for client
+  client_node_modules:
+
+  # node_modules for server
+  server_node_modules:
+
+  # database contents
+  mariadb:
+
+networks:
+
+  # Network between client and server
+  client-server:
+
+  # Network between server and database
+  server-database:
