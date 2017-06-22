@@ -33,6 +33,7 @@ app.use(bodyParser.json());
 registerLogging(app);
 registerHealthCheckMiddleware(app);
 registerSecureOnlyMiddleware(app);
+registerTrustProxy(app);
 registerAuthMiddleware(app);
 
 app.get('/api/message/latest', (req, res) => {
@@ -201,6 +202,7 @@ function registerAuthMiddleware(app) {
 
     app.use((req, res, next) => {
       const whitelist = process.env.AUTH_WHITELIST.split(',').map(w => w.trim());
+
       if (whitelist.includes(req.ip)) {
         next();
       } else {
@@ -221,5 +223,20 @@ function registerSecureOnlyMiddleware(app) {
         res.end();
       }
     })
+  }
+}
+
+function registerTrustProxy(app) {
+  const isTrustProxySet = !!process.env.TRUST_PROXY;
+
+  if (!isTrustProxySet) {
+    return;
+  }
+
+  app.enable('trust proxy');
+  if (process.env.TRUST_PROXY === 'true') {
+    app.set('trust proxy', true);
+  } else {
+    app.set('trust proxy', process.env.TRUST_PROXY);
   }
 }
