@@ -36,7 +36,13 @@ registerSecureOnlyMiddleware(app);
 registerTrustProxy(app);
 registerAuthMiddleware(app);
 
-app.get('/api/message/latest', (req, res) => {
+function asyncWrap(fn) {
+  return (req, res, next) => {
+    fn(req, res, next).catch(next);
+  };
+};
+
+app.get('/api/message/latest', asyncWrap(async (req, res) => {
   const year = parseInt(now.format('YYYY'));
   const startingFromWeek = (currentWeek - weekAmount);
 
@@ -51,28 +57,25 @@ app.get('/api/message/latest', (req, res) => {
       startingFromWeek
     ];
 
-    database.query('SELECT * FROM logs WHERE (year = ? AND week >= ?) OR (year = ? AND week >= ?)', params, (err, result) => {
-      res.json(result);
-    });
+    const result = await database.query('SELECT * FROM logs WHERE (year = ? AND week >= ?) OR (year = ? AND week >= ?)', params);
+    res.json(result);
 
   } else {
-    database.query('SELECT * FROM logs WHERE year = ? AND week >= ?', [ year, startingFromWeek ], (err, result) => {
-      res.json(result);
-    });
+    const result = await database.query('SELECT * FROM logs WHERE year = ? AND week >= ?', [ year, startingFromWeek ]);
+    res.json(result);
   }
-});
+}));
 
-app.get('/api/message/:year/:week', (req, res) => {
+app.get('/api/message/:year/:week', asyncWrap(async (req, res) => {
   const year = req.params.year;
   const week = req.params.week;
   const queryData = [year, week];
 
-  database.query('SELECT * FROM logs WHERE year = ? AND week = ?', queryData, (err, result) => {
-    res.json(result);
-  });
-});
+  const result = await database.query('SELECT * FROM logs WHERE year = ? AND week = ?', queryData);
+  res.json(result);
+}));
 
-app.post('/api/message/:year/:week', (req, res) => {
+app.post('/api/message/:year/:week', asyncWrap(async (req, res) => {
   const logData = {
     year: req.params.year,
     week: req.params.week,
@@ -82,75 +85,63 @@ app.post('/api/message/:year/:week', (req, res) => {
     flagged: req.body.flagged,
   };
 
-  database.query('INSERT INTO logs SET ?', logData, (err, result) => {
-    res.json(result);
-  });
-});
+  const result = await database.query('INSERT INTO logs SET ?', logData);
+  res.json(result);
+}));
 
-app.get('/api/employee', (req, res) => {
-  database.query('SELECT e.*, ep.project_id FROM employees e LEFT JOIN employee_projects ep ON (e.id = ep.employee_id)', function(err, result) {
-    let results = [];
-    for(const key in result){
-      if(typeof(results[result[key]['id']]) == 'undefined') {
-        results[result[key]['id']] = {
-          'id': result[key]['id'],
-          'name': result[key]['name']
-        };
-      }
-      if(result[key]['project_id']) {
-        if(typeof(results[result[key]['id']]['projects']) != 'undefined') {
-          results[result[key]['id']]['projects'].push(result[key]['project_id']);
-        } else {
-          results[result[key]['id']]['projects'] = [result[key]['project_id']];
-        }
+app.get('/api/employee', asyncWrap(async (req, res) => {
+
+  const result = await database.query('SELECT e.*, ep.project_id FROM employees e LEFT JOIN employee_projects ep ON (e.id = ep.employee_id)');
+  let results = [];
+  for(const key in result){
+    if(typeof(results[result[key]['id']]) == 'undefined') {
+      results[result[key]['id']] = {
+        'id': result[key]['id'],
+        'name': result[key]['name']
+      };
+    }
+    if(result[key]['project_id']) {
+      if(typeof(results[result[key]['id']]['projects']) != 'undefined') {
+        results[result[key]['id']]['projects'].push(result[key]['project_id']);
+      } else {
+        results[result[key]['id']]['projects'] = [result[key]['project_id']];
       }
     }
-    res.json(results.filter(Boolean));
-  });
-});
-
-app.get('/api/project', (req, res) => {
-  database.query('SELECT * FROM projects', (err, result) => {
-    res.json(result);
-  });
-});
-
-app.post('/api/project', (req, res) => {
-  const { project } = req.body;
-
-  if (!project || !project.length) {
-    return res.json({ error: 'Invalidos projecteros!' });
   }
+  res.json(results.filter(Boolean));
+}));
 
-  database.query('INSERT INTO projects SET ?', { name: project }, (err, result) => {
-    if (err) {
-      console.error('POST REQUEST: /api/project', project, err);
-      return res.json({ error: `Cannot insert ${project} in to database.` });
-    }
+app.get('/api/project', asyncWrap(async (req, res) => {
+  const result = await database.query('SELECT * FROM projects');
+  res.json(result);
+}));
 
-    return res.json({ error: null });
-  });
-});
+app.post('/api/project', asyncWrap(async (req, res) => {
+  const { project } = req.body;
+  if (!project || !project.length) {
+    res.json({ error: 'Invalidos projecteros!' });
+    return;
+  }
+  const result = await database.query('INSERT INTO projects SET ?', { name: project });
+  res.json({ error: null });
+}));
 
-app.get('/api/employeeprojects', (req, res) => {
-  database.query('SELECT * FROM employee_projects', (err, result) => {
-    res.json(result);
-  });
-});
+app.get('/api/employeeprojects', asyncWrap(async (req, res) => {
+  const result = await database.query('SELECT * FROM employee_projects');
+  res.json(result);
+}));
 
-app.post('/api/saveemployeeproject', (req, res) => {
+app.post('/api/saveemployeeproject', asyncWrap(async (req, res) => {
   const queryArray = [req.body.employeeId, req.body.projectId];
 
   if(req.body.newProjectState) {
-    database.query('INSERT INTO employee_projects (employee_id, project_id) VALUES ?', [[queryArray]], (err, result) => {
-      res.json(result);
-    });
+    const result = await database.query('INSERT INTO employee_projects (employee_id, project_id) VALUES ?', [[queryArray]]);
+    res.json(result);
   } else {
-    database.query('DELETE FROM employee_projects WHERE employee_id = ? AND project_id = ?', queryArray, (err, result) => {
-      res.json(result);
-    });
+    const result = await database.query('DELETE FROM employee_projects WHERE employee_id = ? AND project_id = ?', queryArray);
+    res.json(result);
   }
-});
+}));
 
 app.listen(process.env.PORT, process.env.HOST, function(err) {
   if (err) {
