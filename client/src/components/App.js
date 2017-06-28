@@ -8,7 +8,6 @@ import NotFound from 'components/NotFound';
 
 import MobileStatus from 'containers/MobileStatusContainer';
 import Info from 'containers/InfoContainer';
-import ProjectMatrix from 'containers/ProjectMatrixContainer';
 import PeopleView from 'containers/PeopleViewContainer';
 import ProjectView from 'containers/ProjectViewContainer';
 import Menu from 'components/Menu';
@@ -60,17 +59,14 @@ export default class App extends Component {
       match,
     } = this.props;
 
-    const location = document.location;
+    const pathname = document.location.pathname;
 
-    let renderWeekSelector = false;
-    switch (location.pathname) {
-      case '/people':
-      case '/projects':
-        renderWeekSelector = true;
-        break;
-      default:
-        break;
-    }
+    const weekSelectorPaths = [
+      '/people',
+      '/projects',
+    ];
+
+    const renderWeekSelector = weekSelectorPaths.indexOf(pathname) !== -1;
 
     return (
       <div>
@@ -81,7 +77,6 @@ export default class App extends Component {
           <Route exact path='/week' component={Week}/>
           <Route exact path="/index" component={Menu}/>
           <Route exact path="/info" component={Info} />
-          <Route exact path="/mobile" component={MobileStatus} />
           <Route exact path="/people" component={PeopleView} />
           <Route exact path="/projects" component={ProjectView} />
           <Redirect from='/' to='/week' />

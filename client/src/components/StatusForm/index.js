@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { alphabeticalSort } from '../../utils/helpers';
 import { Icon } from 'react-fa';
 import { name } from 'services/employee';
 import { Link } from 'react-router-dom';
@@ -50,8 +51,10 @@ export default class StatusForm extends Component {
     );
   }
 
-  submitStatus = () => {
+  submitStatus = (e) => {
     const { name, employeeId } = this.state;
+
+    e.preventDefault();
 
     if (name && !employeeId) {
       const employee = this.props.employees.find(e => e.name === name);
@@ -106,9 +109,8 @@ export default class StatusForm extends Component {
     const { employees, projects, employeeProjectsSavedNotification } = this.props;
 
     return (
-      <div className={styles.container}>
+      <form className={styles.container} onSubmit={(e) => this.submitStatus(e)}>
         <div className={styles.floatLeft}>
-          <Link to="/mobile"><Icon name="mobile" /> Mobiilikirjaus</Link>
           <select disabled={!this.props.enabled} ref="name" value={fields.name} onChange={this.changeEmployee}>
             <option value="">{emptySelection}</option>
               {employees.map(employee =>
@@ -141,7 +143,7 @@ export default class StatusForm extends Component {
             <span className={styles.projectsSaved}>{employeeProjectsSavedNotification ? 'Projektit tallennettu!' : ''}</span>
           </div>
           <div className={styles.smallButtons}>
-            {projects.map(project =>
+            {projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(project =>
               <Button
                 key={project.id}
                 onClick={this.toggleActiveProject.bind(this, project.id)}
@@ -156,8 +158,8 @@ export default class StatusForm extends Component {
           </div>
         </div>
 
-        <Button disabled={!this.isSubmittable()} id="submitter" className="orange" onClick={this.submitStatus}>LÄHETÄ</Button>
-      </div>
+        <Button type="submit" disabled={!this.isSubmittable()} id="submitter" className="orange">LÄHETÄ</Button>
+      </form>
     );
   }
 }
