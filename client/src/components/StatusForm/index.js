@@ -131,7 +131,7 @@ export default class StatusForm extends Component {
         </div>
         <div>
           <label>
-            <input type="checkbox" checked={fields.flagged} onChange={this.setFlagged}/>
+            <input type="checkbox" className={styles.checkbox} checked={fields.flagged} onChange={this.setFlagged}/>
             Tilanteessani on jotain huomioitavaa tai haluan puheenvuoron viikkopalaverissa
           </label>
         </div>
