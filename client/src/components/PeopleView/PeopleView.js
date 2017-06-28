@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { alphabeticalSort } from '../../utils/helpers';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
@@ -62,7 +63,7 @@ export default class PeopleView extends Component {
 function sortEmployeesByImportance(employees, entries, projects) {
     return employees.reduce((list, e, r) => {
         e.entry = entries.filter(entry => entry.name === e.name);
-        e.employeeProjects = projects.filter(p => {
+        e.employeeProjects = projects.sort((a, b) => alphabeticalSort(a.name,b.name)).filter(p => {
             if (!e.projects) return null;
             return e.projects.includes(p.id);
         });

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { alphabeticalSort } from '../../utils/helpers';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
 import WeekSelection from '../WeekSelection';
@@ -133,7 +134,7 @@ export default class EmployeeModal extends React.Component {
                     Mitkä projektit odottavat panostasi?
                     <div className={modalStyles.projects}>
                         {e.employeeProjects &&
-                        e.employeeProjects.map(p => <button className={styles.project} key={p.id}>{p.name}</button>)}
+                        e.employeeProjects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(p => <button className={styles.project} key={p.id}>{p.name}</button>)}
                     </div>
                 </div>
                 </Modal>
