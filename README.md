@@ -12,22 +12,22 @@ Jaani talks about this software in [his mighty blog post](https://fraktio.fi/blo
 * `docker-compose up`
 * `curl http://localhost:8765`
 
-### Manual installation for grumpy senior employees
+## Manual installation
 
 ### server
 
 TeamDaily uses a MySQL database. You can find an example kekkonized
-database from [client/docs/teamdaily.sql](client/docs/teamdaily.sql).
+database from [database_dump/teamdaily.sql](database_dump/teamdaily.sql).
 Start from there!
 
 * `cd server`
 * `yarn`
-* `cp config.example.js config.js` <= configure
+* `cp .env.example .env` <= configure
 * `yarn run start`
 
 ### client
 
 * `cd client`
 * `yarn`
-* `cp config.example.js config.js` <= configure
+* `cp .env.example .env` <= configure
 * `yarn run start`
