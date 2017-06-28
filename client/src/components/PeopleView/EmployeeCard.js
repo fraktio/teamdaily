@@ -23,6 +23,8 @@ export default class EmployeeCard extends Component {
                     {projects &&
                     projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(p => <button className={styles.project} key={p.name}>{p.name}</button>)}
                 </div>
+
+                                </div>
             </div>
         );
     }
