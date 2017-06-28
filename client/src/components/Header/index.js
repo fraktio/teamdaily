@@ -11,44 +11,42 @@ export default class Header extends Component {
 
     return (
       <header className={styles.container}>
+        <div className={styles.navContainer}>
           <Link to="/" className={styles.logo}><h1>TeamDaily</h1></Link>
-          <nav className={styles.tabs}>
+          <nav className={styles.nav}>
             <Link
               to="/matrix"
-              className={styles.tab}
-              activeClassName={styles.activeTab}
+              className={styles.navItem}
+              activeClassName={styles.active}
             >
               Matriisi
             </Link>
             <Link
               to="/people"
-              className={styles.tab}
-              activeClassName={styles.activeTab}
+              className={styles.navItem}
+              activeClassName={styles.active}
             >
               Ihmiset
             </Link>
             <Link
               to="/projects"
-              className={styles.tab}
-              activeClassName={styles.activeTab}
+              className={styles.navItem}
+              activeClassName={styles.active}
             >
               Projektit
             </Link>
             <Link
               to="/week"
-              className={styles.tab}
-              activeClassName={styles.activeTab}
+              className={styles.navItem}
+              activeClassName={styles.active}
             >
               Kirjaus
             </Link>
           </nav>
-          <div className={styles.weekSelector}>
-            { renderWeekSelector &&
-              <div className={styles.weekSelector}>
-                <WeekSelection weekNumberAndYear={date.format('WW-GGGG')} onChange={onChange}/>
-              </div>
-            }
-          </div>
+        </div>
+        {renderWeekSelector &&
+          <WeekSelection weekNumberAndYear={date.format('WW-GGGG')} onChange={onChange}/>
+        }
       </header>
     )
   }
