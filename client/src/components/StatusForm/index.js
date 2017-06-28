@@ -51,8 +51,10 @@ export default class StatusForm extends Component {
     );
   }
 
-  submitStatus = () => {
+  submitStatus = (e) => {
     const { name, employeeId } = this.state;
+
+    e.preventDefault();
 
     if (name && !employeeId) {
       const employee = this.props.employees.find(e => e.name === name);
@@ -107,7 +109,7 @@ export default class StatusForm extends Component {
     const { employees, projects, employeeProjectsSavedNotification } = this.props;
 
     return (
-      <div className={styles.container}>
+      <form className={styles.container} onSubmit={(e) => this.submitStatus(e)}>
         <div className={styles.floatLeft}>
           <Link to="/mobile"><Icon name="mobile" /> Mobiilikirjaus</Link>
           <select disabled={!this.props.enabled} ref="name" value={fields.name} onChange={this.changeEmployee}>
@@ -157,8 +159,8 @@ export default class StatusForm extends Component {
           </div>
         </div>
 
-        <Button disabled={!this.isSubmittable()} id="submitter" className="orange" onClick={this.submitStatus}>LÄHETÄ</Button>
-      </div>
+        <Button type="submit" disabled={!this.isSubmittable()} id="submitter" className="orange">LÄHETÄ</Button>
+      </form>
     );
   }
 }
