@@ -111,7 +111,6 @@ export default class StatusForm extends Component {
     return (
       <form className={styles.container} onSubmit={(e) => this.submitStatus(e)}>
         <div className={styles.floatLeft}>
-          <Link to="/mobile"><Icon name="mobile" /> Mobiilikirjaus</Link>
           <select disabled={!this.props.enabled} ref="name" value={fields.name} onChange={this.changeEmployee}>
             <option value="">{emptySelection}</option>
               {employees.map(employee =>
