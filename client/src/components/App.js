@@ -64,6 +64,7 @@ export default class App extends Component {
     const weekSelectorPaths = [
       '/people',
       '/projects',
+      '/week',
     ];
 
     const renderWeekSelector = weekSelectorPaths.indexOf(pathname) !== -1;
