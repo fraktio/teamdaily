@@ -48,6 +48,7 @@ DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees` (
   `name` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `deleted` boolean NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -58,7 +59,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES ('Eduardo Kshlerin',1),('Mafalda Oberbrunner',2),('Matilde Hand',3),('Jo Braun',4),('Carmen Abbott',5),('Granville Abernathy',6),('Abdiel Quigley',7),('Valentina Schultz',8),('Amina Schneider',9),('Cristian Blanda',10),('Deontae Dickens',11),('Keith Okuneva',12),('Elian Larson',13),('Maurine Treutel',14),('Helmer Kautzer',15),('Malinda Lebsack',16),('Lee Hodkiewicz',17),('Flavio Hessel',18),('Nat Lubowitz',19),('Roxane Collier',20),('Aisha Koss',21),('Giovani Towne',22),('Giovani Beer',23),('Lacy Mante',25),('Odessa Parisian',26),('Elena Daniel',27),('Jabari Hessel',28),('Connor Klocko',29),('Candida Spencer',30),('Bernard Heller',31),('Wyman Witting',32),('Yadira Gutmann',33);
+INSERT INTO `employees` VALUES ('Orville Fahey',1,0),('Aliza McLaughlin',2,0),('Narciso Heaney',3,0),('Kayleigh Hand',4,0),('Libbie Dach',5,0),('Madelyn Reilly',6,0),('Kade Boyle',7,0),('Filiberto Flatley',8,0),('Aimee Stoltenberg',9,0),('Alvina Olson',10,0),('Carolina Paucek',11,0),('Jackie Marks',12,0),('Darryl Flatley',13,0),('Vella Conn',14,0),('Madelyn Wunsch',15,0),('Alejandra Sanford',16,0),('Lennie Hartmann',17,0),('Nathaniel Gleason',18,0),('Luther Casper',19,0),('Eduardo Goyette',20,0),('Evie Gibson',21,0),('Hobart Gerlach',22,0),('Daphnee Stark',23,0),('Scottie Hagenes',25,0),('Giuseppe Vandervort',26,0),('Salvatore Beer',27,0),('Dejuan Boehm',28,0),('Mittie Bernier',29,0),('Vicente Lockman',30,0),('Hailee Upton',31,0),('Marielle Cummings',32,0),('Sandra Buckridge',33,0),('Martin de Losowitch',34,0),('Gaylord Lohiposki',35,0),('Verner Voisula',36,0);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,6 +104,7 @@ DROP TABLE IF EXISTS `projects`;
 CREATE TABLE `projects` (
   `name` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `deleted` boolean NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -113,7 +115,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES ('Morar - Paucek',1),('Volkman LLC',2),('Dach and Sons',4),('Ebert, Kunde and Stiedemann',5),('Buckridge Group',6),('Predovic, Huels and Schamberger',7),('Stracke Group',8),('Rosenbaum LLC',9),('Mueller and Sons',10),('Swaniawski - Koepp',11),('Dietrich Inc',12),('Rogahn, Deckow and Gerlach',13),('Murray Group',14),('Hayes Group',15),('Lemke Group',16),('Schmidt - Gibson',17),('Wolf LLC',18),('Medhurst LLC',19),('Dach - Turner',20),('Cole Group',21),('Rau - Parisian',22),('Lockman, Mante and Dickinson',23),('Bode and Sons',24),('Barton LLC',25),('Parisian, Morissette and Brakus',26),('Lubowitz - Hegmann',27),('Dare Inc',28),('Schmidt - Brown',29),('Terry Inc',30),('Stracke, Tillman and Haag',31),('Barton, Carter and Feest',32),('Shields and Sons',33),('Jast and Sons',34),('Legros, Witting and Runolfsdottir',35),('Brekke - Langosh',36),('Hodkiewicz - Robel',37),('McCullough, Dooley and Wisozk',38),('Pfeffer - Gleichner',39),('Beer - MacGyver',40),('Abernathy - Cruickshank',41),('Labadie, Satterfield and Buckridge',42),('O\'Conner, Rolfson and Bradtke',43),('Wuckert, Wintheiser and Spencer',44),('Fahey, Hayes and Pouros',45),('Ortiz - Turcotte',46),('Heathcote - Gerlach',47),('Johns LLC',48),('Murazik LLC',49);
+INSERT INTO `projects` VALUES ('Lesch, Jacobson and Zemlak',1,0),('Jones - Wilkinson',2,0),('Mraz - Morar',4,0),('Lowe, Thompson and Braun',5,0),('Nikolaus - Rutherford',6,0),('Gorczany Inc',7,0),('Harber - Marks',8,0),('Hirthe Group',9,0),('Boehm Group',10,0),('Davis Inc',11,0),('Champlin Inc',12,0),('Weber LLC',13,0),('Raynor and Sons',14,0),('Dach Inc',15,0),('DuBuque Inc',16,0),('Hermann - Haag',17,0),('Howe, Ernser and O\'Kon',18,0),('Schmeler LLC',19,0),('West, Gislason and Bailey',20,0),('Nikolaus, Roberts and Powlowski',21,0),('Walker, Schumm and Murray',22,0),('Kuphal, Schroeder and Collier',23,0),('Blanda, Heathcote and Predovic',24,0),('Thiel - Tremblay',25,0),('Kunze - Breitenberg',26,0),('D\'Amore, Watsica and Heathcote',27,0),('Bruen, Schiller and Bins',28,0),('Torphy - Kshlerin',29,0),('Gulgowski - Hodkiewicz',30,0),('Gaylord, Dickens and Nitzsche',31,0),('Strosin LLC',32,0),('Conn - Glover',33,0),('Weissnat, Balistreri and Raynor',34,0),('Halvorson, Rutherford and Kunze',35,0),('O\'Hara, Spencer and Lowe',36,0),('Hills, Littel and Reilly',37,0),('Bernier - Yost',38,0),('Lubowitz Inc',39,0),('Conn - Bayer',40,0),('Eichmann, Pfannerstill and Ratke',41,0),('Wolff - Koch',42,0),('Walsh - Howell',43,0),('Hoeger LLC',44,0),('Orn, Ondricka and Hermiston',45,0),('Walker, Kutch and Rutherford',46,0),('Prosacco, Mitchell and Swaniawski',47,0),('Botsford, Rempel and Hirthe',48,0),('Kihn, Terry and Reilly',49,0);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

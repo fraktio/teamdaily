@@ -45,6 +45,15 @@ export default {
   addProject: project =>
     axios.post(url('/api/project'), { project }),
 
+  deleteProject: id =>
+    axios.post(url('/api/deleteproject'), { id }),
+
+  addEmployee: employee =>
+    axios.post(url('/api/employee'), { employee }),
+
+  deleteEmployee: id =>
+    axios.post(url('/api/deleteemployee'), { id }),
+
   saveProject: (employeeId, projectId, newProjectState) =>
     axios.post(url('/api/saveemployeeproject'), { employeeId, projectId, newProjectState }),
 

@@ -17,30 +17,32 @@ export default class Header extends Component {
             <Link
               to="/matrix"
               className={styles.navItem}
-              activeClassName={styles.active}
             >
               Matriisi
             </Link>
             <Link
               to="/people"
               className={styles.navItem}
-              activeClassName={styles.active}
             >
               Ihmiset
             </Link>
             <Link
               to="/projects"
               className={styles.navItem}
-              activeClassName={styles.active}
             >
               Projektit
             </Link>
             <Link
               to="/week"
               className={styles.navItem}
-              activeClassName={styles.active}
             >
               Kirjaus
+            </Link>
+            <Link
+              to="/admin"
+              className={styles.navItem}
+            >
+              Admin
             </Link>
           </nav>
         </div>

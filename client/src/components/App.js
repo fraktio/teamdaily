@@ -12,7 +12,7 @@ import PeopleView from 'containers/PeopleViewContainer';
 import ProjectView from 'containers/ProjectViewContainer';
 import Menu from 'components/Menu';
 import WeeklyMatrix from 'containers/WeeklyMatrixContainer';
-
+import AdminView from 'containers/AdminViewContainer';
 
 import styles from './App.pcss';
 
@@ -80,6 +80,7 @@ export default class App extends Component {
           <Route exact path="/info" component={Info} />
           <Route exact path="/people" component={PeopleView} />
           <Route exact path="/projects" component={ProjectView} />
+          <Route exact path="/admin" component={AdminView} />
           <Redirect from='/' to='/week' />
           <Route component={NotFound} />
         </Switch>
