@@ -40,15 +40,15 @@ export function fetchEmployees(d) {
 export function addEmployee(employee) {
   return dispatch => {
     api.addEmployee(employee)
-      .then(dispatch(fetchEmployees()))
-      .catch(dispatch(fetchEmployees()));
+      .then(() => dispatch(fetchEmployees()))
+      .catch(() => dispatch(fetchEmployees()));
   };
 };
 
 export function deleteEmployee(id) {
   return dispatch => {
     api.deleteEmployee(id)
-      .then(dispatch(fetchEmployees()))
-      .catch(dispatch(fetchEmployees()));
+      .then(() => dispatch(fetchEmployees()))
+      .catch(() => dispatch(fetchEmployees()));
   };
 };

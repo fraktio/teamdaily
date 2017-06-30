@@ -19,12 +19,11 @@ export default class EmployeeCard extends Component {
 
                     {lastEntry && <p>{lastEntry.message}</p>}
 
-                <div className={styles.projectsContainer}>
-                    {projects &&
-                    projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(p => <button className={styles.project} key={p.name}>{p.name}</button>)}
+                    <div className={styles.projectsContainer}>
+                        {projects &&
+                        projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(p => <button className={styles.project} key={p.name}>{p.name}</button>)}
+                    </div>
                 </div>
-
-                                </div>
             </div>
         );
     }

@@ -45,20 +45,20 @@ export function addProject(project) {
   return dispatch => {
     // Perform optimistic update, add new project as
     // disabled (since we don't know project ID yet)
-    dispatch(addNewProject(project));
+    dispatch(() => addNewProject(project));
 
     // Always refetch projects to be sure we are in
     // sync with the server
     api.addProject(project)
-      .then(dispatch(fetchProjects()))
-      .catch(dispatch(fetchProjects()));
+      .then(() => dispatch(fetchProjects()))
+      .catch(() => dispatch(fetchProjects()));
   };
 };
 
 export function deleteProject(id) {
   return dispatch => {
     api.deleteProject(id)
-      .then(dispatch(fetchProjects()))
-      .catch(dispatch(fetchProjects()));
+      .then(() => dispatch(fetchProjects()))
+      .catch(() => dispatch(fetchProjects()));
   };
 };

@@ -90,7 +90,7 @@ app.post('/api/message/:year/:week', asyncWrap(async (req, res) => {
 }));
 
 
-app.get('/api/employee', (req, res) => {
+app.get('/api/employee', asyncWrap(async (req, res) => {
   const result = await database.query('SELECT e.*, ep.project_id FROM employees e LEFT JOIN employee_projects ep ON (e.id = ep.employee_id) WHERE e.deleted != ?', 1);
   let results = [];
   for(const key in result){
@@ -109,41 +109,39 @@ app.get('/api/employee', (req, res) => {
     }
   }
   res.json(results.filter(Boolean));
-});
+}));
 
-app.post('/api/employee', (req, res) => {
+app.post('/api/employee', asyncWrap(async (req, res) => {
   const { employee } = req.body;
 
   if (!employee || !employee.length) {
-    return res.json({ error: 'Invalidos employeeros!' });
+    res.json({ error: 'Invalidos employeeros!' });
   }
 
-  database.query('INSERT INTO employees SET ?', { name: employee }, (err, result) => {
-    if (err) {
-      console.error('POST REQUEST: /api/employee', employee, err);
-      return res.json({ error: `Cannot insert ${employee} in to database.` });
-    }
+  try {
+    database.query('INSERT INTO employees SET ?', { name: employee });
+    res.json({ error: null });
+  } catch (err) {
+    console.error('POST REQUEST: /api/employee', employee, err);
+    res.json({ error: `Cannot insert ${employee} in to database.` });
+  }
+}));
 
-    return res.json({ error: null });
-  });
-});
-
-app.post('/api/deleteemployee', (req, res) => {
+app.post('/api/deleteemployee', asyncWrap(async (req, res) => {
   const { id } = req.body;
 
   if (!id) {
-    return res.json({ error: 'Invalidos ids los employeeros!' });
+    res.json({ error: 'Invalidos ids los employeeros!' });
   }
 
-  database.query('UPDATE employees SET deleted = 1 WHERE id = ?', id, (err, result) => {
-    if (err) {
-      console.error('POST REQUEST: /api/deleteemployee', id, err);
-      return res.json({ error: `Cannot delete employee ${id}.` });
-    }
-
-    return res.json({ error: null });
-  });
-});
+  try {
+    await database.query('UPDATE employees SET deleted = 1 WHERE id = ?', id);
+    res.json({error: null});
+  } catch (err) {
+    console.error('POST REQUEST: /api/deleteemployee', id, err);
+    res.json({ error: `Cannot delete employee ${id}.` });
+  }
+}));
 
 app.get('/api/project', asyncWrap(async (req, res) => {
   const result = await database.query('SELECT * FROM projects WHERE deleted != ?', 1);
@@ -170,22 +168,21 @@ app.post('/api/project', asyncWrap(async (req, res) => {
   res.json({ error: null });
 }));
 
-app.post('/api/deleteproject', (req, res) => {
+app.post('/api/deleteproject', asyncWrap(async (req, res) => {
   const { id } = req.body;
 
   if (!id) {
-    return res.json({ error: 'Invalidos ids los projecteros!' });
+    res.json({ error: 'Invalidos ids los projecteros!' });
   }
 
-  database.query('UPDATE projects SET deleted = 1 WHERE id = ?', id, (err, result) => {
-    if (err) {
-      console.error('POST REQUEST: /api/deleteproject', id, err);
-      return res.json({ error: `Cannot delete project ${id}.` });
-    }
-
-    return res.json({ error: null });
-  });
-});
+  try {
+    await database.query('UPDATE projects SET deleted = 1 WHERE id = ?', id);
+    res.json({ error: null });
+  } catch (err) {
+    console.error('POST REQUEST: /api/deleteproject', id, err);
+    res.json({ error: `Cannot delete project ${id}.` });
+  }
+}));
 
 app.get('/api/employeeprojects', asyncWrap(async (req, res) => {
   const result = await database.query('SELECT * FROM employee_projects');
