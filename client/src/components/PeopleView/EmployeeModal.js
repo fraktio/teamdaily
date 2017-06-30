@@ -9,6 +9,8 @@ import Modal from 'react-modal';
 import { Icon } from 'react-fa';
 import keydown from 'react-keydown';
 
+import FlaggedIcon from 'assets/flagged.svg';
+
 import styles from './style.pcss';
 import menuStyles from './menuStyle.pcss';
 import modalStyles from './modalStyle.pcss';
@@ -63,13 +65,13 @@ export default class EmployeeModal extends React.Component {
     }
 
     render() {
-        const { e, handleClose, projects, sortedEmployees, handleSelectEmployee, orderedEmployees, date } = this.props;
+        const { e, handleClose, projects, sortedEmployees, handleSelectEmployee, orderedEmployees, entries, date } = this.props;
 
         if (!e) { return null; }
 
         const lastEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
         const color = lastEntry ? lastEntry.color : "empty";
-
+        const flagged = lastEntry ? lastEntry.flagged : null;
         const selectedColor = this.state.color;
 
         return (
@@ -82,6 +84,8 @@ export default class EmployeeModal extends React.Component {
                         orderedEmployees.map(em => {
                             const isSelected = em.id === e.id;
                             const menuColor = `menu-${getColor(em)}`
+                            const emLastEntry = entries.filter(entry => entry.name === em.name).get(-1);
+                            const flagged = emLastEntry ? emLastEntry.flagged : null;
 
                             return (
                                 <div
@@ -89,7 +93,7 @@ export default class EmployeeModal extends React.Component {
                                     key={em.id}
                                     onClick={() => handleSelectEmployee(em)}>
                                     {em.name}
-                                    {em.flagged &&  <Icon className={styles.flaggedIcon} name="commenting-o" />}
+                                    {flagged === 1 && <img className={menuStyles.flagged} src={FlaggedIcon} />}
                                 </div>
                             )
                         })
@@ -106,9 +110,12 @@ export default class EmployeeModal extends React.Component {
                         base: modalStyles.overlay,
                     }}
                 >
-                  <button className={modalStyles.closeButton} onClick={this.handleCloseClick}>X</button>
+                <button className={modalStyles.closeButton} onClick={this.handleCloseClick}>X</button>
                 <div className={`${modalStyles.header} ${color}`}>
-                    <h4 className={modalStyles.title}>{e.name}</h4>
+                    <h4 className={modalStyles.title}>
+                        {e.name}
+                        { flagged === 1 && <img src={FlaggedIcon} />}
+                    </h4>
                 </div>
                 {lastEntry &&
                     <div className={modalStyles.message}>
