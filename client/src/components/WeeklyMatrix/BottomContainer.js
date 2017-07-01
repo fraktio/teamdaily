@@ -23,10 +23,12 @@ export default ({ type, handleClose, ...props }) => {
   const Element = types[type];
 
   return (
-    <section id="modal-container" className={styles.modalContainer} onClick={handleClose}>
-      <div className={styles.modalContent} onClick={preventDefault}>
-        <Element {...props} />
-        <Button className="button-info" onClick={handleClose}>Sulje</Button>
+    <section id="modal-container" className={styles.modalOverlay} onClick={handleClose}>
+      <div className={styles.modalContentContainer} onClick={handleClose}>
+        <div className={styles.modalContent} onClick={preventDefault}>
+          <Element {...props} />
+          <Button className="button-info" onClick={handleClose}>Sulje</Button>
+        </div>
       </div>
     </section>
   );

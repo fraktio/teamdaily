@@ -82,13 +82,14 @@
   padding-right: .5em;
 }
 
-.modalContainer {
-    position: absolute;
+.modalOverlay {
+    position: fixed;
     display: flex;
     justify-content: center;
     top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
 
   .message {
@@ -96,11 +97,15 @@
   }
 }
 
-.modalContent {
+.modalContentContainer {
+    overflow-x: scroll;
     color: #fff;
-    background-color: #2B2B2B;
-    padding: 12px;
     margin: 12px;
     border-radius: 3px;
     width: 100%
+}
+
+.modalContent {
+  padding: 12px;
+  background-color: #2B2B2B;
 }
