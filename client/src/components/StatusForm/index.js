@@ -36,7 +36,9 @@ export default class StatusForm extends Component {
     this.setState({ color });
   }
 
-  toggleActiveProject = id => {
+  toggleActiveProject = (id, e) => {
+    e.preventDefault();
+
     const activeProjects = this.state.activeProjects || [];
     const isProjectActive = activeProjects.includes(id);
 
