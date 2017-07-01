@@ -49,7 +49,7 @@ export function addProject(project) {
 
     // Always refetch projects to be sure we are in
     // sync with the server
-    api.addProject(project)
+    return api.addProject(project)
       .then(() => dispatch(fetchProjects()))
       .catch(() => dispatch(fetchProjects()));
   };

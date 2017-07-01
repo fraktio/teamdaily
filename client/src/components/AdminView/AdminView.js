@@ -59,7 +59,8 @@ export default class AdminView extends Component {
 
     e.preventDefault();
 
-    projectActions.addProject(this.projectName.value);
+    projectActions.addProject(this.projectName.value)
+    .then(() => this.projectName.value = '');
   }
 
   addEmployee = (e) => {
@@ -67,7 +68,8 @@ export default class AdminView extends Component {
 
     e.preventDefault();
 
-    employeeActions.addEmployee(this.employeeName.value);
+    employeeActions.addEmployee(this.employeeName.value)
+    .then(() => this.employeeName.value = '');
   }
 
   deleteProject = (id) => {
