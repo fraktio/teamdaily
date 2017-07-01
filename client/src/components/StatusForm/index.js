@@ -152,6 +152,7 @@ export default class StatusForm extends Component {
                 active={this.state.activeProjects && this.state.activeProjects.indexOf(project.id) != -1}
                 title={project.name}
                 disabled={project.disabled}
+                type="button"
               >
                 {project.name}
               </Button>
