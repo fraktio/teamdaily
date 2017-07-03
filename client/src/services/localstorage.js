@@ -3,12 +3,14 @@ const storage = window.localStorage || {
   getItem() {}
 };
 
-const defaults = {
-  'name': '',
-  'description': '',
-  'color': 'green',
-  'flagged': false
-};
+const statusFromLocalStorage = ({ name, description, color, flagged, employeeId, activeProjects }) => ({
+  name: name || '',
+  description: description || '',
+  color: color || 'green',
+  flagged: flagged || false,
+  activeProjects: activeProjects || [],
+  employeeId: employeeId || undefined
+});
 
 export default {
   save(status) {
@@ -17,6 +19,7 @@ export default {
 
   load() {
     const ret = storage.getItem('status');
-    return ret ? JSON.parse(ret) : defaults;
+    const json = ret ? JSON.parse(ret) : {};
+    return statusFromLocalStorage(json);
   }
 };
