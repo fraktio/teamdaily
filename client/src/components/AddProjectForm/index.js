@@ -52,6 +52,7 @@ export default class AddProjectForm extends Component {
           onClick={this.addProject}
           className={cx(styles.submitButton, styles.buttonGreen)}
           disabled={this.state.submitButtonDisabled}
+          type="button"
         >
           <Icon name="plus" /> Lisää
         </Button>
@@ -75,6 +76,7 @@ export default class AddProjectForm extends Component {
           onClick={this.toggleShowProjectForm}
           className={classes}
           active={showForm}
+          type="button"
         >
           <Icon name={icon} />
         </Button>
