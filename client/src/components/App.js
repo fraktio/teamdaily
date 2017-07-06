@@ -31,7 +31,7 @@ export default class App extends Component {
     projectActions.fetchProjects();
     employeeProjectActions.fetchEmployeeProjects();
 
-    this.reactivizer = setTimeout(() => {
+    this.reactivizer = setInterval(() => {
       entryActions.fetchEntries(d);
     }, 60000);
   }
