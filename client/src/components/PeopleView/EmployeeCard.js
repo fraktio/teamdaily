@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { alphabeticalSort } from '../../utils/helpers';
+import { alphabeticalSort, getLastEntry } from '../../utils/helpers';
 import styles from './style.pcss';
 import { Icon } from 'react-fa';
 
@@ -9,7 +9,7 @@ export default class EmployeeCard extends Component {
     render() {
         const { employee, entry, handleClick } = this.props;
 
-        const lastEntry = entry ? entry.get(-1) : null;
+        const lastEntry = getLastEntry(entry);
         const color = lastEntry ? lastEntry.color : "empty";
         const projects = employee.employeeProjects;
         const flagged = lastEntry ? lastEntry.flagged : null;

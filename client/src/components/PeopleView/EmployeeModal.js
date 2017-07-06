@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { alphabeticalSort } from '../../utils/helpers';
+import { alphabeticalSort, getLastEntry } from '../../utils/helpers';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
 import WeekSelection from '../WeekSelection';
-
 import Modal from 'react-modal';
 
 import { Icon } from 'react-fa';
@@ -67,7 +66,7 @@ export default class EmployeeModal extends React.Component {
 
         if (!e) { return null; }
 
-        const lastEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
+        const lastEntry = getLastEntry(e.entry);
         const color = lastEntry ? lastEntry.color : "empty";
         const flagged = lastEntry ? lastEntry.flagged : null;
 
@@ -124,7 +123,7 @@ export default class EmployeeModal extends React.Component {
                     <div className={modalStyles.moods}>
                         {MoodsList.map(m => {
                             const isActive = color === m.color ? true : false;
-                            
+
                             return (
                                 <div
                                     className={`${modalStyles.mood} ${isActive ? modalStyles.activeMood : ''}`}
