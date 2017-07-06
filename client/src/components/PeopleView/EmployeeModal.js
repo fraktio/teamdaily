@@ -77,18 +77,18 @@ export default class EmployeeModal extends React.Component {
                         <WeekSelection weekNumberAndYear={date.format('WW-GGGG')} onChange={this.props.changeWeek}/>
                     </div>
                     {
-                        orderedEmployees.map(em => {
-                            const isSelected = em.id === e.id;
-                            const menuColor = `menu-${getColor(em)}`
-                            const emLastEntry = entries.filter(entry => entry.name === em.name).get(-1);
-                            const flagged = emLastEntry ? emLastEntry.flagged : null;
+                        orderedEmployees.map(employee => {
+                            const isSelected = employee.id === e.id;
+                            const menuColor = `menu-${getColor(employee)}`
+                            const employeeLatestEntry = entries.filter(entry => entry.name === employee.name).get(-1);
+                            const flagged = doesFlaggedExist(employeeLatestEntry);
 
                             return (
                                 <div
                                     className={`${menuStyles.employee} ${isSelected ? menuStyles.selected : ''} ${menuColor}`}
-                                    key={em.id}
-                                    onClick={() => handleSelectEmployee(em)}>
-                                    {em.name}
+                                    key={employee.id}
+                                    onClick={() => handleSelectEmployee(employee)}>
+                                    {employee.name}
                                     {flagged && <img className={menuStyles.flagged} src={FlaggedIcon} />}
                                 </div>
                             )
