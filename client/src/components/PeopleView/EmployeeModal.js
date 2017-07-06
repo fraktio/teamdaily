@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { alphabeticalSort, getLastEntry } from '../../utils/helpers';
+import { alphabeticalSort, getLatestEntry } from '../../utils/helpers';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
 import WeekSelection from '../WeekSelection';
@@ -19,9 +19,9 @@ export default class EmployeeModal extends React.Component {
     handleCloseClick = () => this.props.handleClose();
 
     componentWillMount() {
-        const lastEntry = this.props.e.entry.size > 0 ? this.props.e.entry.get(-1) : null;
-        if (lastEntry) {
-            this.selectColor(lastEntry.color);
+        const latestEntry = this.props.e.entry.size > 0 ? this.props.e.entry.get(-1) : null;
+        if (latestEntry) {
+            this.selectColor(latestEntry.color);
         }
     }
 
@@ -66,9 +66,9 @@ export default class EmployeeModal extends React.Component {
 
         if (!e) { return null; }
 
-        const lastEntry = getLastEntry(e.entry);
-        const color = lastEntry ? lastEntry.color : "empty";
-        const flagged = lastEntry ? lastEntry.flagged : null;
+        const latestEntry = getLatestEntry(e.entry);
+        const color = latestEntry ? latestEntry.color : "empty";
+        const flagged = latestEntry ? latestEntry.flagged : null;
 
         return (
             <div>
@@ -113,9 +113,9 @@ export default class EmployeeModal extends React.Component {
                         {flagged && <img src={FlaggedIcon} />}
                     </h4>
                 </div>
-                {lastEntry &&
+                {latestEntry &&
                     <div className={modalStyles.message}>
-                        {lastEntry.message}
+                        {latestEntry.message}
                     </div>
                 }
                 <div className={modalStyles.content}>
@@ -170,6 +170,6 @@ const MoodsList = [
 ]
 
 function getColor(e) {
-    const lastEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
-    return lastEntry ? lastEntry.color : "empty";
+    const latestEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
+    return latestEntry ? latestEntry.color : "empty";
 }

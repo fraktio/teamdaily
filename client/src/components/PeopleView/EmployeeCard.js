@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { alphabeticalSort, getLastEntry } from '../../utils/helpers';
+import { alphabeticalSort, getLatestEntry } from '../../utils/helpers';
 import styles from './style.pcss';
 import { Icon } from 'react-fa';
 
@@ -9,10 +9,10 @@ export default class EmployeeCard extends Component {
     render() {
         const { employee, entry, handleClick } = this.props;
 
-        const lastEntry = getLastEntry(entry);
-        const color = lastEntry ? lastEntry.color : "empty";
+        const latestEntry = getLatestEntry(entry);
+        const color = latestEntry ? latestEntry.color : "empty";
         const projects = employee.employeeProjects;
-        const flagged = lastEntry ? lastEntry.flagged : null;
+        const flagged = latestEntry ? latestEntry.flagged : null;
 
         return (
             <div className={styles.masonryCard} onClick={() => handleClick(employee, projects)}>
@@ -20,7 +20,7 @@ export default class EmployeeCard extends Component {
                     <h4 className={styles.employeeTitle}>{employee.name}</h4>
 
                     {flagged && <img className={styles.flagged} src={FlaggedIcon} />}
-                    {lastEntry && <p>{lastEntry.message}</p>}
+                    {latestEntry && <p>{latestEntry.message}</p>}
 
                     <div className={styles.projectsContainer}>
                         {projects &&
