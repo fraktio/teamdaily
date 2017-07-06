@@ -22,7 +22,7 @@
   table-layout: fixed;
   color: #ddd;
   max-width: 100vw;
-  height: 100vh;
+  max-height: 100vh;
 }
 
 .tr > td:last-of-type {
@@ -82,8 +82,8 @@
   padding-right: .5em;
 }
 
-.modalContainer {
-    position: absolute;
+.modalOverlay {
+    position: fixed;
     display: flex;
     justify-content: center;
     top: 0;
@@ -97,11 +97,15 @@
   }
 }
 
-.modalContent {
+.modalContentContainer {
+    overflow-x: scroll;
     color: #fff;
-    background-color: #2B2B2B;
-    padding: 12px;
     margin: 12px;
     border-radius: 3px;
     width: 100%
+}
+
+.modalContent {
+  padding: 12px;
+  background-color: #2B2B2B;
 }
