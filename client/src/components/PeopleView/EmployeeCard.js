@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { alphabeticalSort, getLatestEntry } from '../../utils/helpers';
+import { alphabeticalSort, getLatestEntry, getEntryColor, doesFlaggedExist } from '../../utils/helpers';
 import styles from './style.pcss';
 import { Icon } from 'react-fa';
 
@@ -10,9 +10,9 @@ export default class EmployeeCard extends Component {
         const { employee, entry, handleClick } = this.props;
 
         const latestEntry = getLatestEntry(entry);
-        const color = latestEntry ? latestEntry.color : "empty";
+        const color = getEntryColor(latestEntry);
+        const flagged = doesFlaggedExist(latestEntry);
         const projects = employee.employeeProjects;
-        const flagged = latestEntry ? latestEntry.flagged : null;
 
         return (
             <div className={styles.masonryCard} onClick={() => handleClick(employee, projects)}>

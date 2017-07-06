@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { alphabeticalSort, getLatestEntry } from '../../utils/helpers';
+import { alphabeticalSort, getLatestEntry, getEntryColor, doesFlaggedExist } from '../../utils/helpers';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
 import WeekSelection from '../WeekSelection';
@@ -67,8 +67,8 @@ export default class EmployeeModal extends React.Component {
         if (!e) { return null; }
 
         const latestEntry = getLatestEntry(e.entry);
-        const color = latestEntry ? latestEntry.color : "empty";
-        const flagged = latestEntry ? latestEntry.flagged : null;
+        const color = getEntryColor(latestEntry);
+        const flagged = doesFlaggedExist(latestEntry);
 
         return (
             <div>
