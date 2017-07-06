@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import { alphabeticalSort } from '../../utils/helpers';
+import { alphabeticalSort, getLatestEntry, getEntryColor, doesFlaggedExist } from '../../utils/helpers';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
 import WeekSelection from '../WeekSelection';
-
 import Modal from 'react-modal';
 
 import { Icon } from 'react-fa';
 import keydown from 'react-keydown';
+
+import FlaggedIcon from 'assets/flagged.svg';
 
 import styles from './style.pcss';
 import menuStyles from './menuStyle.pcss';
 import modalStyles from './modalStyle.pcss';
 
 export default class EmployeeModal extends React.Component {
-    state = { color: null }
-
     selectColor = (color) => this.setState({color: color});
     handleCloseClick = () => this.props.handleClose();
 
     componentWillMount() {
-        const lastEntry = this.props.e.entry.size > 0 ? this.props.e.entry.get(-1) : null;
-        if (lastEntry) {
-            this.selectColor(lastEntry.color);
+        const latestEntry = this.props.e.entry.size > 0 ? this.props.e.entry.get(-1) : null;
+        if (latestEntry) {
+            this.selectColor(latestEntry.color);
         }
     }
 
@@ -63,14 +62,13 @@ export default class EmployeeModal extends React.Component {
     }
 
     render() {
-        const { e, handleClose, projects, sortedEmployees, handleSelectEmployee, orderedEmployees, date } = this.props;
+        const { e, handleClose, projects, sortedEmployees, handleSelectEmployee, orderedEmployees, entries, date } = this.props;
 
         if (!e) { return null; }
 
-        const lastEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
-        const color = lastEntry ? lastEntry.color : "empty";
-
-        const selectedColor = this.state.color;
+        const latestEntry = getLatestEntry(e.entry);
+        const color = getEntryColor(latestEntry);
+        const flagged = doesFlaggedExist(latestEntry);
 
         return (
             <div>
@@ -79,17 +77,19 @@ export default class EmployeeModal extends React.Component {
                         <WeekSelection weekNumberAndYear={date.format('WW-GGGG')} onChange={this.props.changeWeek}/>
                     </div>
                     {
-                        orderedEmployees.map(em => {
-                            const isSelected = em.id === e.id;
-                            const menuColor = `menu-${getColor(em)}`
+                        orderedEmployees.map(employee => {
+                            const isSelected = employee.id === e.id;
+                            const menuColor = `menu-${getColor(employee)}`
+                            const employeeLatestEntry = entries.filter(entry => entry.name === employee.name).get(-1);
+                            const flagged = doesFlaggedExist(employeeLatestEntry);
 
                             return (
                                 <div
                                     className={`${menuStyles.employee} ${isSelected ? menuStyles.selected : ''} ${menuColor}`}
-                                    key={em.id}
-                                    onClick={() => handleSelectEmployee(em)}>
-                                    {em.name}
-                                    {em.flagged &&  <Icon className={styles.flaggedIcon} name="commenting-o" />}
+                                    key={employee.id}
+                                    onClick={() => handleSelectEmployee(employee)}>
+                                    {employee.name}
+                                    {flagged && <img className={menuStyles.flagged} src={FlaggedIcon} />}
                                 </div>
                             )
                         })
@@ -106,13 +106,16 @@ export default class EmployeeModal extends React.Component {
                         base: modalStyles.overlay,
                     }}
                 >
-                  <button className={modalStyles.closeButton} onClick={this.handleCloseClick}>X</button>
+                <button className={modalStyles.closeButton} onClick={this.handleCloseClick}>X</button>
                 <div className={`${modalStyles.header} ${color}`}>
-                    <h4 className={modalStyles.title}>{e.name}</h4>
+                    <h4 className={modalStyles.title}>
+                        {e.name}
+                        {flagged && <img src={FlaggedIcon} />}
+                    </h4>
                 </div>
-                {lastEntry &&
+                {latestEntry &&
                     <div className={modalStyles.message}>
-                        {lastEntry.message}
+                        {latestEntry.message}
                     </div>
                 }
                 <div className={modalStyles.content}>
@@ -120,7 +123,7 @@ export default class EmployeeModal extends React.Component {
                     <div className={modalStyles.moods}>
                         {MoodsList.map(m => {
                             const isActive = color === m.color ? true : false;
-                            //onClick={() => this.selectColor(m.color)}
+
                             return (
                                 <div
                                     className={`${modalStyles.mood} ${isActive ? modalStyles.activeMood : ''}`}
@@ -167,6 +170,6 @@ const MoodsList = [
 ]
 
 function getColor(e) {
-    const lastEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
-    return lastEntry ? lastEntry.color : "empty";
+    const latestEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
+    return latestEntry ? latestEntry.color : "empty";
 }

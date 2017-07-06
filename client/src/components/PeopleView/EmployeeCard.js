@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { alphabeticalSort } from '../../utils/helpers';
+import { alphabeticalSort, getLatestEntry, getEntryColor, doesFlaggedExist } from '../../utils/helpers';
 import styles from './style.pcss';
 import { Icon } from 'react-fa';
+
+import FlaggedIcon from 'assets/flagged.svg';
 
 export default class EmployeeCard extends Component {
     render() {
         const { employee, entry, handleClick } = this.props;
 
-        const lastEntry = entry ? entry.get(-1) : null;
-        const color = lastEntry ? lastEntry.color : "empty";
-
+        const latestEntry = getLatestEntry(entry);
+        const color = getEntryColor(latestEntry);
+        const flagged = doesFlaggedExist(latestEntry);
         const projects = employee.employeeProjects;
 
         return (
@@ -17,7 +19,8 @@ export default class EmployeeCard extends Component {
                 <div className={`${styles.masonryCardInner} ${color}`}>
                     <h4 className={styles.employeeTitle}>{employee.name}</h4>
 
-                    {lastEntry && <p>{lastEntry.message}</p>}
+                    {flagged && <img className={styles.flagged} src={FlaggedIcon} />}
+                    {latestEntry && <p>{latestEntry.message}</p>}
 
                     <div className={styles.projectsContainer}>
                         {projects &&

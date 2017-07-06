@@ -33,7 +33,10 @@ export default function reducer(state = defaultState, action) {
     case RECEIVE_ENTRIES:
       return {
         ...state,
-        entries: action.entries,
+        entries: action.entries.map(entry => {
+          entry.flagged = entry.flagged === 1;
+          return entry;
+        }),
         loading: false,
       };
 

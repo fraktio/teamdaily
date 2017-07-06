@@ -12,8 +12,8 @@ export default class ProjectBox extends Component {
                 </h4>
                 {project.employees.map(e => {
                     const entry = entries.filter(entry => entry.name === e.name);
-                    const lastEntry = entry ? entry.get(-1) : null;
-                    const color = lastEntry ? lastEntry.color : "empty";
+                    const latestEntry = entry ? entry.get(-1) : null;
+                    const color = latestEntry ? latestEntry.color : "empty";
 
                     return <span 
                         key={`${project.id}-${e.name}`} 
