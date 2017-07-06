@@ -16,8 +16,6 @@ import menuStyles from './menuStyle.pcss';
 import modalStyles from './modalStyle.pcss';
 
 export default class EmployeeModal extends React.Component {
-    state = { color: null }
-
     selectColor = (color) => this.setState({color: color});
     handleCloseClick = () => this.props.handleClose();
 
@@ -72,7 +70,6 @@ export default class EmployeeModal extends React.Component {
         const lastEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
         const color = lastEntry ? lastEntry.color : "empty";
         const flagged = lastEntry ? lastEntry.flagged : null;
-        const selectedColor = this.state.color;
 
         return (
             <div>
@@ -93,7 +90,7 @@ export default class EmployeeModal extends React.Component {
                                     key={em.id}
                                     onClick={() => handleSelectEmployee(em)}>
                                     {em.name}
-                                    {flagged === 1 && <img className={menuStyles.flagged} src={FlaggedIcon} />}
+                                    {flagged && <img className={menuStyles.flagged} src={FlaggedIcon} />}
                                 </div>
                             )
                         })
@@ -114,7 +111,7 @@ export default class EmployeeModal extends React.Component {
                 <div className={`${modalStyles.header} ${color}`}>
                     <h4 className={modalStyles.title}>
                         {e.name}
-                        { flagged === 1 && <img src={FlaggedIcon} />}
+                        {flagged && <img src={FlaggedIcon} />}
                     </h4>
                 </div>
                 {lastEntry &&
@@ -127,7 +124,7 @@ export default class EmployeeModal extends React.Component {
                     <div className={modalStyles.moods}>
                         {MoodsList.map(m => {
                             const isActive = color === m.color ? true : false;
-                            //onClick={() => this.selectColor(m.color)}
+                            
                             return (
                                 <div
                                     className={`${modalStyles.mood} ${isActive ? modalStyles.activeMood : ''}`}

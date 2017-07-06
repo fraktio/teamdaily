@@ -19,7 +19,7 @@ export default class EmployeeCard extends Component {
                 <div className={`${styles.masonryCardInner} ${color}`}>
                     <h4 className={styles.employeeTitle}>{employee.name}</h4>
 
-                    {flagged === 1 && <img className={styles.flagged} src={FlaggedIcon} />}
+                    {flagged && <img className={styles.flagged} src={FlaggedIcon} />}
                     {lastEntry && <p>{lastEntry.message}</p>}
 
                     <div className={styles.projectsContainer}>
