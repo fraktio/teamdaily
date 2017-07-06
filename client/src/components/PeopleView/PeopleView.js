@@ -45,6 +45,7 @@ export default class PeopleView extends Component {
                     handleClose={this.handleClose}
                     sortedEmployees={sortedEmployees}
                     orderedEmployees={orderedEmployees}
+                    entries={entries}
                     handleSelectEmployee={this.handleSelectEmployee}
                     changeWeek={entryActions.changeWeek}
                     date={date}/>
@@ -85,56 +86,3 @@ function sortEmployeesByImportance(employees, entries, projects) {
 
     }, {attention: [], green: [], withoutEntry: []});
 };
-
-
-/*
-        return (
-            <div>
-                {
-                    this.state.isShowingModal &&
-                    <EmployeeModal
-                        e={this.state.selectedEmployee}
-                        handleClose={this.handleClose}
-                        sortedEmployees={sortedEmployees}
-                        orderedEmployees={orderedEmployees}
-                        handleSelectEmployee={this.handleSelectEmployee}/>
-                }
-
-                <div className={styles.employeesWrapper}>
-                    <div className={`${styles.cardContainer}`}>
-                        {sortedEmployees.attention.map(e => {
-                            return <EmployeeCard
-                                key={e.name}
-                                employee={e}
-                                entry={e.entry}
-                                handleClick={this.handleClick}
-                            />;
-                        })}
-                    </div>
-
-                    <div className={`${styles.cardContainer}`}>
-                        {sortedEmployees.green.map(e => {
-                            return <EmployeeCard
-                                key={e.name}
-                                employee={e}
-                                entry={e.entry}
-                                handleClick={this.handleClick}
-                            />;
-                        })}
-                    </div>
-
-                    <div className={styles.cardContainer}>
-                        {sortedEmployees.withoutEntry.map(e => {
-
-                            return <EmployeeCard
-                                key={e.name}
-                                employee={e}
-                                entry={e.entry}
-                                handleClick={this.handleClick}
-                            />;
-                        })}
-                    </div>
-                </div>
-            </div>
-        );
-        */
