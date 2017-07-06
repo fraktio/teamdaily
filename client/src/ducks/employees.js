@@ -39,7 +39,7 @@ export function fetchEmployees(d) {
 
 export function addEmployee(employee) {
   return dispatch => {
-    api.addEmployee(employee)
+    return api.addEmployee(employee)
       .then(() => dispatch(fetchEmployees()))
       .catch(() => dispatch(fetchEmployees()));
   };
