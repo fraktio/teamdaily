@@ -4,7 +4,6 @@ import api from 'services/api';
 import localstorage from 'services/localstorage';
 
 const CHANGE_WEEK = 'teamdaily/entry/CHANGE_WEEK';
-const RESET_WEEK = 'teamdaily/entry/RESET_WEEK';
 const REQUEST_ENTRIES = 'teamdaily/entry/REQUEST_ENTRIES';
 const RECEIVE_ENTRIES = 'teamdaily/entry/RECEIVE_ENTRIES';
 const REQUEST_NEW_ENTRY = 'teamdaily/entry/REQUEST_NEW_ENTRY';
@@ -18,11 +17,6 @@ const defaultState = {
 
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
-    case RESET_WEEK:
-      return {
-        ...state,
-        d: action.d
-      }
     case CHANGE_WEEK:
       return {
         ...state,
@@ -78,13 +72,6 @@ export function changeWeek(amount) {
     amount
   };
 };
-
-export function resetWeek() {
-  return {
-    type: RESET_WEEK,
-    action: moment()
-  }
-}
 
 export function fetchEntries(d) {
   return function(dispatch, getState) {
