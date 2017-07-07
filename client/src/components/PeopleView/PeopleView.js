@@ -25,7 +25,7 @@ export default class PeopleView extends Component {
     handleClose = () => this.setState({isShowingModal: false})
 
     componentWillMount() {
-        setChangeWeekTimeout(moment().endOf('week'), this.props.entryActions.changeWeek);
+        setChangeWeekTimeout(moment().endOf('week'), this.props.entryActions.resetWeek);
     }
 
     render() {
@@ -69,13 +69,13 @@ export default class PeopleView extends Component {
     }
 }
 
-function setChangeWeekTimeout(endOfWeek, changeWeek) {
-    const diff = moment().diff(endOfWeek, 'seconds');
+function setChangeWeekTimeout(endOfWeek, resetWeek) {
+    const diff = Math.abs(moment().diff(endOfWeek, 'seconds')) + 1;
 
     setTimeout(() => {
-        changeWeek(1);
-        setChangeWeekTimeout(moment().add(1, 'seconds').endOf('week'), changeWeek)
-    }, Math.abs(diff))
+        resetWeek();
+        setChangeWeekTimeout(moment().add(1, 'seconds').endOf('week'), resetWeek)
+    }, diff)
 }
 
 function sortEmployeesByImportance(employees, entries, projects) {
