@@ -23,6 +23,10 @@ export default class PeopleView extends Component {
     handleSelectEmployee = (e, p) => this.setState({selectedEmployee: e})
     handleClick = (e, p) => this.setState({isShowingModal: true, selectedEmployee: e})
     handleClose = () => this.setState({isShowingModal: false})
+    
+    componentWillMount() {
+        setChangeWeekTimeout(moment().endOf('week'), this.props.entryActions.changeWeek);
+    }
 
     render() {
         const { employees, projects, entries, date, entryActions } = this.props;
@@ -63,6 +67,15 @@ export default class PeopleView extends Component {
             </div>
         );
     }
+}
+
+function setChangeWeekTimeout(endOfWeek, changeWeek) {
+    const diff = moment().diff(endOfWeek, 'seconds');
+
+    setTimeout(() => {
+        changeWeek(1);
+        setChangeWeekTimeout(moment().endOf('week'), changeWeek)
+    }, Math.abs(diff))
 }
 
 function sortEmployeesByImportance(employees, entries, projects) {

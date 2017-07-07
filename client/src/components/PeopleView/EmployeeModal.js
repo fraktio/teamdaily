@@ -15,6 +15,7 @@ import menuStyles from './menuStyle.pcss';
 import modalStyles from './modalStyle.pcss';
 
 export default class EmployeeModal extends React.Component {
+    
     selectColor = (color) => this.setState({color: color});
     handleCloseClick = () => this.props.handleClose();
 
