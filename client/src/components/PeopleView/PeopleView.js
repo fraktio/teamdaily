@@ -5,7 +5,7 @@ import moment from 'moment';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import { Icon } from 'react-fa';
 import { OrderedSet } from 'immutable';
-
+import { push } from '../ReduxRouter';
 import Masonry from 'react-masonry-component';
 
 import EmployeeCard from './EmployeeCard';
@@ -49,11 +49,24 @@ export default class PeopleView extends Component {
     }
     componentWillReceiveProps(nextProps) {
         const { match, entryActions } = nextProps;
-
+        const { date } = this.props;
         const week = match.params.week;
+        const weekNumber = nextProps.date.week();
+        const weekNumberNow = moment().week();
+
         if (this.props.week !== nextProps.week && week) {
             entryActions.setWeek(week);
         }
+
+        if (date === nextProps.date) {
+            return;
+        }
+    
+        if (weekNumber !== weekNumberNow) {
+            push('/people/'+weekNumber);
+            return;
+        }
+        push('/people');
     }
 
     render() {
