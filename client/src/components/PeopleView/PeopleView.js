@@ -8,8 +8,6 @@ import { OrderedSet } from 'immutable';
 
 import Masonry from 'react-masonry-component';
 
-import { push } from '../ReduxRouter';
-
 import EmployeeCard from './EmployeeCard';
 import styles from './style.pcss';
 import EmployeeModal from './EmployeeModal';
@@ -46,6 +44,14 @@ export default class PeopleView extends Component {
 
         const week = match.params.week;
         if (week) {
+            entryActions.setWeek(week);
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        const { match, entryActions } = nextProps;
+
+        const week = match.params.week;
+        if (this.props.week !== nextProps.week && week) {
             entryActions.setWeek(week);
         }
     }
