@@ -8,6 +8,8 @@ import { OrderedSet } from 'immutable';
 
 import Masonry from 'react-masonry-component';
 
+import { push } from '../ReduxRouter';
+
 import EmployeeCard from './EmployeeCard';
 import styles from './style.pcss';
 import EmployeeModal from './EmployeeModal';
@@ -24,8 +26,28 @@ export default class PeopleView extends Component {
     handleClick = (e, p) => this.setState({isShowingModal: true, selectedEmployee: e})
     handleClose = () => this.setState({isShowingModal: false})
 
+    componentDidMount() {
+        const { match, entryActions } = this.props;
+
+        this.weekChanger = setInterval(() => {
+            const week = this.props.date.week();
+            const weekNow = moment().week();
+
+            if (!match.params && week < weekNow) {
+                entryActions.setWeek(week);
+            }
+        }, 60000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.weekChanger);
+    }
     componentWillMount() {
-        setChangeWeekTimeout(moment().endOf('week'), this.props.entryActions.resetWeek);
+        const { match, entryActions } = this.props;
+
+        const week = match.params.week;
+        if (week) {
+            entryActions.setWeek(week);
+        }
     }
 
     render() {
@@ -69,14 +91,6 @@ export default class PeopleView extends Component {
     }
 }
 
-function setChangeWeekTimeout(endOfWeek, resetWeek) {
-    const diff = Math.abs(moment().diff(endOfWeek, 'seconds')) + 1;
-
-    setTimeout(() => {
-        resetWeek();
-        setChangeWeekTimeout(moment().add(1, 'seconds').endOf('week'), resetWeek)
-    }, diff)
-}
 
 function sortEmployeesByImportance(employees, entries, projects) {
     return employees.reduce((list, e, r) => {

@@ -32,6 +32,8 @@ export default class App extends Component {
     employeeProjectActions.fetchEmployeeProjects();
 
     this.reactivizer = setInterval(() => {
+      
+
       entryActions.fetchEntries(d);
     }, 60000);
   }
@@ -67,20 +69,21 @@ export default class App extends Component {
       '/week',
     ];
 
-    const renderWeekSelector = weekSelectorPaths.indexOf(pathname) !== -1;
+    const renderWeekSelector = weekSelectorPaths.find(path => pathname.indexOf(path) !== -1);
 
     return (
       <div>
         <Header renderWeekSelector={renderWeekSelector} date={d} onChange={entryActions.changeWeek} />
 
         <Switch>
-          <Route exact path="/matrix" component={WeeklyMatrix} />
-          <Route exact path='/week' component={Week}/>
-          <Route exact path="/index" component={Menu}/>
-          <Route exact path="/info" component={Info} />
-          <Route exact path="/people" component={PeopleView} />
-          <Route exact path="/projects" component={ProjectView} />
-          <Route exact path="/admin" component={AdminView} />
+          <Route path="/matrix" component={WeeklyMatrix} exact />
+          <Route path='/week' component={Week} exact />
+          <Route path="/index" component={Menu} exact />
+          <Route path="/info" component={Info} exact />
+          <Route path="/projects" component={ProjectView} exact />
+          <Route path="/admin" component={AdminView} exact />
+          <Route path="/people/:week" component={PeopleView} exact />
+          <Route path="/people" component={PeopleView} exact />
           <Redirect from='/' to='/week' />
           <Route component={NotFound} />
         </Switch>
@@ -93,3 +96,4 @@ export default class App extends Component {
     );
   }
 }
+

@@ -75,7 +75,7 @@ export default class EmployeeModal extends React.Component {
             <div>
                 <div className={menuStyles.menu}>
                     <div className={menuStyles.header}>
-                        <WeekSelection weekNumberAndYear={date.format('WW-GGGG')} onChange={this.props.changeWeek}/>
+                        <WeekSelection d={date} weekNumberAndYear={date.format('WW-GGGG')} onChange={this.props.changeWeek}/>
                     </div>
                     {
                         orderedEmployees.map(employee => {
