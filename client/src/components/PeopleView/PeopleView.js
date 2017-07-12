@@ -50,11 +50,12 @@ export default class PeopleView extends Component {
     componentWillReceiveProps(nextProps) {
         const { match, entryActions } = nextProps;
         const { date } = this.props;
+
         const week = match.params.week;
         const weekNumber = nextProps.date.week();
         const weekNumberNow = moment().week();
 
-        if (this.props.week !== nextProps.week && week) {
+        if (this.props.d !== nextProps.d && week) {
             entryActions.setWeek(week);
         }
 
