@@ -34,7 +34,7 @@ export default class PeopleView extends Component {
             if (!match.params.week && week < weekNow) {
                 entryActions.setWeek(week);
             }
-        }, 1000);
+        }, 60000);
     }
     componentWillUnmount() {
         clearInterval(this.weekChanger);
