@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import WeekSelection from 'components/WeekSelection'
 
@@ -18,36 +19,51 @@ export default class Header extends Component {
               to="/matrix"
               className={styles.navItem}
             >
-              Matriisi
+              <FormattedMessage 
+                  id='header.matrix'
+                  defaultMessage='Matrix'
+              />
             </Link>
             <Link
               to="/people"
               className={styles.navItem}
             >
-              Ihmiset
+              <FormattedMessage 
+                  id='header.people'
+                  defaultMessage='People'
+              />
             </Link>
             <Link
               to="/projects"
               className={styles.navItem}
             >
-              Projektit
+              <FormattedMessage 
+                  id='header.projects'
+                  defaultMessage='Projects'
+              />
             </Link>
             <Link
               to="/week"
               className={styles.navItem}
             >
-              Kirjaus
+              <FormattedMessage 
+                  id='header.week'
+                  defaultMessage='Status Form'
+              />
             </Link>
             <Link
               to="/admin"
               className={styles.navItem}
             >
-              Admin
+              <FormattedMessage 
+                  id='header.admin'
+                  defaultMessage='Admin Panel'
+              />
             </Link>
           </nav>
         </div>
         {renderWeekSelector &&
-          <WeekSelection weekNumberAndYear={date.format('WW-GGGG')} onChange={onChange}/>
+          <WeekSelection d={date} weekNumberAndYear={date.format('WW-GGGG')} onChange={onChange}/>
         }
       </header>
     )

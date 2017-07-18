@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { alphabeticalSort } from '../../utils/helpers';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 
 import styles from './style.pcss';
@@ -29,7 +30,12 @@ export default class ProjectView extends Component {
                         })};
                     </div>
 
-                    <h4 className={styles.title}>Projektit ilman merkittyä työntekijää</h4>
+                    <h4 className={styles.title}>
+                        <FormattedMessage 
+                            id='projects.projectsWithout'
+                            defaultMessage='Projects without anyone assigned'
+                        />
+                    </h4>
 
                     <div className={styles.cardContainer}>
                         {projectsWithEmployees.map(p => {
