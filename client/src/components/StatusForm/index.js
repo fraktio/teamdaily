@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { alphabeticalSort } from '../../utils/helpers';
+import { FormattedMessage } from 'react-intl';
 import { Icon } from 'react-fa';
 import { name } from 'services/employee';
 import { Link } from 'react-router-dom';
@@ -96,7 +97,7 @@ export default class StatusForm extends Component {
   getPlaceholder = () => {
     return 'Mikko Nousiainen' === this.state.name
       ? 'Limaiset ja niljakkaat, työtehtävät nuo juonikkaat!'
-      : 'Kerro suunnitelmasi tälle viikolle';
+      : 'Plans for this week';
   }
 
   setFlagged = () => {
@@ -121,27 +122,63 @@ export default class StatusForm extends Component {
           </select>
         </div>
         <div className={styles.control}>
-          <div className={styles.label}>Mitä teet?</div>
+          <div className={styles.label}>
+            <FormattedMessage 
+              id='statusForm.doing'
+              defaultMessage='What are you working on?'
+            />
+          </div>
           <input disabled={!this.props.enabled} type="text" ref="description" className={styles.input} value={fields.description} onChange={this.changeDescription} placeholder={this.getPlaceholder()} />
         </div>
         <div className={styles.control}>
-          <div className={styles.label}>Fiilis</div>
+          <div className={styles.label}>
+            <FormattedMessage 
+              id='statusForm.feeling'
+              defaultMessage='How are you?'
+            />
+          </div>
           <div className={styles.buttonGroup}>
-            <Button type="button" disabled={!this.props.enabled} onClick={() => this.changeColor('green')} active={fields.color === 'green'} className="green" title="Sopivasti töitä, hyvä fiilis">Sopiva tilanne</Button>
-            <Button type="button" disabled={!this.props.enabled} onClick={() => this.changeColor('yellow')} active={fields.color === 'yellow'} className="yellow" title="Jonkin verran liikaa töitä, ahdistaa hiukan">Kiirettä</Button>
-            <Button type="button" disabled={!this.props.enabled} onClick={() => this.changeColor('red')} active={fields.color === 'red'} className="red" title="Liian paljon kiirettä ja/tai hommia samaan aikaan">Liikaa töitä</Button>
-            <Button type="button" disabled={!this.props.enabled} onClick={() => this.changeColor('blue')} active={fields.color === 'blue'} className="blue" title="Liian vähän tekemistä, ei laskutettavaa">Ei tekemistä</Button>
+            <Button type="button" disabled={!this.props.enabled} onClick={() => this.changeColor('green')} active={fields.color === 'green'} className="green" title="Sopivasti töitä, hyvä fiilis">
+              <FormattedMessage 
+                id='statusForm.feelingOk'
+                defaultMessage='Doing good'
+              />
+            </Button>
+            <Button type="button" disabled={!this.props.enabled} onClick={() => this.changeColor('yellow')} active={fields.color === 'yellow'} className="yellow" title="Jonkin verran liikaa töitä, ahdistaa hiukan">
+              <FormattedMessage 
+                id='statusForm.feelingBusy'
+                defaultMessage='Pretty busy'
+              />
+            </Button>
+            <Button type="button" disabled={!this.props.enabled} onClick={() => this.changeColor('red')} active={fields.color === 'red'} className="red" title="Liian paljon kiirettä ja/tai hommia samaan aikaan">
+              <FormattedMessage 
+                id='statusForm.feelingTooMuch'
+                defaultMessage='Too much to do'
+              />
+            </Button>
+            <Button type="button" disabled={!this.props.enabled} onClick={() => this.changeColor('blue')} active={fields.color === 'blue'} className="blue" title="Liian vähän tekemistä, ei laskutettavaa">
+              <FormattedMessage 
+                id='statusForm.feelingNotEnough'
+                defaultMessage='Not enough to do'
+              />
+            </Button>
           </div>
         </div>
         <div>
           <label>
             <input type="checkbox" className={styles.checkbox} checked={fields.flagged} onChange={this.setFlagged}/>
-            Tilanteessani on jotain huomioitavaa tai haluan puheenvuoron viikkopalaverissa
+            <FormattedMessage 
+              id='statusForm.attention'
+              defaultMessage='My situation requires attention'
+            />
           </label>
         </div>
         <div className={styles.control}>
           <div className={styles.label}>
-            Mitkä projektit odottavat panostasi?
+            <FormattedMessage 
+              id='statusForm.projects'
+              defaultMessage='Which projects will you participate in to?'
+            />
             <span className={styles.projectsSaved}>{employeeProjectsSavedNotification ? 'Projektit tallennettu!' : ''}</span>
           </div>
           <div className={styles.smallButtons}>
@@ -161,7 +198,12 @@ export default class StatusForm extends Component {
           </div>
         </div>
 
-        <Button type="submit" disabled={!this.isSubmittable()} id="submitter" className="orange">LÄHETÄ</Button>
+        <Button type="submit" disabled={!this.isSubmittable()} id="submitter" className="orange">
+            <FormattedMessage 
+              id='statusForm.sendButtonText'
+              defaultMessage='SUBMIT'
+            />
+        </Button>
       </form>
     );
   }
