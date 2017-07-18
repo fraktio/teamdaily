@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'components/Button';
 import Masonry from 'react-masonry-component';
+import { FormattedMessage } from 'react-intl';
 
 import { alphabeticalSort } from '../../utils/helpers';
 import styles from './style.pcss';
@@ -17,18 +18,33 @@ export default class AdminView extends Component {
       <div className={styles.container}>
         <div className={styles.formsContainer}>
           <form onSubmit={(e) => this.addEmployee(e)} className={styles.form}>
-            <input placeholder="Lisää ihminen" type="text" ref={(input) => this.employeeName = input} />
-            <Button type="submit">Lisää ihminen</Button>
+            <input placeholder="Add person" type="text" ref={(input) => this.employeeName = input} />
+            <Button type="submit">
+              <FormattedMessage 
+                  id='admin.addEmployeeButton'
+                  defaultMessage='Add Person'
+              />
+            </Button>
           </form>
 
           <form onSubmit={(e) => this.addProject(e)} className={styles.form}>
-            <input placeholder="Lisää projekti" type="text" ref={(input) => this.projectName = input} />
-            <Button type="submit">Lisää projekti</Button>
+            <input placeholder="Add project" type="text" ref={(input) => this.projectName = input} />
+            <Button type="submit">
+              <FormattedMessage 
+                  id='admin.addProjectButton'
+                  defaultMessage='Add Project'
+              />
+            </Button>
           </form>
         </div>
 
         <hr />
-        <p>Projektit</p>
+        <p>
+          <FormattedMessage 
+              id='admin.projects'
+              defaultMessage='Projects'
+          />
+        </p>
         <Masonry options={masonryOptions}>
           {projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(project => (
             <div key={project.id} className={styles.project}>
@@ -40,7 +56,12 @@ export default class AdminView extends Component {
         </Masonry>
 
         <hr />
-        <p>Ihmiset</p>
+        <p>
+          <FormattedMessage 
+              id='admin.employees'
+              defaultMessage='Employees'
+          />
+        </p>
         <Masonry options={masonryOptions}>
           {employees.sort((a, b) => alphabeticalSort(a.name,b.name)).map(employee => (
             <div key={employee.id} className={styles.project}>

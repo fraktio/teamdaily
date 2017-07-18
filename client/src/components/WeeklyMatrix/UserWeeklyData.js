@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import userDataExtractor from 'services/userDataExtractor';
 import WeeklyGraph from 'components/WeeklyMatrix/WeeklyGraph';
 import EmployeeName from 'components/EmployeeName';
@@ -16,7 +17,13 @@ export default ({ data, weeklyData }) => {
   return (
     <div>
       <div className="user-data-modal">
-        <h1 className="matrix-title"><EmployeeName name={data.user} /> - viikko {data.week}</h1>
+        <h1 className="matrix-title"><EmployeeName name={data.user} />
+            <span> - </span>
+           <FormattedMessage 
+                id='userWeeklyData.week'
+                defaultMessage='Week'
+            /> {data.week}
+         </h1>
         {entries.map(entry =>
           <div className={cx(entry.color, 'message')} key={'entry-' + entry.id}>
             <p>{moment(entry.created).locale('fi').format('dddd D.M.YYYY HH:mm:ss')}</p>

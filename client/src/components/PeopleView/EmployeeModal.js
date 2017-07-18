@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { alphabeticalSort, getLatestEntry, getEntryColor, doesFlaggedExist } from '../../utils/helpers';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
+import { FormattedMessage } from 'react-intl';
 
 import WeekSelection from '../WeekSelection';
 import Modal from 'react-modal';
@@ -15,6 +16,7 @@ import menuStyles from './menuStyle.pcss';
 import modalStyles from './modalStyle.pcss';
 
 export default class EmployeeModal extends React.Component {
+    
     selectColor = (color) => this.setState({color: color});
     handleCloseClick = () => this.props.handleClose();
 
@@ -74,7 +76,7 @@ export default class EmployeeModal extends React.Component {
             <div>
                 <div className={menuStyles.menu}>
                     <div className={menuStyles.header}>
-                        <WeekSelection weekNumberAndYear={date.format('WW-GGGG')} onChange={this.props.changeWeek}/>
+                        <WeekSelection d={date} weekNumberAndYear={date.format('WW-GGGG')} onChange={this.props.changeWeek}/>
                     </div>
                     {
                         orderedEmployees.map(employee => {
@@ -119,7 +121,10 @@ export default class EmployeeModal extends React.Component {
                     </div>
                 }
                 <div className={modalStyles.content}>
-                    Fiilismittari:
+                    <FormattedMessage 
+                        id='people.status'
+                        defaultMessage='Status'
+                    />
                     <div className={modalStyles.moods}>
                         {MoodsList.map(m => {
                             const isActive = color === m.color ? true : false;
@@ -134,7 +139,10 @@ export default class EmployeeModal extends React.Component {
                             )
                         })}
                     </div>
-                    Mitkä projektit odottavat panostasi?
+                    <FormattedMessage 
+                        id='people.participating'
+                        defaultMessage='Projects'
+                    />
                     <div className={modalStyles.projects}>
                         {e.employeeProjects &&
                         e.employeeProjects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(p => <button className={styles.project} key={p.id}>{p.name}</button>)}
@@ -149,17 +157,17 @@ export default class EmployeeModal extends React.Component {
 const MoodsList = [
     {
         color: 'blue',
-        text: 'Ei tekemistä',
+        text: 'Not enough',
         icon: '😪',
     },
     {
         color: 'green',
-        text: 'Sopiva',
+        text: 'Doing fine',
         icon: '😁',
     },
         {
         color: 'yellow',
-        text: 'Kiirettä',
+        text: 'Pretty busy',
         icon: '😕',
     },
         {

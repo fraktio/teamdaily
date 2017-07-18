@@ -5,7 +5,7 @@ import moment from 'moment';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import { Icon } from 'react-fa';
 import { OrderedSet } from 'immutable';
-
+import { push } from '../ReduxRouter';
 import Masonry from 'react-masonry-component';
 
 import EmployeeCard from './EmployeeCard';
@@ -23,6 +23,52 @@ export default class PeopleView extends Component {
     handleSelectEmployee = (e, p) => this.setState({selectedEmployee: e})
     handleClick = (e, p) => this.setState({isShowingModal: true, selectedEmployee: e})
     handleClose = () => this.setState({isShowingModal: false})
+
+    componentDidMount() {
+        const { match, entryActions } = this.props;
+
+        this.weekChanger = setInterval(() => {
+            const week = this.props.date.week();
+            const weekNow = moment().week();
+
+            if (!match.params.week && week < weekNow) {
+                entryActions.setWeek(week);
+            }
+        }, 60000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.weekChanger);
+    }
+    componentWillMount() {
+        const { match, entryActions } = this.props;
+
+        const week = match.params.week;
+        if (week) {
+            entryActions.setWeek(week);
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        const { match, entryActions } = nextProps;
+        const { date } = this.props;
+
+        const week = match.params.week;
+        const weekNumber = nextProps.date.week();
+        const weekNumberNow = moment().week();
+
+        if (this.props.d !== nextProps.d && week) {
+            entryActions.setWeek(week);
+        }
+
+        if (date === nextProps.date) {
+            return;
+        }
+    
+        if (weekNumber !== weekNumberNow) {
+            push('/people/'+weekNumber);
+            return;
+        }
+        push('/people');
+    }
 
     render() {
         const { employees, projects, entries, date, entryActions } = this.props;
@@ -64,6 +110,7 @@ export default class PeopleView extends Component {
         );
     }
 }
+
 
 function sortEmployeesByImportance(employees, entries, projects) {
     return employees.reduce((list, e, r) => {
