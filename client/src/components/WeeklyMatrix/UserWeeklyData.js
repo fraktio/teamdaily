@@ -20,7 +20,7 @@ export default ({ data, weeklyData }) => {
         <h1 className="matrix-title"><EmployeeName name={data.user} />
             <span> - </span>
            <FormattedMessage 
-                id='userWeeklyData.week'
+                id='userWeeklyData_week'
                 defaultMessage='Week'
             /> {data.week}
          </h1>

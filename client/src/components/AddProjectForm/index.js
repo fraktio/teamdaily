@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Icon } from 'react-fa';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames';
 import Button from 'components/Button';
 import styles from './style.pcss';
 
-export default class AddProjectForm extends Component {
+export class AddProjectForm extends Component {
   state = {
     showForm: false,
     newProjectName: '',
@@ -39,14 +40,14 @@ export default class AddProjectForm extends Component {
     this.setState({ newProjectName, submitButtonDisabled });
   }
 
-  renderForm = () => {
+  renderForm = (intl) => {
     return (
       <div className={styles.form}>
         <input
           className={styles.input}
           onChange={this.handleNewProjectName}
           value={this.state.newProjectName}
-          placeholder="Lisää projekti"
+          placeholder={intl.messages.addProjectForm_addProject}
         />
         <Button
           onClick={this.addProject}
@@ -54,7 +55,11 @@ export default class AddProjectForm extends Component {
           disabled={this.state.submitButtonDisabled}
           type="button"
         >
-          <Icon name="plus" /> Lisää
+          <Icon name="plus" />             
+          <FormattedMessage 
+              id='addProjectForm_addProjectButton'
+              defaultMessage='Add'
+          />
         </Button>
       </div>
     );
@@ -62,6 +67,7 @@ export default class AddProjectForm extends Component {
 
   render() {
     const { showForm } = this.state;
+    const { intl } = this.props;
     const icon = showForm ? 'times' : 'plus';
 
     const classes = cx(styles.toggleButton, {
@@ -71,7 +77,7 @@ export default class AddProjectForm extends Component {
 
     return (
       <div className={styles.container}>
-        {showForm && this.renderForm() }
+        {showForm && this.renderForm(intl) }
         <Button
           onClick={this.toggleShowProjectForm}
           className={classes}
@@ -84,3 +90,5 @@ export default class AddProjectForm extends Component {
     );
   }
 }
+
+export default injectIntl(AddProjectForm);

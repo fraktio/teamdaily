@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
+import { injectIntl } from 'react-intl'; 
 import { name } from 'services/employee.js';
 import colors from '../../colors';
 
 import styles from './style.pcss';
 
 
-export default class CompactStatusForm extends Component {
+export class CompactStatusForm extends Component {
   constructor(props) {
     super(props);
 
@@ -42,15 +43,15 @@ export default class CompactStatusForm extends Component {
   }
 
   render() {
-    const { employees } = this.props;
+    const { employees, intl } = this.props;
 
-    const placeholder = 'Mitä ajattelit tehdä tällä viikolla? Onko jotain esteitä/ongelmia?';
+    const placeholder = intl.messages.compactStatusForm_whatAreYouDoing;
 
     const labelTexts = [
-      'Sopivasti töitä',
-      'Hieman liikaa töitä',
-      'Liikaa töitä',
-      'Liian vähän töitä'
+      intl.messages.statusForm_ok,
+      intl.messages.statusForm_busy,
+      intl.messages.statusForm_tooMuch,
+      intl.messages.statusForm_notEnough
     ];
 
     return (
@@ -94,3 +95,5 @@ export default class CompactStatusForm extends Component {
     );
   }
 }
+
+export default injectIntl(CompactStatusForm);

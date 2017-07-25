@@ -30,7 +30,7 @@ export default ({ type, handleClose, ...props }) => {
         <Element {...props} />
         <Button className="button-info" onClick={handleClose}>
           <FormattedMessage 
-              id='matrix.closeModal'
+              id='matrix_closeModal'
               defaultMessage='Close'
           />
         </Button>

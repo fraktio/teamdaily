@@ -18,7 +18,7 @@ export default class WeekSelection extends Component {
         </a>
         <h2 className={styles.week}>
           <FormattedMessage 
-              id='weekSelector.week'
+              id='weekSelector_week'
               defaultMessage='Week {week}'
               values={{week: this.props.weekNumberAndYear}}
           />

@@ -20,7 +20,7 @@ export default class Header extends Component {
               className={styles.navItem}
             >
               <FormattedMessage 
-                  id='header.matrix'
+                  id='header_matrix'
                   defaultMessage='Matrix'
               />
             </Link>
@@ -29,7 +29,7 @@ export default class Header extends Component {
               className={styles.navItem}
             >
               <FormattedMessage 
-                  id='header.people'
+                  id='header_people'
                   defaultMessage='People'
               />
             </Link>
@@ -38,7 +38,7 @@ export default class Header extends Component {
               className={styles.navItem}
             >
               <FormattedMessage 
-                  id='header.projects'
+                  id='header_projects'
                   defaultMessage='Projects'
               />
             </Link>
@@ -47,7 +47,7 @@ export default class Header extends Component {
               className={styles.navItem}
             >
               <FormattedMessage 
-                  id='header.week'
+                  id='header_week'
                   defaultMessage='Status Form'
               />
             </Link>
@@ -56,7 +56,7 @@ export default class Header extends Component {
               className={styles.navItem}
             >
               <FormattedMessage 
-                  id='header.admin'
+                  id='header_admin'
                   defaultMessage='Admin Panel'
               />
             </Link>

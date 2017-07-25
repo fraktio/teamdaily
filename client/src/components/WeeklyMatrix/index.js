@@ -152,7 +152,7 @@ export default class WeeklyMatrix extends Component {
                 )}
                 <th className={cx(styles.th, styles.weekAlignLeft)}>
                   <FormattedMessage 
-                      id='matrix.week'
+                      id='matrix_week'
                       defaultMessage='Week'
                   />
                 </th>

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Button from 'components/Button';
 import Masonry from 'react-masonry-component';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { alphabeticalSort } from '../../utils/helpers';
 import styles from './style.pcss';
 
-export default class AdminView extends Component {
+export class AdminView extends Component {
   render() {
-    const { projects, employees } = this.props;
+    const { projects, employees, intl } = this.props;
+    const { messages } = intl;
 
     const masonryOptions = {
       transitionDuration: 0
@@ -18,20 +19,20 @@ export default class AdminView extends Component {
       <div className={styles.container}>
         <div className={styles.formsContainer}>
           <form onSubmit={(e) => this.addEmployee(e)} className={styles.form}>
-            <input placeholder="Add person" type="text" ref={(input) => this.employeeName = input} />
+            <input placeholder={messages.admin_addEmployee} type="text" ref={(input) => this.employeeName = input} />
             <Button type="submit">
               <FormattedMessage 
-                  id='admin.addEmployeeButton'
+                  id='admin_addEmployee'
                   defaultMessage='Add Person'
               />
             </Button>
           </form>
 
           <form onSubmit={(e) => this.addProject(e)} className={styles.form}>
-            <input placeholder="Add project" type="text" ref={(input) => this.projectName = input} />
+            <input placeholder={messages.admin_addProject} type="text" ref={(input) => this.projectName = input} />
             <Button type="submit">
               <FormattedMessage 
-                  id='admin.addProjectButton'
+                  id='admin_addProject'
                   defaultMessage='Add Project'
               />
             </Button>
@@ -41,7 +42,7 @@ export default class AdminView extends Component {
         <hr />
         <p>
           <FormattedMessage 
-              id='admin.projects'
+              id='admin_projects'
               defaultMessage='Projects'
           />
         </p>
@@ -58,7 +59,7 @@ export default class AdminView extends Component {
         <hr />
         <p>
           <FormattedMessage 
-              id='admin.employees'
+              id='admin_employees'
               defaultMessage='Employees'
           />
         </p>
@@ -105,3 +106,5 @@ export default class AdminView extends Component {
     employeeActions.deleteEmployee(id);
   }
 };
+
+export default injectIntl(AdminView);

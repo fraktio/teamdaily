@@ -32,7 +32,7 @@ export default class ProjectView extends Component {
 
                     <h4 className={styles.title}>
                         <FormattedMessage 
-                            id='projects.projectsWithout'
+                            id='projects_projectsWithout'
                             defaultMessage='Projects without anyone assigned'
                         />
                     </h4>
