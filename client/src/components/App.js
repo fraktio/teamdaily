@@ -30,11 +30,12 @@ export default class App extends Component {
     entryActions.fetchEntries(d);
     projectActions.fetchProjects();
     employeeProjectActions.fetchEmployeeProjects();
+  }
 
+  componentWillReceiveProps(nextProps) {
+    clearInterval(this.reactivizer);
     this.reactivizer = setInterval(() => {
-      
-
-      entryActions.fetchEntries(d);
+      nextProps.entryActions.fetchEntries(nextProps.d);
     }, 60000);
   }
 
