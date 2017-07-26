@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 
 import styles from './style.pcss';
 
-
 export default class WeekSelection extends Component {
   changeWeek = change => {
     this.props.onChange(change);
