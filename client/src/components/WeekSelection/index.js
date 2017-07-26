@@ -22,7 +22,7 @@ export default class WeekSelection extends Component {
           <FormattedMessage 
               id='weekSelector_week'
               defaultMessage='Week {week}'
-              values={{week: this.props.weekNumberAndYear}}
+              values={{week: this.props.d.format('WW-GGGG')}}
           />
         </h2>
         <a onClick={event => this.changeWeek(1)}>
