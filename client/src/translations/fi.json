@@ -7,6 +7,7 @@
     "statusForm_notEnough": "Ei tekemistä",
     "statusForm_attention": "Tilanteessani on huomioitavaa",
     "statusForm_projects": "Projektit, jotka odottavat työpanostasi",
+    "statusForm_emptySelection": "-- Valitse --",
     "statusForm_sendButtonText": "Lähetä",
     "addProjectForm_addProject": "Lisää projekti",
     "addProjectForm_addProjectButton": "Lisää",

@@ -6,10 +6,9 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { alphabeticalSort } from '../../utils/helpers';
 import styles from './style.pcss';
 
-export class AdminView extends Component {
+class AdminView extends Component {
   render() {
     const { projects, employees, intl } = this.props;
-    const { messages } = intl;
 
     const masonryOptions = {
       transitionDuration: 0
@@ -19,7 +18,7 @@ export class AdminView extends Component {
       <div className={styles.container}>
         <div className={styles.formsContainer}>
           <form onSubmit={(e) => this.addEmployee(e)} className={styles.form}>
-            <input placeholder={messages.admin_addEmployee} type="text" ref={(input) => this.employeeName = input} />
+            <input placeholder={intl.messages.admin_addEmployee} type="text" ref={(input) => this.employeeName = input} />
             <Button type="submit">
               <FormattedMessage 
                   id='admin_addEmployee'
@@ -29,7 +28,7 @@ export class AdminView extends Component {
           </form>
 
           <form onSubmit={(e) => this.addProject(e)} className={styles.form}>
-            <input placeholder={messages.admin_addProject} type="text" ref={(input) => this.projectName = input} />
+            <input placeholder={intl.messages.admin_addProject} type="text" ref={(input) => this.projectName = input} />
             <Button type="submit">
               <FormattedMessage 
                   id='admin_addProject'

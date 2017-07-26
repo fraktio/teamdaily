@@ -6,8 +6,7 @@ import colors from '../../colors';
 
 import styles from './style.pcss';
 
-
-export class CompactStatusForm extends Component {
+class CompactStatusForm extends Component {
   constructor(props) {
     super(props);
 
@@ -59,7 +58,12 @@ export class CompactStatusForm extends Component {
         <div className={styles.userSelection}>
           <h3 className={styles.heading}>New post</h3>
           <select disabled={!this.props.enabled} ref="name" value={this.state.name} onChange={this.changeName}>
-            <option key="empty-selection" value="">-- Valitse --</option>
+            <option key="empty-selection" value="">
+              <FormattedMessage 
+                  id='statusForm_emptySelection'
+                  defaultMessage='-- Select --'
+              />
+            </option>
             {employees.map((employee) =>
               <option key={employee.name} value={employee.name}>
                 {name(employee.name)}

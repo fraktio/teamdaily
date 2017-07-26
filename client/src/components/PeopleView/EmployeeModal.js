@@ -15,7 +15,7 @@ import styles from './style.pcss';
 import menuStyles from './menuStyle.pcss';
 import modalStyles from './modalStyle.pcss';
 
-export class EmployeeModal extends React.Component {
+class EmployeeModal extends React.Component {
     selectColor = (color) => this.setState({color: color});
     handleCloseClick = () => this.props.handleClose();
 
@@ -63,7 +63,7 @@ export class EmployeeModal extends React.Component {
     }
 
     render() {
-        const { e, handleClose, projects, sortedEmployees, handleSelectEmployee, orderedEmployees, entries, date } = this.props;
+        const { e, handleClose, projects, sortedEmployees, handleSelectEmployee, orderedEmployees, entries, date, intl } = this.props;
 
         if (!e) { return null; }
 
@@ -134,7 +134,7 @@ export class EmployeeModal extends React.Component {
                                     key={m.color}>
                                     {m.icon}
                                     <p className={m.color}>
-                                        {this.props.intl.messages[m.message]}
+                                        {intl.messages[m.message]}
                                     </p>
                                 </div>
                             )
