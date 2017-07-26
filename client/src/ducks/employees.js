@@ -29,7 +29,7 @@ function receiveEmployees(employees) {
   };
 }
 
-export function fetchEmployees(d) {
+export function fetchEmployees(date) {
   return function(dispatch) {
     api.getEmployees().then(employees => {
       dispatch(receiveEmployees(employees));

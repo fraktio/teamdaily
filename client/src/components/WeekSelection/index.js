@@ -10,7 +10,7 @@ export default class WeekSelection extends Component {
     this.props.onChange(change);
   }
   render() {
-    const { d } = this.props;
+    const { date } = this.props;
 
     return (
       <div className={styles.container}>
@@ -21,7 +21,7 @@ export default class WeekSelection extends Component {
           <FormattedMessage 
               id='weekSelector_week'
               defaultMessage='Week {week}'
-              values={{week: this.props.d.format('WW-GGGG')}}
+              values={{week: this.props.date.format('WW-GGGG')}}
           />
         </h2>
         <a onClick={event => this.changeWeek(1)}>

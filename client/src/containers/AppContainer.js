@@ -12,7 +12,7 @@ export default compose(
   withRouter,
   connect(state => ({
       entries: state.entry.entries,
-      d: state.entry.d,
+      date: state.entry.date,
       loading: state.entry.loading,
       employees: state.employees,
       projects: state.projects,

@@ -21,7 +21,7 @@ const fetchEntriesInterval = 60000;
 export default class App extends Component {
   componentDidMount() {
     const {
-      d,
+      date,
       fetchEmployees,
       fetchEntries,
       fetchProjects,
@@ -29,14 +29,14 @@ export default class App extends Component {
     } = this.props;
 
     fetchEmployees();
-    fetchEntries(d);
+    fetchEntries(date);
     fetchProjects();
     fetchEmployeeProjects();
 
-    this.setReactivizer(d);
+    this.setReactivizer(date);
   }
 
-  setReactivizer(d) {
+  setReactivizer(date) {
     const { fetchEntries } = this.props;
 
     if (this.reactivizer) {
@@ -44,21 +44,21 @@ export default class App extends Component {
     }
 
     this.reactivizer = setInterval(() => {
-      fetchEntries(d);
+      fetchEntries(date);
     }, fetchEntriesInterval);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.d.isSame(nextProps.d)) {
-      this.setReactivizer(nextProps.d);
+    if (!this.props.date.isSame(nextProps.date)) {
+      this.setReactivizer(nextProps.date);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { d, fetchEntries } = this.props;
+    const { date, fetchEntries } = this.props;
 
-    if (!d.isSame(prevProps.d)) {
-      fetchEntries(d);
+    if (!date.isSame(prevProps.date)) {
+      fetchEntries(date);
     }
   }
 
@@ -72,7 +72,7 @@ export default class App extends Component {
 
   render() {
     const {
-      d,
+      date,
       changeWeek,
       match,
     } = this.props;
@@ -89,7 +89,7 @@ export default class App extends Component {
 
     return (
       <div>
-        <Header renderWeekSelector={renderWeekSelector} date={d} onChange={changeWeek} />
+        <Header renderWeekSelector={renderWeekSelector} date={date} onChange={changeWeek} />
 
         <Switch>
           <Route path="/matrix" component={WeeklyMatrix} exact />

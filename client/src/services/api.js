@@ -11,10 +11,10 @@ const wrapMany = req =>
 axios.defaults.withCredentials = true;
 
 export default {
-  getEntries: d =>
-    wrapMany(axios.get(url('/api/message/') + d.format('GGGG') + '/' + d.format('WW'))),
+  getEntries: date =>
+    wrapMany(axios.get(url('/api/message/') + date.format('GGGG') + '/' + date.format('WW'))),
 
-  submitStatus: (status, d) => {
+  submitStatus: (status, date) => {
     const json = {
       message: status.description,
       name: status.name,
@@ -24,7 +24,7 @@ export default {
       flagged: status.flagged
     };
 
-    return axios.post(url(`/api/message/${d.format('GGGG')}/${d.format('WW')}`), json)
+    return axios.post(url(`/api/message/${date.format('GGGG')}/${date.format('WW')}`), json)
       .then(res => res.data)
       .then(data => ({
         ...json,
