@@ -1,10 +1,5 @@
 import { connect } from 'react-redux';
 import Info from 'components/Info';
-import { bindActionCreators } from 'redux';
-
-import * as entryActions from 'ducks/entry';
-import * as employeeActions from 'ducks/employees';
-import * as projectActions from 'ducks/projects';
 
 export default connect(
   state => ({
@@ -14,9 +9,5 @@ export default connect(
     employees: state.employees,
     projects: state.projects
   }),
-  dispatch => ({
-    entryActions: bindActionCreators(entryActions, dispatch),
-    employeeActions: bindActionCreators(employeeActions, dispatch),
-    projectActions: bindActionCreators(projectActions, dispatch)
-  }),
+  {},
 )(Info);

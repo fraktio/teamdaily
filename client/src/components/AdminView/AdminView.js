@@ -20,7 +20,7 @@ class AdminView extends Component {
           <form onSubmit={(e) => this.addEmployee(e)} className={styles.form}>
             <input placeholder={intl.messages.admin_addEmployee} type="text" ref={(input) => this.employeeName = input} />
             <Button type="submit">
-              <FormattedMessage 
+              <FormattedMessage
                   id='admin_addEmployee'
                   defaultMessage='Add Person'
               />
@@ -30,7 +30,7 @@ class AdminView extends Component {
           <form onSubmit={(e) => this.addProject(e)} className={styles.form}>
             <input placeholder={intl.messages.admin_addProject} type="text" ref={(input) => this.projectName = input} />
             <Button type="submit">
-              <FormattedMessage 
+              <FormattedMessage
                   id='admin_addProject'
                   defaultMessage='Add Project'
               />
@@ -40,7 +40,7 @@ class AdminView extends Component {
 
         <hr />
         <p>
-          <FormattedMessage 
+          <FormattedMessage
               id='admin_projects'
               defaultMessage='Projects'
           />
@@ -49,9 +49,9 @@ class AdminView extends Component {
           {projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(project => (
             <div key={project.id} className={styles.project}>
               <div>{project.name}</div>
-  
+
               <button className={styles.deleteButton} onClick={() => this.deleteProject(project.id)}>
-                <FormattedMessage 
+                <FormattedMessage
                     id='admin_delete'
                     defaultMessage='Delete'
                 />
@@ -62,7 +62,7 @@ class AdminView extends Component {
 
         <hr />
         <p>
-          <FormattedMessage 
+          <FormattedMessage
               id='admin_employees'
               defaultMessage='Employees'
           />
@@ -71,9 +71,9 @@ class AdminView extends Component {
           {employees.sort((a, b) => alphabeticalSort(a.name,b.name)).map(employee => (
             <div key={employee.id} className={styles.project}>
               <div>{employee.name}</div>
-  
+
               <button className={styles.deleteButton} onClick={() => this.deleteEmployee(employee.id)}>
-                <FormattedMessage 
+                <FormattedMessage
                     id='admin_delete'
                     defaultMessage='Delete'
                 />
@@ -86,33 +86,31 @@ class AdminView extends Component {
   }
 
   addProject = (e) => {
-    const { projectActions } = this.props;
+    const { addProject } = this.props;
 
     e.preventDefault();
 
-    projectActions.addProject(this.projectName.value)
-    .then(() => this.projectName.value = '');
+    addProject(this.projectName.value).then(() => this.projectName.value = '');
   }
 
   addEmployee = (e) => {
-    const { employeeActions } = this.props;
+    const { addEmployee } = this.props;
 
     e.preventDefault();
 
-    employeeActions.addEmployee(this.employeeName.value)
-    .then(() => this.employeeName.value = '');
+    addEmployee(this.employeeName.value).then(() => this.employeeName.value = '');
   }
 
   deleteProject = (id) => {
-    const { projectActions } = this.props;
+    const { deleteProject } = this.props;
 
-    projectActions.deleteProject(id);
+    deleteProject(id);
   }
-  
-  deleteEmployee = (id) => {
-    const { employeeActions } = this.props;
 
-    employeeActions.deleteEmployee(id);
+  deleteEmployee = (id) => {
+    const { deleteEmployee } = this.props;
+
+    deleteEmployee(id);
   }
 };
 
