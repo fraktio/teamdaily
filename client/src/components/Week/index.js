@@ -34,7 +34,7 @@ export default ({
       initialValues={localstorage.load()}
       enabled={isFormEnabled(loading, date)}
       now={now}
-      d={date}
+      date={date}
       employees={employees}
       projects={projects}
       onSaveProject={saveProject}

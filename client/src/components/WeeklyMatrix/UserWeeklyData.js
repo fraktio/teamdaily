@@ -8,10 +8,10 @@ import moment from 'moment';
 import cx from 'classnames';
 
 export default ({ data, weeklyData }) => {
-  const entries = weeklyData.filter(d =>
-    d.name === data.user
-  ).filter(d =>
-    d.week === data.week
+  const entries = weeklyData.filter(date =>
+    date.name === data.user
+  ).filter(date =>
+    date.week === data.week
   );
 
   return (

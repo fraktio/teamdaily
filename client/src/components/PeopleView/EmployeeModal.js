@@ -75,7 +75,7 @@ class EmployeeModal extends React.Component {
             <div>
                 <div className={menuStyles.menu}>
                     <div className={menuStyles.header}>
-                        <WeekSelection d={date} onChange={this.props.changeWeek}/>
+                        <WeekSelection date={date} onChange={this.props.changeWeek}/>
                     </div>
                     {
                         orderedEmployees.map(employee => {

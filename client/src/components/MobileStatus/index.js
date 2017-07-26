@@ -24,8 +24,8 @@ export default class MobileStatus extends Component {
   }
 
   isFormEnabled = () => {
-    const { loading, d } = this.props;
-    return !loading && (now.format('GGGG') == d.format('GGGG') && now.format('WW') == d.format('WW'));
+    const { loading, date } = this.props;
+    return !loading && (now.format('GGGG') == date.format('GGGG') && now.format('WW') == date.format('WW'));
   }
 
   enableForm = event => {
@@ -37,7 +37,7 @@ export default class MobileStatus extends Component {
   }
 
   render() {
-    const { d, employees, entries, now } = this.props;
+    const { date, employees, entries, now } = this.props;
     const { submitted } = this.state;
 
     return (
@@ -48,7 +48,7 @@ export default class MobileStatus extends Component {
               initialValues={localstorage.load()}
               enabled={this.isFormEnabled()}
               now={now}
-              d={d}
+              date={date}
               employees={employees}
               onSubmit={this.handleSubmit}
             />

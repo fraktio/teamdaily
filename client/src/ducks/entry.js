@@ -13,7 +13,7 @@ const RECEIVE_NEW_ENTRY = 'teamdaily/entry/RECEIVE_NEW_ENTRY';
 
 const defaultState = {
   entries: List(),
-  d: moment(),
+  date: moment(),
   loading: false,
 };
 
@@ -22,17 +22,17 @@ export default function reducer(state = defaultState, action) {
     case SET_WEEK: 
       return {
         ...state,
-        d: moment().day("Monday").week(action.week)
+        date: moment().day("Monday").week(action.week)
       }
     case RESET_WEEK:
       return {
         ...state,
-        d: moment()
+        date: moment()
       }
     case CHANGE_WEEK:
       return {
         ...state,
-        d: moment(state.d).add(action.amount, 'weeks')
+        date: moment(state.date).add(action.amount, 'weeks')
       };
 
     case RECEIVE_NEW_ENTRY:
@@ -98,10 +98,10 @@ export function resetWeek() {
   }
 }
 
-export function fetchEntries(d) {
+export function fetchEntries(date) {
   return function(dispatch, getState) {
-    dispatch(requestEntries(d));
-    api.getEntries(d).then(entries => {
+    dispatch(requestEntries(date));
+    api.getEntries(date).then(entries => {
       dispatch(receiveEntries(entries));
     });
   };
@@ -128,9 +128,9 @@ export function addEntry(entry) {
   return (dispatch, getState) => {
     dispatch(requestNewEntry(entry));
 
-    const d = getState().entry.d;
+    const date = getState().entry.date;
 
-    api.submitStatus(entry, d).then(entry => {
+    api.submitStatus(entry, date).then(entry => {
       dispatch(receiveNewEntry(entry));
     }).catch(() => {
       console.log('TODO fail handler');

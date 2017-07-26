@@ -7,7 +7,7 @@ export default connect(
     employees: state.employees,
     projects: state.projects,
     entries: state.entry.entries,
-    date: state.entry.d,
+    date: state.entry.date,
   }),
   {},
 )(ProjectView);
