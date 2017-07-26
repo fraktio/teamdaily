@@ -16,6 +16,8 @@ import AdminView from 'containers/AdminViewContainer';
 
 import styles from './App.pcss';
 
+const fetchEntriesInterval = 60000;
+
 export default class App extends Component {
   componentDidMount() {
     const {
@@ -30,14 +32,22 @@ export default class App extends Component {
     entryActions.fetchEntries(d);
     projectActions.fetchProjects();
     employeeProjectActions.fetchEmployeeProjects();
+
+    this.setReactivizer(d);
+  }
+
+  setReactivizer(d) {
+    const { entryActions } = this.props;
+
+    this.reactivizer = setInterval(() => {
+      entryActions.fetchEntries(d);
+    }, fetchEntriesInterval);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.d !== nextProps.d) {
       clearInterval(this.reactivizer);
-      this.reactivizer = setInterval(() => {
-        nextProps.entryActions.fetchEntries(nextProps.d);
-      }, 60000);
+      this.setReactivizer(nextProps.d);
     }
   }
 

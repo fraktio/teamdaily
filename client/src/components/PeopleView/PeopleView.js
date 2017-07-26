@@ -14,6 +14,8 @@ import EmployeeModal from './EmployeeModal';
 import menuStyles from './menuStyle.pcss';
 import modalStyles from './modalStyle.pcss';
 
+const changeWeekInterval = 60000;
+
 export default class PeopleView extends Component {
     state = {
         isShowingModal: false,
@@ -25,16 +27,19 @@ export default class PeopleView extends Component {
     handleClose = () => this.setState({isShowingModal: false})
 
     componentDidMount() {
-        const { match, entryActions } = this.props;
+        this.setWeekChangerInterval();
+    }
+    setWeekChangerInterval() {
+        const { match, entryActions, date } = this.props;
 
         this.weekChanger = setInterval(() => {
-            const week = this.props.date.week();
+            const week = date.week();
             const weekNow = moment().week();
 
             if (!match.params.week && week < weekNow) {
                 entryActions.setWeek(week);
             }
-        }, 60000);
+        }, changeWeekInterval);
     }
     componentWillUnmount() {
         clearInterval(this.weekChanger);
@@ -63,6 +68,9 @@ export default class PeopleView extends Component {
             return;
         }
     
+        clearInterval(this.weekChanger);
+        this.setWeekChangerInterval();
+
         if (weekNumber !== weekNumberNow) {
             push('/people/'+weekNumber);
             return;
