@@ -30,7 +30,7 @@ export default class PeopleView extends Component {
         this.setWeekChangerInterval();
     }
     setWeekChangerInterval() {
-        const { match, entryActions, date } = this.props;
+        const { match, setWeek, date } = this.props;
 
         if (this.weekChanger) {
             clearInterval(this.weekChanger);
@@ -41,7 +41,7 @@ export default class PeopleView extends Component {
             const weekNow = moment().week();
 
             if (!match.params.week && week < weekNow) {
-                entryActions.setWeek(week);
+                setWeek(week);
             }
         }, changeWeekInterval);
     }
@@ -49,28 +49,28 @@ export default class PeopleView extends Component {
         clearInterval(this.weekChanger);
     }
     componentWillMount() {
-        const { match, entryActions } = this.props;
+        const { match, setWeek } = this.props;
 
         const week = match.params.week;
         if (week) {
-            entryActions.setWeek(week);
+            setWeek(week);
         }
     }
     componentWillReceiveProps(nextProps) {
-        const { match, entryActions } = nextProps;
-        const { date } = this.props;
-        const week = match.params.week;
+        const { date, setWeek } = this.props;
+        const week = parseInt(nextProps.match.params.week);
+        const newDate = nextProps.date
 
-        if (date.isSame(nextProps.date)) {
+        if (date.isSame(newDate) || week === newDate.week()) {
             return;
         }
 
         if (week) {
-            entryActions.setWeek(week);
+            setWeek(newDate.week());
         }
 
         this.setWeekChangerInterval();
-        this.updatePath(nextProps.date.week());
+        this.updatePath(newDate.week());
     }
 
     updatePath(weekNumber) {
