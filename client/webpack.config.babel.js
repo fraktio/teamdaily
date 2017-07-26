@@ -195,7 +195,7 @@ const envs = {
         './client.js',
       ],
       vendor: [
-        // 'babel-polyfill' // de-comment if polyfill is needed
+        'babel-polyfill' // de-comment if polyfill is needed
       ].concat(
         Object.keys(pkg.dependencies),
       ),
@@ -225,7 +225,7 @@ const envs = {
         './client.js',
       ],
       vendor: [
-        // 'babel-polyfill' // de-comment if polyfill is needed
+        'babel-polyfill' // de-comment if polyfill is needed
       ].concat(
         Object.keys(pkg.dependencies),
       ),
