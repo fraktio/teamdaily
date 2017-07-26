@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import App from '../App';
+import App from 'components/App';
 
 import { fetchEntries, changeWeek } from 'ducks/entry';
 import { fetchEmployees } from 'ducks/employees';
