@@ -61,12 +61,12 @@ export default class PeopleView extends Component {
         const { date } = this.props;
         const week = match.params.week;
 
-        if (!date.isSame(nextProps.date) && week) {
-            entryActions.setWeek(week);
-        }
-
         if (date.isSame(nextProps.date)) {
             return;
+        }
+
+        if (week) {
+            entryActions.setWeek(week);
         }
 
         this.setWeekChangerInterval();
