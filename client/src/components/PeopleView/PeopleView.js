@@ -32,6 +32,10 @@ export default class PeopleView extends Component {
     setWeekChangerInterval() {
         const { match, entryActions, date } = this.props;
 
+        if (this.weekChanger) {
+            clearInterval(this.weekChanger);
+        }
+
         this.weekChanger = setInterval(() => {
             const week = date.week();
             const weekNow = moment().week();
@@ -68,7 +72,6 @@ export default class PeopleView extends Component {
             return;
         }
     
-        clearInterval(this.weekChanger);
         this.setWeekChangerInterval();
 
         if (weekNumber !== weekNumberNow) {

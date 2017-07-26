@@ -39,6 +39,10 @@ export default class App extends Component {
   setReactivizer(d) {
     const { entryActions } = this.props;
 
+    if (this.reactivizer) {
+      clearInterval(this.reactivizer);
+    }
+
     this.reactivizer = setInterval(() => {
       entryActions.fetchEntries(d);
     }, fetchEntriesInterval);
@@ -46,7 +50,6 @@ export default class App extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.d !== nextProps.d) {
-      clearInterval(this.reactivizer);
       this.setReactivizer(nextProps.d);
     }
   }
