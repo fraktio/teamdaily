@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
 import Week from 'components/Week';
-import { bindActionCreators } from 'redux';
 
-import * as entryActions from 'ducks/entry';
-import * as employeeProjectActions from 'ducks/employeeProjects';
-import * as projectActions from 'ducks/projects';
+import { addEntry } from 'ducks/entry';
+import { saveProject } from 'ducks/employeeProjects';
+import { addProject } from 'ducks/projects';
 
 export default connect(
   state => ({
@@ -15,9 +14,9 @@ export default connect(
     projects: state.projects,
     employeeProjectsSavedNotification: state.employeeProjects.get('employeeProjectsSavedNotification')
   }),
-  dispatch => ({
-    entryActions: bindActionCreators(entryActions, dispatch),
-    employeeProjectActions: bindActionCreators(employeeProjectActions, dispatch),
-    projectActions: bindActionCreators(projectActions, dispatch)
-  }),
+  {
+    addEntry,
+    saveProject,
+    addProject
+  },
 )(Week);

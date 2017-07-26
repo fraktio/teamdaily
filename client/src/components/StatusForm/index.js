@@ -83,9 +83,9 @@ class StatusForm extends Component {
   }
 
   saveProject = (projectId, newProjectState) => {
-    const { employeeProjectActions } = this.props;
+    const { onSaveProject } = this.props;
 
-    employeeProjectActions.saveProject(this.state, this.state.employeeId, projectId, newProjectState);
+    onSaveProject(this.state, this.state.employeeId, projectId, newProjectState);
   }
 
   isSubmittable = () => {
@@ -99,7 +99,7 @@ class StatusForm extends Component {
   render() {
     const fields = {
       ...this.state
-    }; 
+    };
 
     const { employees, projects, employeeProjectsSavedNotification, intl } = this.props;
 
@@ -117,7 +117,7 @@ class StatusForm extends Component {
         </div>
         <div className={styles.control}>
           <div className={styles.label}>
-            <FormattedMessage 
+            <FormattedMessage
               id='statusForm_doing'
               defaultMessage='What are you working on?'
             />
@@ -126,60 +126,60 @@ class StatusForm extends Component {
         </div>
         <div className={styles.control}>
           <div className={styles.label}>
-            <FormattedMessage 
+            <FormattedMessage
               id='statusForm_feeling'
               defaultMessage='How are you?'
             />
           </div>
           <div className={styles.buttonGroup}>
-            <Button 
-              type="button" 
-              disabled={!this.props.enabled} 
-              onClick={() => this.changeColor('green')} 
-              active={fields.color === 'green'} 
-              className="green" 
+            <Button
+              type="button"
+              disabled={!this.props.enabled}
+              onClick={() => this.changeColor('green')}
+              active={fields.color === 'green'}
+              className="green"
               title={intl.messages.statusForm_ok}
             >
-              <FormattedMessage 
+              <FormattedMessage
                 id='statusForm_ok'
                 defaultMessage='Doing good'
               />
             </Button>
-            <Button 
-              type="button" 
-              disabled={!this.props.enabled} 
-              onClick={() => this.changeColor('yellow')} 
-              active={fields.color === 'yellow'} 
-              className="yellow" 
+            <Button
+              type="button"
+              disabled={!this.props.enabled}
+              onClick={() => this.changeColor('yellow')}
+              active={fields.color === 'yellow'}
+              className="yellow"
               title={intl.messages.statusForm_busy}
             >
-              <FormattedMessage 
+              <FormattedMessage
                 id='statusForm_busy'
                 defaultMessage='Pretty busy'
               />
             </Button>
-            <Button 
-              type="button" 
-              disabled={!this.props.enabled} 
-              onClick={() => this.changeColor('red')} 
-              active={fields.color === 'red'} 
-              className="red" 
+            <Button
+              type="button"
+              disabled={!this.props.enabled}
+              onClick={() => this.changeColor('red')}
+              active={fields.color === 'red'}
+              className="red"
               title={intl.messages.statusForm_tooMuch}
             >
-              <FormattedMessage 
+              <FormattedMessage
                 id='statusForm_tooMuch'
                 defaultMessage='Too much to do'
               />
             </Button>
-            <Button 
-              type="button" 
-              disabled={!this.props.enabled} 
-              onClick={() => this.changeColor('blue')} 
-              active={fields.color === 'blue'} 
-              className="blue" 
+            <Button
+              type="button"
+              disabled={!this.props.enabled}
+              onClick={() => this.changeColor('blue')}
+              active={fields.color === 'blue'}
+              className="blue"
               title={intl.messages.statusForm_notEnough}
             >
-              <FormattedMessage 
+              <FormattedMessage
                 id='statusForm_notEnough'
                 defaultMessage='Not enough to do'
               />
@@ -189,7 +189,7 @@ class StatusForm extends Component {
         <div>
           <label>
             <input type="checkbox" className={styles.checkbox} checked={fields.flagged} onChange={this.setFlagged}/>
-            <FormattedMessage 
+            <FormattedMessage
               id='statusForm_attention'
               defaultMessage='My situation requires attention'
             />
@@ -197,7 +197,7 @@ class StatusForm extends Component {
         </div>
         <div className={styles.control}>
           <div className={styles.label}>
-            <FormattedMessage 
+            <FormattedMessage
               id='statusForm_projects'
               defaultMessage='Which projects will you participate in to?'
             />
@@ -221,7 +221,7 @@ class StatusForm extends Component {
         </div>
 
         <Button type="submit" disabled={!this.isSubmittable()} id="submitter" className="orange">
-            <FormattedMessage 
+            <FormattedMessage
               id='statusForm_sendButtonText'
               defaultMessage='SUBMIT'
             />

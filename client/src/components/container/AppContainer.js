@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import App from '../App';
-import { bindActionCreators } from 'redux';
 
-import * as entryActions from 'ducks/entry';
-import * as employeeActions from 'ducks/employees';
-import * as projectActions from 'ducks/projects';
-import * as employeeProjectActions from 'ducks/employeeProjects';
+import { fetchEntries, changeWeek } from 'ducks/entry';
+import { fetchEmployees } from 'ducks/employees';
+import { fetchProjects } from 'ducks/projects';
+import { fetchEmployeeProjects } from 'ducks/employeeProjects';
 import { withRouter } from 'react-router';
 import { compose } from 'recompose';
 
@@ -19,11 +18,12 @@ export default compose(
       projects: state.projects,
       employeeProjects: state.employeeProjects
     }),
-    dispatch => ({
-      entryActions: bindActionCreators(entryActions, dispatch),
-      employeeActions: bindActionCreators(employeeActions, dispatch),
-      projectActions: bindActionCreators(projectActions, dispatch),
-      employeeProjectActions: bindActionCreators(employeeProjectActions, dispatch)
-    })
+    {
+      fetchEntries,
+      changeWeek,
+      fetchEmployees,
+      fetchProjects,
+      fetchEmployeeProjects
+    }
   )
 )(App);

@@ -20,11 +20,11 @@ export default ({
   date,
   now,
   entries,
-  entryActions,
-  employeeProjectActions,
+  addEntry,
+  saveProject,
   employees,
   projects,
-  projectActions,
+  addProject,
   employeeProjectsSavedNotification,
   loading
 }) => (
@@ -37,10 +37,10 @@ export default ({
       d={date}
       employees={employees}
       projects={projects}
-      employeeProjectActions={employeeProjectActions}
+      onSaveProject={saveProject}
       employeeProjectsSavedNotification={employeeProjectsSavedNotification}
-      onSubmit={entryActions.addEntry}
-      onAddNewProject={projectActions.addProject}
+      onSubmit={addEntry}
+      onAddNewProject={addProject}
     />
     <StatusCounts messages={entries} />
     <StatusMessages messages={entries} />

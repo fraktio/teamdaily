@@ -16,7 +16,7 @@ export default class MobileStatus extends Component {
 
   handleSubmit = state => {
     // TODO: actually make sure that it's received. Now it's kind of fire and forget.
-    this.props.entryActions.addEntry(state);
+    this.props.addEntry(state);
 
     this.setState({
       submitted: true

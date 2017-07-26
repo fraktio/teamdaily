@@ -22,29 +22,29 @@ export default class App extends Component {
   componentDidMount() {
     const {
       d,
-      employeeActions,
-      entryActions,
-      projectActions,
-      employeeProjectActions,
+      fetchEmployees,
+      fetchEntries,
+      fetchProjects,
+      fetchEmployeeProjects,
     } = this.props;
 
-    employeeActions.fetchEmployees();
-    entryActions.fetchEntries(d);
-    projectActions.fetchProjects();
-    employeeProjectActions.fetchEmployeeProjects();
+    fetchEmployees();
+    fetchEntries(d);
+    fetchProjects();
+    fetchEmployeeProjects();
 
     this.setReactivizer(d);
   }
 
   setReactivizer(d) {
-    const { entryActions } = this.props;
+    const { fetchEntries } = this.props;
 
     if (this.reactivizer) {
       clearInterval(this.reactivizer);
     }
 
     this.reactivizer = setInterval(() => {
-      entryActions.fetchEntries(d);
+      fetchEntries(d);
     }, fetchEntriesInterval);
   }
 
@@ -55,10 +55,10 @@ export default class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { d, entryActions } = this.props;
+    const { d, fetchEntries } = this.props;
 
     if (!d.isSame(prevProps.d)) {
-      entryActions.fetchEntries(d);
+      fetchEntries(d);
     }
   }
 
@@ -73,7 +73,7 @@ export default class App extends Component {
   render() {
     const {
       d,
-      entryActions,
+      changeWeek,
       match,
     } = this.props;
 
@@ -89,7 +89,7 @@ export default class App extends Component {
 
     return (
       <div>
-        <Header renderWeekSelector={renderWeekSelector} date={d} onChange={entryActions.changeWeek} />
+        <Header renderWeekSelector={renderWeekSelector} date={d} onChange={changeWeek} />
 
         <Switch>
           <Route path="/matrix" component={WeeklyMatrix} exact />

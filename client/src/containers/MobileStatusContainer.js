@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import MobileStatus from 'components/MobileStatus';
-import { bindActionCreators } from 'redux';
 
-import * as entryActions from 'ducks/entry';
+import { addEntry } from 'ducks/entry';
 
 export default connect(
   state => ({
@@ -12,7 +11,7 @@ export default connect(
     employees: state.employees,
     projects: state.projects
   }),
-  dispatch => ({
-    entryActions: bindActionCreators(entryActions, dispatch)
-  }),
+  {
+    addEntry
+  },
 )(MobileStatus);
