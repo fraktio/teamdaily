@@ -85,7 +85,7 @@ export default class App extends Component {
       '/week',
     ];
 
-    const renderWeekSelector = weekSelectorPaths.find(path => pathname.indexOf(path) !== -1);
+    const renderWeekSelector = weekSelectorPaths.find(path => pathname.includes(path));
 
     return (
       <div>
