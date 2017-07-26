@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import PeopleView from '../components/PeopleView/PeopleView';
-import { changeWeek } from 'ducks/entry';
+import { prevWeek, nextWeek } from 'ducks/entry';
 
 export default connect(
   state => ({
@@ -11,6 +11,7 @@ export default connect(
     date: state.entry.date,
   }),
   {
-    changeWeek
+    prevWeek,
+    nextWeek
   },
 )(PeopleView);

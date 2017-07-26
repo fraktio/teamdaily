@@ -85,7 +85,7 @@ export default class PeopleView extends Component {
     }
 
     render() {
-        const { employees, projects, entries, date, changeWeek } = this.props;
+        const { employees, projects, entries, date, prevWeek, nextWeek } = this.props;
         const sortedEmployees = sortEmployeesByImportance(employees, entries, projects);
 
         const orderedEmployees = OrderedSet(sortedEmployees.attention
@@ -107,7 +107,8 @@ export default class PeopleView extends Component {
                     orderedEmployees={orderedEmployees}
                     entries={entries}
                     handleSelectEmployee={this.handleSelectEmployee}
-                    changeWeek={changeWeek}
+                    onPrevWeek={prevWeek}
+                    onNextWeek={nextWeek}
                     date={date}/>
             }
             <Masonry options={masonryOptions}>
