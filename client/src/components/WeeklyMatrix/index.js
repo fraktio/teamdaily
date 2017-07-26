@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Range } from 'immutable';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
+import { FormattedMessage } from 'react-intl';
 
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
@@ -149,7 +150,12 @@ export default class WeeklyMatrix extends Component {
                     {week}
                   </th>
                 )}
-                <th className={cx(styles.th, styles.weekAlignLeft)}>Viikko</th>
+                <th className={cx(styles.th, styles.weekAlignLeft)}>
+                  <FormattedMessage 
+                      id='matrix_week'
+                      defaultMessage='Week'
+                  />
+                </th>
               </tr>
             </thead>
             <tbody>
