@@ -59,10 +59,7 @@ export default class PeopleView extends Component {
     componentWillReceiveProps(nextProps) {
         const { match, entryActions } = nextProps;
         const { date } = this.props;
-
         const week = match.params.week;
-        const weekNumber = nextProps.date.week();
-        const weekNumberNow = moment().week();
 
         if (!date.isSame(nextProps.date) && week) {
             entryActions.setWeek(week);
@@ -71,13 +68,19 @@ export default class PeopleView extends Component {
         if (date.isSame(nextProps.date)) {
             return;
         }
-    
+
         this.setWeekChangerInterval();
+        this.updatePath(nextProps.date.week());
+    }
+
+    updatePath(weekNumber) {
+        const weekNumberNow = moment().week();
 
         if (weekNumber !== weekNumberNow) {
             push('/people/'+weekNumber);
             return;
         }
+
         push('/people');
     }
 
