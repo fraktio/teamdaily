@@ -5,7 +5,7 @@ import moment from 'moment';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import { Icon } from 'react-fa';
 import { OrderedSet } from 'immutable';
-
+import { push } from '../ReduxRouter';
 import Masonry from 'react-masonry-component';
 
 import EmployeeCard from './EmployeeCard';
@@ -13,6 +13,8 @@ import styles from './style.pcss';
 import EmployeeModal from './EmployeeModal';
 import menuStyles from './menuStyle.pcss';
 import modalStyles from './modalStyle.pcss';
+
+const changeWeekInterval = 60000;
 
 export default class PeopleView extends Component {
     state = {
@@ -23,6 +25,64 @@ export default class PeopleView extends Component {
     handleSelectEmployee = (e, p) => this.setState({selectedEmployee: e})
     handleClick = (e, p) => this.setState({isShowingModal: true, selectedEmployee: e})
     handleClose = () => this.setState({isShowingModal: false})
+
+    componentDidMount() {
+        this.setWeekChangerInterval();
+    }
+    setWeekChangerInterval() {
+        const { match, entryActions, date } = this.props;
+
+        if (this.weekChanger) {
+            clearInterval(this.weekChanger);
+        }
+
+        this.weekChanger = setInterval(() => {
+            const week = date.week();
+            const weekNow = moment().week();
+
+            if (!match.params.week && week < weekNow) {
+                entryActions.setWeek(week);
+            }
+        }, changeWeekInterval);
+    }
+    componentWillUnmount() {
+        clearInterval(this.weekChanger);
+    }
+    componentWillMount() {
+        const { match, entryActions } = this.props;
+
+        const week = match.params.week;
+        if (week) {
+            entryActions.setWeek(week);
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        const { match, entryActions } = nextProps;
+        const { date } = this.props;
+        const week = match.params.week;
+
+        if (date.isSame(nextProps.date)) {
+            return;
+        }
+
+        if (week) {
+            entryActions.setWeek(week);
+        }
+
+        this.setWeekChangerInterval();
+        this.updatePath(nextProps.date.week());
+    }
+
+    updatePath(weekNumber) {
+        const weekNumberNow = moment().week();
+
+        if (weekNumber !== weekNumberNow) {
+            push('/people/'+weekNumber);
+            return;
+        }
+
+        push('/people');
+    }
 
     render() {
         const { employees, projects, entries, date, entryActions } = this.props;

@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Icon } from 'react-fa';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
+
 import styles from './style.pcss';
 
 export default class WeekSelection extends Component {
   changeWeek = change => {
-    event.preventDefault();
     this.props.onChange(change);
   }
-
   render() {
+    const { d } = this.props;
+
     return (
       <div className={styles.container}>
         <a onClick={event => this.changeWeek(-1)}>
@@ -20,7 +21,7 @@ export default class WeekSelection extends Component {
           <FormattedMessage 
               id='weekSelector_week'
               defaultMessage='Week {week}'
-              values={{week: this.props.weekNumberAndYear}}
+              values={{week: this.props.d.format('WW-GGGG')}}
           />
         </h2>
         <a onClick={event => this.changeWeek(1)}>
