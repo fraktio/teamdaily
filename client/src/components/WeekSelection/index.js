@@ -11,6 +11,8 @@ export default class WeekSelection extends Component {
     this.props.onChange(change);
   }
   render() {
+    const { d } = this.props;
+
     return (
       <div className={styles.container}>
         <a onClick={event => this.changeWeek(-1)}>

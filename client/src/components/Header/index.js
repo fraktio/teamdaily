@@ -63,7 +63,7 @@ export default class Header extends Component {
           </nav>
         </div>
         {renderWeekSelector &&
-          <WeekSelection d={date} weekNumberAndYear={date.format('WW-GGGG')} onChange={onChange}/>
+          <WeekSelection d={date} onChange={onChange}/>
         }
       </header>
     )
