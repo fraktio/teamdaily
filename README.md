@@ -1,6 +1,6 @@
-# Fraktio presents: Team Daily Open Source
+# TeamDaily
 
-By popular request, here's the open sourced version of our internal "Team Daily" tool which we use
+By popular request, here's the open sourced version of our internal "TeamDaily" tool which we at Fraktio use
 to measure our people's business and happiness and such.
 
 Jaani talks about this software in [his mighty blog post](https://fraktio.fi/blogi/sisainen-kehitys-case-teamdaily/).
