@@ -14,6 +14,7 @@
     "admin_addEmployee": "Lisää ihminen",
     "admin_addProject": "Lisää projekti",
     "admin_projects": "Projektit",
+    "admin_delete": "Poista",
     "admin_employees": "Ihmiset",
     "header_matrix": "Matriisi",
     "header_people": "Ihmiset",

@@ -50,7 +50,12 @@ class AdminView extends Component {
             <div key={project.id} className={styles.project}>
               <div>{project.name}</div>
   
-              <button className={styles.deleteButton} onClick={() => this.deleteProject(project.id)}>Poista</button>
+              <button className={styles.deleteButton} onClick={() => this.deleteProject(project.id)}>
+                <FormattedMessage 
+                    id='admin_delete'
+                    defaultMessage='Delete'
+                />
+              </button>
             </div>
           ))}
         </Masonry>
@@ -67,7 +72,12 @@ class AdminView extends Component {
             <div key={employee.id} className={styles.project}>
               <div>{employee.name}</div>
   
-              <button className={styles.deleteButton} onClick={() => this.deleteEmployee(employee.id)}>Poista</button>
+              <button className={styles.deleteButton} onClick={() => this.deleteEmployee(employee.id)}>
+                <FormattedMessage 
+                    id='admin_delete'
+                    defaultMessage='Delete'
+                />
+              </button>
             </div>
           ))}
         </Masonry>
