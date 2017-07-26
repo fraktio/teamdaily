@@ -3,8 +3,6 @@ import MobileStatus from 'components/MobileStatus';
 import { bindActionCreators } from 'redux';
 
 import * as entryActions from 'ducks/entry';
-import * as employeeActions from 'ducks/employees';
-import * as projectActions from 'ducks/projects';
 
 export default connect(
   state => ({
@@ -15,8 +13,6 @@ export default connect(
     projects: state.projects
   }),
   dispatch => ({
-    entryActions: bindActionCreators(entryActions, dispatch),
-    employeeActions: bindActionCreators(employeeActions, dispatch),
-    projectActions: bindActionCreators(projectActions, dispatch)
+    entryActions: bindActionCreators(entryActions, dispatch)
   }),
 )(MobileStatus);

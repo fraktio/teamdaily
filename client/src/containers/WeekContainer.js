@@ -3,9 +3,8 @@ import Week from 'components/Week';
 import { bindActionCreators } from 'redux';
 
 import * as entryActions from 'ducks/entry';
-import * as employeeActions from 'ducks/employees';
-import * as projectActions from 'ducks/projects';
 import * as employeeProjectActions from 'ducks/employeeProjects';
+import * as projectActions from 'ducks/projects';
 
 export default connect(
   state => ({
@@ -18,8 +17,7 @@ export default connect(
   }),
   dispatch => ({
     entryActions: bindActionCreators(entryActions, dispatch),
-    employeeActions: bindActionCreators(employeeActions, dispatch),
-    projectActions: bindActionCreators(projectActions, dispatch),
-    employeeProjectActions: bindActionCreators(employeeProjectActions, dispatch)
+    employeeProjectActions: bindActionCreators(employeeProjectActions, dispatch),
+    projectActions: bindActionCreators(projectActions, dispatch)
   }),
 )(Week);

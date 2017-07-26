@@ -10,7 +10,7 @@ import ProjectBox from './ProjectBox';
 
 export default class ProjectView extends Component {
     render() {
-        const { employees, projects, entries, date, entryActions } = this.props;
+        const { employees, projects, entries, date } = this.props;
 
         const projectsWithEmployees = projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(p => {
             p.employees = employees
@@ -31,7 +31,7 @@ export default class ProjectView extends Component {
                     </div>
 
                     <h4 className={styles.title}>
-                        <FormattedMessage 
+                        <FormattedMessage
                             id='projects_projectsWithout'
                             defaultMessage='Projects without anyone assigned'
                         />

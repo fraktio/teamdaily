@@ -130,8 +130,7 @@ export default class WeeklyMatrix extends Component {
   render() {
     const { weeklyData, bottom, bottomData } = this.state;
     const { loading, date, employees,
-      projects, employeeProjectActions, employeeProjectsSavedNotification,
-    entryActions, projectActions} = this.props;
+      projects, employeeProjectsSavedNotification } = this.props;
 
     const userData = userDataExtractor(weeklyData);
 
@@ -151,7 +150,7 @@ export default class WeeklyMatrix extends Component {
                   </th>
                 )}
                 <th className={cx(styles.th, styles.weekAlignLeft)}>
-                  <FormattedMessage 
+                  <FormattedMessage
                       id='matrix_week'
                       defaultMessage='Week'
                   />
