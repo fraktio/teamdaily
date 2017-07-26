@@ -64,7 +64,7 @@ export default class PeopleView extends Component {
         const weekNumber = nextProps.date.week();
         const weekNumberNow = moment().week();
 
-        if (this.props.d !== nextProps.d && week) {
+        if (this.props.date !== nextProps.date && week) {
             entryActions.setWeek(week);
         }
 
