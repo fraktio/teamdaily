@@ -33,10 +33,12 @@ export default class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    clearInterval(this.reactivizer);
-    this.reactivizer = setInterval(() => {
-      nextProps.entryActions.fetchEntries(nextProps.d);
-    }, 60000);
+    if (this.props.d !== nextProps.d) {
+      clearInterval(this.reactivizer);
+      this.reactivizer = setInterval(() => {
+        nextProps.entryActions.fetchEntries(nextProps.d);
+      }, 60000);
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
