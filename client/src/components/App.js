@@ -49,7 +49,7 @@ export default class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.d !== nextProps.d) {
+    if (!this.props.d.isSame(nextProps.d)) {
       this.setReactivizer(nextProps.d);
     }
   }
@@ -57,7 +57,7 @@ export default class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { d, entryActions } = this.props;
 
-    if (d !== prevProps.d) {
+    if (!d.isSame(prevProps.d)) {
       entryActions.fetchEntries(d);
     }
   }
