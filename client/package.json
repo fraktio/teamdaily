@@ -3,7 +3,26 @@
   "version": "3.0.0",
   "description": "TeamDaily client",
   "main": "src",
+  "lint-staged": {
+    "gitDir": "..",
+    "linters": {
+      "*.js": [
+        "./node_modules/.bin/prettier --single-quote --print-width 100 --trailing-comma all --write",
+        "git add"
+      ],
+      "*.json": ["./node_modules/.bin/prettier --parser json --print-width 100 --write", "git add"],
+      "*.css": [
+        "./node_modules/.bin/prettier --parser postcss --print-width 100 --write",
+        "git add"
+      ],
+      "*.pcss": [
+        "./node_modules/.bin/prettier --parser postcss --print-width 100 --write",
+        "git add"
+      ]
+    }
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "clean": "rimraf ./dist",
     "build:client": "cross-env NODE_ENV=production webpack --progress",
     "build": "yarn run clean && yarn run build:client",
@@ -17,9 +36,7 @@
     "type": "git",
     "url": "https://github.com/fraktio/teamdaily-os"
   },
-  "keywords": [
-    "TeamDaily"
-  ],
+  "keywords": ["TeamDaily"],
   "author": "Fraktio",
   "license": "MIT",
   "dependencies": {
@@ -87,6 +104,7 @@
     "jsdom": "^11.0.0",
     "jsdom-global": "^3.0.2",
     "json-loader": "^0.5.4",
+    "lint-staged": "^4.0.2",
     "merge": "^1.2.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
@@ -99,6 +117,7 @@
     "postcss-nested": "^2.0.2",
     "postcss-nesting": "^4.0.1",
     "postcss-partial-import": "^4.1.0",
+    "prettier": "^1.5.3",
     "react-addons-test-utils": "^15.6.0",
     "react-dev-utils": "^3.0.0",
     "react-hot-loader": "v3.0.0-beta.7",
