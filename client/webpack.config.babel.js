@@ -14,7 +14,7 @@ import {
   processCommonLoaders,
   processEnvLoaders,
   processCommonPlugins,
-  processEnvPlugins
+  processEnvPlugins,
 } from './src/config/webpack';
 
 import dotenv from 'dotenv';
@@ -31,50 +31,38 @@ const PATHS = {
 
 export function getCommonLoaders() {
   const commonLoaders = List([
-    getStyleLoader(
-      ENV,
-      'browser',
-      {
-        test: /\.pcss$/,
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 2,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
-            },
+    getStyleLoader(ENV, 'browser', {
+      test: /\.pcss$/,
+      use: [
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 2,
+            localIdentName: '[name]__[local]__[hash:base64:5]',
           },
-          {
-            loader: 'postcss-loader',
+        },
+        {
+          loader: 'postcss-loader',
+        },
+      ],
+    }),
+    getStyleLoader(ENV, 'browser', {
+      test: /\.css$/,
+      include: [PATHS.modules],
+      use: [
+        {
+          loader: 'css-loader',
+          options: {
+            modules: false,
+            importLoaders: 2,
           },
-        ],
-      },
-    ),
-    getStyleLoader(
-      ENV,
-      'browser',
-      {
-        test: /\.css$/,
-        include: [
-          PATHS.modules,
-        ],
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
-              importLoaders: 2,
-            },
-          },
-        ],
-      },
-    ),
+        },
+      ],
+    }),
     {
       test: /\.(png|jpg|gif|ico|svg)$/,
-      include: [
-        PATHS.src,
-      ],
+      include: [PATHS.src],
       use: [
         {
           loader: 'file-loader',
@@ -85,33 +73,32 @@ export function getCommonLoaders() {
         {
           loader: 'img-loader',
           options: {
-            enabled: ENV === 'production'
+            enabled: ENV === 'production',
           },
         },
       ],
     },
     {
       test: /font.*\.(woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      include: [
-        PATHS.src,
-        PATHS.modules,
-      ],
-      use: [{
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: '[path][name]-[hash].[ext]',
+      include: [PATHS.src, PATHS.modules],
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: '[path][name]-[hash].[ext]',
+          },
         },
-      }],
+      ],
     },
     {
       test: /\.jsx?$/,
-      use: [{
-        loader: 'babel-loader'
-      }],
-      exclude: [
-        PATHS.modules,
+      use: [
+        {
+          loader: 'babel-loader',
+        },
       ],
+      exclude: [PATHS.modules],
     },
   ]);
   return processCommonLoaders(commonLoaders);
@@ -120,10 +107,7 @@ export function getCommonLoaders() {
 const common = {
   context: path.join(__dirname, 'src'),
   resolve: {
-    modules: [
-      PATHS.src,
-      'node_modules',
-    ],
+    modules: [PATHS.src, 'node_modules'],
     extensions: ['.js', '.jsx'],
   },
 };
@@ -134,7 +118,6 @@ export function getCommonPlugins() {
     new CaseSensitivePathsPlugin(),
     new WatchMissingNodeModulesPlugin(PATHS.modules),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin('styles.[contenthash].css'),
     new webpack.DefinePlugin({
@@ -143,9 +126,7 @@ export function getCommonPlugins() {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.API': JSON.stringify(process.env.API),
     }),
-    new CopyWebpackPlugin([
-      { from: 'assets/web/*.*', flatten: true },
-    ]),
+    new CopyWebpackPlugin([{ from: 'assets/web/*.*', flatten: true }]),
     new HtmlWebpackPlugin({
       title: 'Hardcorest React App',
       template: 'assets/index.html',
@@ -163,7 +144,7 @@ export function getCommonPlugins() {
       name: 'meta',
       chunks: ['vendor'],
       filename: 'meta.[hash].js',
-    })
+    }),
   );
 
   return processCommonPlugins(commonPlugins);
@@ -172,33 +153,21 @@ export function getCommonPlugins() {
 const envs = {
   test: {
     module: {
-      rules: processEnvLoaders(
-        'test',
-        getCommonLoaders()
-      ).toJS()
+      rules: processEnvLoaders('test', getCommonLoaders()).toJS(),
     },
     devtool: '#inline-source-map',
   },
 
   development: {
     module: {
-      rules: processEnvLoaders(
-        'development',
-        getCommonLoaders()
-      ).toJS()
+      rules: processEnvLoaders('development', getCommonLoaders()).toJS(),
     },
     devtool: '#eval-source-map',
     entry: {
-      client: [
-        'react-hot-loader/patch',
-        'webpack-hot-middleware/client',
-        './client.js',
-      ],
+      client: ['react-hot-loader/patch', 'webpack-hot-middleware/client', './client.js'],
       vendor: [
-        'babel-polyfill' // de-comment if polyfill is needed
-      ].concat(
-        Object.keys(pkg.dependencies),
-      ),
+        // Add your stuff if needed.................
+      ].concat(Object.keys(pkg.dependencies)),
     },
     output: {
       path: path.join(__dirname, 'dist'),
@@ -207,28 +176,19 @@ const envs = {
     },
     plugins: processEnvPlugins(
       'development',
-      getCommonPlugins().concat([
-        new webpack.HotModuleReplacementPlugin(),
-      ])
+      getCommonPlugins().concat([new webpack.HotModuleReplacementPlugin()]),
     ).toJS(),
   },
   production: {
     module: {
-      rules: processEnvLoaders(
-        'production',
-        getCommonLoaders()
-      ).toJS()
+      rules: processEnvLoaders('production', getCommonLoaders()).toJS(),
     },
     devtool: 'source-map',
     entry: {
-      client: [
-        './client.js',
-      ],
+      client: ['./client.js'],
       vendor: [
-        'babel-polyfill' // de-comment if polyfill is needed
-      ].concat(
-        Object.keys(pkg.dependencies),
-      ),
+        // Add your stuff if needed.................
+      ].concat(Object.keys(pkg.dependencies)),
     },
 
     output: {
@@ -257,7 +217,7 @@ const envs = {
           sortManifest: true,
           merge: true,
         }),
-      ])
+      ]),
     ).toJS(),
   },
 };
