@@ -27,9 +27,15 @@ class EmployeeModal extends React.Component {
     }
 
     @keydown(37)
-    lastWeek(event) { this.props.changeWeek(-1) }
+    lastWeek(event) {
+        this.props.onPrevWeek()
+    }
+
     @keydown(39)
-    nextWeek(event) { this.props.changeWeek(1) }
+    nextWeek(event) {
+        this.props.onNextWeek()
+    }
+
     @keydown(27)
     closeModal = (event) => {
         event.preventDefault();
@@ -63,7 +69,19 @@ class EmployeeModal extends React.Component {
     }
 
     render() {
-        const { e, handleClose, projects, sortedEmployees, handleSelectEmployee, orderedEmployees, entries, date, intl } = this.props;
+        const {
+            e,
+            handleClose,
+            projects,
+            sortedEmployees,
+            handleSelectEmployee,
+            orderedEmployees,
+            entries,
+            date,
+            intl,
+            onPrevWeek,
+            onNextWeek
+        } = this.props;
 
         if (!e) { return null; }
 
@@ -75,7 +93,7 @@ class EmployeeModal extends React.Component {
             <div>
                 <div className={menuStyles.menu}>
                     <div className={menuStyles.header}>
-                        <WeekSelection date={date} onChange={this.props.changeWeek}/>
+                        <WeekSelection date={date} onPrevWeek={onPrevWeek} onNextWeek={onNextWeek} />
                     </div>
                     {
                         orderedEmployees.map(employee => {
@@ -120,7 +138,7 @@ class EmployeeModal extends React.Component {
                     </div>
                 }
                 <div className={modalStyles.content}>
-                    <FormattedMessage 
+                    <FormattedMessage
                         id='people_status'
                         defaultMessage='Status'
                     />
@@ -140,7 +158,7 @@ class EmployeeModal extends React.Component {
                             )
                         })}
                     </div>
-                    <FormattedMessage 
+                    <FormattedMessage
                         id='people_participating'
                         defaultMessage='Projects'
                     />

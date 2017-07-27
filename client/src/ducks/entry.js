@@ -3,9 +3,9 @@ import moment from 'moment';
 import api from 'services/api';
 import localstorage from 'services/localstorage';
 
-const CHANGE_WEEK = 'teamdaily/entry/CHANGE_WEEK';
-const SET_WEEK = 'teamdaily/entry/SET_WEEK';
-const RESET_WEEK = 'teamdaily/entry/RESET_WEEK';
+const PREV_WEEK = 'teamdaily/entry/PREV_WEEK';
+const NEXT_WEEK = 'teamdaily/entry/NEXT_WEEK';
+const SET_DATE = 'teamdaily/entry/SET_DATE';
 const REQUEST_ENTRIES = 'teamdaily/entry/REQUEST_ENTRIES';
 const RECEIVE_ENTRIES = 'teamdaily/entry/RECEIVE_ENTRIES';
 const REQUEST_NEW_ENTRY = 'teamdaily/entry/REQUEST_NEW_ENTRY';
@@ -19,21 +19,22 @@ const defaultState = {
 
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
-    case SET_WEEK: 
+    case SET_DATE:
       return {
         ...state,
-        date: moment().day("Monday").week(action.week)
+        date: action.date
       }
-    case RESET_WEEK:
+
+    case PREV_WEEK:
       return {
         ...state,
-        date: moment()
+        date: moment(state.date).subtract(1, 'weeks')
       }
-    case CHANGE_WEEK:
+    case NEXT_WEEK:
       return {
         ...state,
-        date: moment(state.date).add(action.amount, 'weeks')
-      };
+        date: moment(state.date).add(1, 'weeks')
+      }
 
     case RECEIVE_NEW_ENTRY:
       return {
@@ -67,8 +68,8 @@ export default function reducer(state = defaultState, action) {
 
 export function setWeek(week) {
   return {
-    type: SET_WEEK,
-    week
+    type: SET_DATE,
+    date: moment().day("Monday").week(week)
   };
 }
 
@@ -85,16 +86,22 @@ function receiveEntries(entries) {
   };
 }
 
-export function changeWeek(amount) {
+export function prevWeek() {
   return {
-    type: CHANGE_WEEK,
-    amount
+    type: PREV_WEEK
   };
 };
 
+export function nextWeek() {
+  return {
+    type: NEXT_WEEK
+  };
+}
+
 export function resetWeek() {
   return {
-    type: RESET_WEEK
+    type: SET_DATE,
+    date: moment()
   }
 }
 

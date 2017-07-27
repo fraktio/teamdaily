@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import App from 'components/App';
 
-import { fetchEntries, changeWeek } from 'ducks/entry';
+import { fetchEntries, prevWeek, nextWeek } from 'ducks/entry';
 import { fetchEmployees } from 'ducks/employees';
 import { fetchProjects } from 'ducks/projects';
 import { fetchEmployeeProjects } from 'ducks/employeeProjects';
@@ -20,7 +20,8 @@ export default compose(
     }),
     {
       fetchEntries,
-      changeWeek,
+      prevWeek,
+      nextWeek,
       fetchEmployees,
       fetchProjects,
       fetchEmployeeProjects

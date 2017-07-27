@@ -73,7 +73,8 @@ export default class App extends Component {
   render() {
     const {
       date,
-      changeWeek,
+      prevWeek,
+      nextWeek,
       match,
     } = this.props;
 
@@ -89,7 +90,12 @@ export default class App extends Component {
 
     return (
       <div>
-        <Header renderWeekSelector={renderWeekSelector} date={date} onChange={changeWeek} />
+        <Header
+          renderWeekSelector={renderWeekSelector}
+          date={date}
+          onPrevWeek={prevWeek}
+          onNextWeek={nextWeek}
+        />
 
         <Switch>
           <Route path="/matrix" component={WeeklyMatrix} exact />

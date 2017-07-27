@@ -8,7 +8,7 @@ import styles from './style.pcss';
 
 export default class Header extends Component {
   render () {
-    const { renderWeekSelector, date, onChange } = this.props
+    const { renderWeekSelector, date, onNextWeek, onPrevWeek } = this.props
 
     return (
       <header className={styles.container}>
@@ -19,7 +19,7 @@ export default class Header extends Component {
               to="/matrix"
               className={styles.navItem}
             >
-              <FormattedMessage 
+              <FormattedMessage
                   id='header_matrix'
                   defaultMessage='Matrix'
               />
@@ -28,7 +28,7 @@ export default class Header extends Component {
               to="/people"
               className={styles.navItem}
             >
-              <FormattedMessage 
+              <FormattedMessage
                   id='header_people'
                   defaultMessage='People'
               />
@@ -37,7 +37,7 @@ export default class Header extends Component {
               to="/projects"
               className={styles.navItem}
             >
-              <FormattedMessage 
+              <FormattedMessage
                   id='header_projects'
                   defaultMessage='Projects'
               />
@@ -46,7 +46,7 @@ export default class Header extends Component {
               to="/week"
               className={styles.navItem}
             >
-              <FormattedMessage 
+              <FormattedMessage
                   id='header_week'
                   defaultMessage='Status Form'
               />
@@ -55,15 +55,16 @@ export default class Header extends Component {
               to="/admin"
               className={styles.navItem}
             >
-              <FormattedMessage 
+              <FormattedMessage
                   id='header_admin'
                   defaultMessage='Admin Panel'
               />
             </Link>
           </nav>
         </div>
+
         {renderWeekSelector &&
-          <WeekSelection date={date} onChange={onChange}/>
+          <WeekSelection date={date} onNextWeek={onNextWeek} onPrevWeek={onPrevWeek} />
         }
       </header>
     )
