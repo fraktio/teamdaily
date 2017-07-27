@@ -2,16 +2,9 @@ import { createStore as reduxCreateStore, applyMiddleware, combineReducers } fro
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 // import { reducer as formReducer } from 'redux-form';
 
-export function createStore(
-  reducers,
-  middlewares = [],
-  enhancers = [],
-  initialState = undefined,
-) {
+export function createStore(reducers, middlewares = [], enhancers = [], initialState = undefined) {
   const createStoreWithMiddleware = composeWithDevTools(
-    applyMiddleware(
-      ...middlewares,
-    ),
+    applyMiddleware(...middlewares),
     ...enhancers,
   )(reduxCreateStore);
 

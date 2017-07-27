@@ -4,7 +4,7 @@ export default function extractUserData(weeklyData) {
 
     if (acc[normalizedName] === undefined) {
       acc[normalizedName] = {
-        weeks: {}
+        weeks: {},
       };
     }
 

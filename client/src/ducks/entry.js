@@ -22,19 +22,19 @@ export default function reducer(state = defaultState, action) {
     case SET_DATE:
       return {
         ...state,
-        date: action.date
-      }
+        date: action.date,
+      };
 
     case PREV_WEEK:
       return {
         ...state,
-        date: moment(state.date).subtract(1, 'weeks')
-      }
+        date: moment(state.date).subtract(1, 'weeks'),
+      };
     case NEXT_WEEK:
       return {
         ...state,
-        date: moment(state.date).add(1, 'weeks')
-      }
+        date: moment(state.date).add(1, 'weeks'),
+      };
 
     case RECEIVE_NEW_ENTRY:
       return {
@@ -58,7 +58,7 @@ export default function reducer(state = defaultState, action) {
     case REQUEST_ENTRIES:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
 
     default:
@@ -69,40 +69,40 @@ export default function reducer(state = defaultState, action) {
 export function setWeek(week) {
   return {
     type: SET_DATE,
-    date: moment().day("Monday").week(week)
+    date: moment().day('Monday').week(week),
   };
 }
 
 function requestEntries() {
   return {
-    type: REQUEST_ENTRIES
+    type: REQUEST_ENTRIES,
   };
 }
 
 function receiveEntries(entries) {
   return {
     type: RECEIVE_ENTRIES,
-    entries
+    entries,
   };
 }
 
 export function prevWeek() {
   return {
-    type: PREV_WEEK
+    type: PREV_WEEK,
   };
-};
+}
 
 export function nextWeek() {
   return {
-    type: NEXT_WEEK
+    type: NEXT_WEEK,
   };
 }
 
 export function resetWeek() {
   return {
     type: SET_DATE,
-    date: moment()
-  }
+    date: moment(),
+  };
 }
 
 export function fetchEntries(date) {
@@ -112,24 +112,24 @@ export function fetchEntries(date) {
       dispatch(receiveEntries(entries));
     });
   };
-};
+}
 
 function requestNewEntry() {
   return {
-    type: REQUEST_NEW_ENTRY
+    type: REQUEST_NEW_ENTRY,
   };
 }
 
 function receiveNewEntry(entry) {
   return {
     type: RECEIVE_NEW_ENTRY,
-    entry
+    entry,
   };
 }
 
 export function addEntry(entry) {
   localstorage.save({
-    ...entry
+    ...entry,
   });
 
   return (dispatch, getState) => {
@@ -137,10 +137,13 @@ export function addEntry(entry) {
 
     const date = getState().entry.date;
 
-    api.submitStatus(entry, date).then(entry => {
-      dispatch(receiveNewEntry(entry));
-    }).catch(() => {
-      console.log('TODO fail handler');
-    });
+    api
+      .submitStatus(entry, date)
+      .then(entry => {
+        dispatch(receiveNewEntry(entry));
+      })
+      .catch(() => {
+        console.log('TODO fail handler');
+      });
   };
 }

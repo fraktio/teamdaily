@@ -7,7 +7,7 @@ const NOTIFICATION_SET = 'teamdaily/employeeProject/NOTIFICATION_SET';
 
 const defaultState = Map({
   employeeProjects: List(),
-  employeeProjectsSavedNotification: false
+  employeeProjectsSavedNotification: false,
 });
 
 export default function reducer(state = defaultState, action) {
@@ -16,8 +16,9 @@ export default function reducer(state = defaultState, action) {
       return state.update('employeeProjects', () => action.employeeProjects);
 
     case NOTIFICATION_SET:
-      return state.update('employeeProjectsSavedNotification', () =>
-        action.employeeProjectsSavedNotification
+      return state.update(
+        'employeeProjectsSavedNotification',
+        () => action.employeeProjectsSavedNotification,
       );
 
     default:
@@ -28,15 +29,15 @@ export default function reducer(state = defaultState, action) {
 function receiveEmployeeProjects(employeeProjects) {
   return {
     type: LOAD,
-    employeeProjects
+    employeeProjects,
   };
 }
 
 function setEmployeeProjectsSavedNotificationState(employeeProjectsSavedNotification) {
   return {
     type: NOTIFICATION_SET,
-    employeeProjectsSavedNotification
-  }
+    employeeProjectsSavedNotification,
+  };
 }
 
 export function fetchEmployeeProjects() {
@@ -49,17 +50,20 @@ export function fetchEmployeeProjects() {
 
 export function saveProject(state, employeeId, projectId, newProjectState) {
   localstorage.save({
-    ...state
+    ...state,
   });
 
   return function(dispatch) {
-    api.saveProject(employeeId, projectId, newProjectState).then(employeeProjects => {
-      dispatch(setEmployeeProjectsSavedNotificationState(true));
-      setTimeout(() => {
-        dispatch(setEmployeeProjectsSavedNotificationState(false));
-      }, 2000);
-    }).catch(() => {
-      console.log('TODO fail handler');
-    });
+    api
+      .saveProject(employeeId, projectId, newProjectState)
+      .then(employeeProjects => {
+        dispatch(setEmployeeProjectsSavedNotificationState(true));
+        setTimeout(() => {
+          dispatch(setEmployeeProjectsSavedNotificationState(false));
+        }, 2000);
+      })
+      .catch(() => {
+        console.log('TODO fail handler');
+      });
   };
 }

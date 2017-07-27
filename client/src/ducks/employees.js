@@ -14,18 +14,16 @@ export default function reducer(state = List(), action) {
 }
 
 function receiveEmployees(employees) {
-  const sortedEmployees = employees.sort(
-    function(a, b) {
-      const aName = name(a.name)
-      const bName = name(b.name)
+  const sortedEmployees = employees.sort(function(a, b) {
+    const aName = name(a.name);
+    const bName = name(b.name);
 
-      return aName.localeCompare(bName)
-    }
-  )
+    return aName.localeCompare(bName);
+  });
 
   return {
     type: LOAD,
-    sortedEmployees
+    sortedEmployees,
   };
 }
 
@@ -35,20 +33,22 @@ export function fetchEmployees(date) {
       dispatch(receiveEmployees(employees));
     });
   };
-};
+}
 
 export function addEmployee(employee) {
   return dispatch => {
-    return api.addEmployee(employee)
+    return api
+      .addEmployee(employee)
       .then(() => dispatch(fetchEmployees()))
       .catch(() => dispatch(fetchEmployees()));
   };
-};
+}
 
 export function deleteEmployee(id) {
   return dispatch => {
-    api.deleteEmployee(id)
+    api
+      .deleteEmployee(id)
       .then(() => dispatch(fetchEmployees()))
       .catch(() => dispatch(fetchEmployees()));
   };
-};
+}

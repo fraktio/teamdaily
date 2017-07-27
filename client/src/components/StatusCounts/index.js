@@ -8,14 +8,13 @@ const calculateWidth = (total, n) => {
     return 0;
   }
 
-  const unit =  100 / total;
+  const unit = 100 / total;
   return n * unit;
 };
 
-const filterByColor = (messages, color) =>
-  messages.filter(message => message.color === color);
+const filterByColor = (messages, color) => messages.filter(message => message.color === color);
 
-export default ({ messages }) => (
+export default ({ messages }) =>
   <div className={styles.container}>
     <div className={styles.simpleGraph}>
       {colors.map(color => {
@@ -26,7 +25,7 @@ export default ({ messages }) => (
             key={color}
             className={cx(styles.bar, color)}
             style={{
-              width: calculateWidth(messages.count(), filteredMessages.count()) + '%'
+              width: calculateWidth(messages.count(), filteredMessages.count()) + '%',
             }}
           />
         );
@@ -40,10 +39,11 @@ export default ({ messages }) => (
 
         return (
           <div key={color} className={classes}>
-            <p className={styles.heading}>{filteredMessages.count()}</p>
+            <p className={styles.heading}>
+              {filteredMessages.count()}
+            </p>
           </div>
         );
       })}
     </div>
-  </div>
-);
+  </div>;

@@ -1,25 +1,25 @@
-import React, { Component } from 'react'
-import { Icon } from 'react-fa'
-import moment from 'moment'
-import { FormattedMessage } from 'react-intl'
+import React, { Component } from 'react';
+import { Icon } from 'react-fa';
+import moment from 'moment';
+import { FormattedMessage } from 'react-intl';
 
-import styles from './style.pcss'
+import styles from './style.pcss';
 
 export default class WeekSelection extends Component {
   handlePrevClick = e => {
-    const { onPrevWeek } = this.props
+    const { onPrevWeek } = this.props;
 
-    onPrevWeek()
-  }
+    onPrevWeek();
+  };
 
   handleNextClick = e => {
-    const { onNextWeek } = this.props
+    const { onNextWeek } = this.props;
 
-    onNextWeek()
-  }
+    onNextWeek();
+  };
 
   render() {
-    const { date } = this.props
+    const { date } = this.props;
 
     return (
       <div className={styles.container}>
@@ -39,6 +39,6 @@ export default class WeekSelection extends Component {
           <Icon name="arrow-right" />
         </a>
       </div>
-    )
+    );
   }
 }

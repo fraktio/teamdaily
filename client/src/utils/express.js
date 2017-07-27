@@ -40,6 +40,6 @@ export function createServer(port, webpackConfig, callback) {
     return {
       app,
       httpServer,
-    }
+    };
   });
 }

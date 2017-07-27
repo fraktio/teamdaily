@@ -10,13 +10,14 @@ import { compose } from 'recompose';
 
 export default compose(
   withRouter,
-  connect(state => ({
+  connect(
+    state => ({
       entries: state.entry.entries,
       date: state.entry.date,
       loading: state.entry.loading,
       employees: state.employees,
       projects: state.projects,
-      employeeProjects: state.employeeProjects
+      employeeProjects: state.employeeProjects,
     }),
     {
       fetchEntries,
@@ -24,7 +25,7 @@ export default compose(
       nextWeek,
       fetchEmployees,
       fetchProjects,
-      fetchEmployeeProjects
-    }
-  )
+      fetchEmployeeProjects,
+    },
+  ),
 )(App);

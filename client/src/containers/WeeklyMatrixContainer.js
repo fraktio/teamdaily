@@ -8,7 +8,9 @@ export default connect(
     loading: state.entry.loading,
     employees: state.employees,
     projects: state.projects,
-    employeeProjectsSavedNotification: state.employeeProjects.get('employeeProjectsSavedNotification')
+    employeeProjectsSavedNotification: state.employeeProjects.get(
+      'employeeProjectsSavedNotification',
+    ),
   }),
   {},
 )(WeeklyMatrix);

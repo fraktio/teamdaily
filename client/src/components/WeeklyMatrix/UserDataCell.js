@@ -9,10 +9,7 @@ export default ({ label, weeklyData, weekNumber, year, userName, onClick, classN
   const classes = cx(className, color, 'clickabe');
 
   return (
-    <td
-      onClick={() => onClick(weekNumber, year, userName)}
-      className={classes}
-    >
+    <td onClick={() => onClick(weekNumber, year, userName)} className={classes}>
       {label}
     </td>
   );

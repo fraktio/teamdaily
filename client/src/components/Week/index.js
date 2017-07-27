@@ -10,9 +10,8 @@ import styles from './style.pcss';
 const isFormEnabled = (loading, date) => {
   const now = moment();
 
-  return !loading && (
-    now.format('GGGG') == date.format('GGGG') &&
-    now.format('WW') == date.format('WW')
+  return (
+    !loading && (now.format('GGGG') == date.format('GGGG') && now.format('WW') == date.format('WW'))
   );
 };
 
@@ -26,10 +25,9 @@ export default ({
   projects,
   addProject,
   employeeProjectsSavedNotification,
-  loading
-}) => (
+  loading,
+}) =>
   <div>
-
     <StatusForm
       initialValues={localstorage.load()}
       enabled={isFormEnabled(loading, date)}
@@ -44,5 +42,4 @@ export default ({
     />
     <StatusCounts messages={entries} />
     <StatusMessages messages={entries} />
-  </div>
-);
+  </div>;

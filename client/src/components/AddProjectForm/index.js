@@ -10,13 +10,13 @@ class AddProjectForm extends Component {
     showForm: false,
     newProjectName: '',
     submitButtonDisabled: true,
-  }
+  };
 
   toggleShowProjectForm = () => {
     this.setState({
-      showForm: !this.state.showForm
+      showForm: !this.state.showForm,
     });
-  }
+  };
 
   addProject = () => {
     const newProjectName = this.state.newProjectName.trim();
@@ -27,18 +27,18 @@ class AddProjectForm extends Component {
 
     this.setState({
       newProjectName: '',
-      submitButtonDisabled: true
+      submitButtonDisabled: true,
     });
 
     this.props.onSubmit(this.state.newProjectName);
-  }
+  };
 
   handleNewProjectName = ({ target: { value: newProjectName } }) => {
     const projectName = newProjectName.trim();
     const submitButtonDisabled = !projectName.length;
 
     this.setState({ newProjectName, submitButtonDisabled });
-  }
+  };
 
   render() {
     const { showForm } = this.state;
@@ -52,28 +52,24 @@ class AddProjectForm extends Component {
 
     return (
       <div className={styles.container}>
-      {showForm && 
-        <div className={styles.form}>
-          <input
-            className={styles.input}
-            onChange={this.handleNewProjectName}
-            value={this.state.newProjectName}
-            placeholder={intl.messages.addProjectForm_addProject}
-          />
-          <Button
-            onClick={this.addProject}
-            className={cx(styles.submitButton, styles.buttonGreen)}
-            disabled={this.state.submitButtonDisabled}
-            type="button"
-          >
-            <Icon name="plus" />             
-            <FormattedMessage 
-                id='addProjectForm_addProjectButton'
-                defaultMessage='Add'
+        {showForm &&
+          <div className={styles.form}>
+            <input
+              className={styles.input}
+              onChange={this.handleNewProjectName}
+              value={this.state.newProjectName}
+              placeholder={intl.messages.addProjectForm_addProject}
             />
-          </Button>
-        </div> 
-      }
+            <Button
+              onClick={this.addProject}
+              className={cx(styles.submitButton, styles.buttonGreen)}
+              disabled={this.state.submitButtonDisabled}
+              type="button"
+            >
+              <Icon name="plus" />
+              <FormattedMessage id="addProjectForm_addProjectButton" defaultMessage="Add" />
+            </Button>
+          </div>}
         <Button
           onClick={this.toggleShowProjectForm}
           className={classes}

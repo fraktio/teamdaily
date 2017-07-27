@@ -7,6 +7,18 @@ Jaani talks about this software in [his mighty blog post](https://fraktio.fi/blo
 
 ## Installation
 
+### Install pre-commit hook
+
+Used for prettify code every time commit is made. This forces same styling conventions all over the codebase.
+
+Hook installer installs client's and server's dependencies. This is required since `prettier` is listed as a dependency in both of them.
+
+To install hook, run the following:
+
+```
+./install-precommit-hook.sh
+```
+
 ### Dockerized installation
 
 * `docker-compose up`

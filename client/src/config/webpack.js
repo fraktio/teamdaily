@@ -13,7 +13,6 @@ export function processCommonPlugins(plugins) {
 }
 
 export function processEnvPlugins(env, plugins) {
-
   return plugins;
 
   if (env === 'production') {

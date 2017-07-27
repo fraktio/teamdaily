@@ -15,13 +15,7 @@ if (__DEVELOPMENT__) {
 
 const initialState = undefined;
 
-const store = createStore(
-  getReducers(),
-  getMiddlewares(),
-  getEnhancers(),
-  initialState,
-);
-
+const store = createStore(getReducers(), getMiddlewares(), getEnhancers(), initialState);
 
 function render(RootComponent, rootElement) {
   ReactDOM.render(

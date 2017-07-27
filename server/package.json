@@ -3,7 +3,18 @@
   "version": "3.0.0",
   "description": "TeamDaily Server",
   "main": "src",
+  "lint-staged": {
+    "gitDir": "..",
+    "linters": {
+      "*.js": [
+        "./node_modules/.bin/prettier --single-quote --print-width 100 --trailing-comma all --write",
+        "git add"
+      ],
+      "*.json": ["./node_modules/.bin/prettier --parser json --print-width 100 --write", "git add"]
+    }
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "start": "cross-env babel-node src/api.js",
     "babel-node": "babel-node"
   },
@@ -14,9 +25,7 @@
     "type": "git",
     "url": "https://github.com/fraktio/teamdaily-os"
   },
-  "keywords": [
-    "TeamDaily"
-  ],
+  "keywords": ["TeamDaily"],
   "author": "Fraktio",
   "license": "MIT",
   "dependencies": {
@@ -41,7 +50,9 @@
   "devDependencies": {
     "faker": "^4.1.0",
     "immutable": "^3.8.1",
+    "lint-staged": "^4.0.2",
     "nodemon": "^1.11.0",
+    "prettier": "^1.5.3",
     "random-js": "^1.0.8"
   }
 }
