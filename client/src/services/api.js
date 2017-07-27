@@ -5,8 +5,7 @@ import { List } from 'immutable';
 
 const url = url => process.env.API + url;
 
-const wrapMany = req =>
-  req.then(res => List(res.data));
+const wrapMany = req => req.then(res => List(res.data));
 
 axios.defaults.withCredentials = true;
 
@@ -21,42 +20,35 @@ export default {
       employeeId: status.employeeId,
       color: status.color,
       activeProjects: status.activeProjects.filter(Boolean),
-      flagged: status.flagged
+      flagged: status.flagged,
     };
 
-    return axios.post(url(`/api/message/${date.format('GGGG')}/${date.format('WW')}`), json)
+    return axios
+      .post(url(`/api/message/${date.format('GGGG')}/${date.format('WW')}`), json)
       .then(res => res.data)
       .then(data => ({
         ...json,
         uuid: uuid.v4(),
-        created: moment()
+        created: moment(),
       }));
   },
 
-  getYearlyStats: year =>
-    wrapMany(axios.get(url('/api/message/latest'))),
+  getYearlyStats: year => wrapMany(axios.get(url('/api/message/latest'))),
 
-  getEmployees: () =>
-    wrapMany(axios.get(url('/api/employee'))),
+  getEmployees: () => wrapMany(axios.get(url('/api/employee'))),
 
-  getProjects: () =>
-    wrapMany(axios.get(url('/api/project'))),
+  getProjects: () => wrapMany(axios.get(url('/api/project'))),
 
-  addProject: project =>
-    axios.post(url('/api/project'), { project }),
+  addProject: project => axios.post(url('/api/project'), { project }),
 
-  deleteProject: id =>
-    axios.post(url('/api/deleteproject'), { id }),
+  deleteProject: id => axios.post(url('/api/deleteproject'), { id }),
 
-  addEmployee: employee =>
-    axios.post(url('/api/employee'), { employee }),
+  addEmployee: employee => axios.post(url('/api/employee'), { employee }),
 
-  deleteEmployee: id =>
-    axios.post(url('/api/deleteemployee'), { id }),
+  deleteEmployee: id => axios.post(url('/api/deleteemployee'), { id }),
 
   saveProject: (employeeId, projectId, newProjectState) =>
     axios.post(url('/api/saveemployeeproject'), { employeeId, projectId, newProjectState }),
 
-  getEmployeeProjects: () =>
-    wrapMany(axios.get(url('/api/employeeprojects'))),
+  getEmployeeProjects: () => wrapMany(axios.get(url('/api/employeeprojects'))),
 };

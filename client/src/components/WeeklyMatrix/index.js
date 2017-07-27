@@ -22,8 +22,8 @@ import StatusForm from 'components/StatusForm';
 import styles from './style.pcss';
 
 function getNumberOfWeeksForYear(year) {
-    const lastDayOfPreviousYear = ('31.12.' + year);
-    return parseInt(moment(lastDayOfPreviousYear, 'DD.MM.YYYY').format('W'));
+  const lastDayOfPreviousYear = '31.12.' + year;
+  return parseInt(moment(lastDayOfPreviousYear, 'DD.MM.YYYY').format('W'));
 }
 
 const now = moment();
@@ -31,7 +31,7 @@ const currentWeek = parseInt(now.format('WW'));
 const currentYear = parseInt(now.format('YYYY'));
 
 const fromWeek = currentWeek - 25;
-const weekRangeFromCurrentDate = Range(fromWeek, (currentWeek + 1));
+const weekRangeFromCurrentDate = Range(fromWeek, currentWeek + 1);
 const numberOfWeeksLastYear = getNumberOfWeeksForYear(currentYear - 1);
 
 const weekNumbers = weekRangeFromCurrentDate.map(weekNumber => {
@@ -44,17 +44,17 @@ const weekNumbers = weekRangeFromCurrentDate.map(weekNumber => {
 
 export default class WeeklyMatrix extends Component {
   state = {
-    'weeklyData': [],
-    'currentDate': moment(),
-    'bottom': undefined,
-    'bottomData': undefined
-  }
+    weeklyData: [],
+    currentDate: moment(),
+    bottom: undefined,
+    bottomData: undefined,
+  };
 
   componentDidMount() {
     this.updateStats();
 
     this.setState({
-      reactivizer: setInterval(this.updateStats, 30000)
+      reactivizer: setInterval(this.updateStats, 30000),
     });
   }
 
@@ -64,34 +64,32 @@ export default class WeeklyMatrix extends Component {
 
   updateStats = () => {
     Api.getYearlyStats().then(data => {
-      const weeklyData = data.sortBy(entry =>
-        entry.name.split(' ')[1]
-      );
+      const weeklyData = data.sortBy(entry => entry.name.split(' ')[1]);
 
       this.setState({ weeklyData });
     });
-  }
+  };
 
   weekNumberOnClick = (week, year) => {
     this.setState({
       bottom: 'weekly-data',
-      bottomData: { week, year }
+      bottomData: { week, year },
     });
-  }
+  };
 
   cellClick = (week, year, user) => {
     this.setState({
       bottom: 'user-weekly-data',
-      bottomData: { week, year, user }
+      bottomData: { week, year, user },
     });
-  }
+  };
 
   bottomCloseClick = () => {
     this.setState({
       bottom: undefined,
-      bottomData: undefined
+      bottomData: undefined,
     });
-  }
+  };
 
   getWeeklyColors = user => {
     return weekNumbers.map(([week, year], i) => {
@@ -118,19 +116,16 @@ export default class WeeklyMatrix extends Component {
             weekNumber={week}
             year={year}
           />
-        )
+        );
       }
 
-      return (
-        <td key={'empty-cell-' + i} className={styles.td}></td>
-      );
+      return <td key={'empty-cell-' + i} className={styles.td} />;
     });
-  }
+  };
 
   render() {
     const { weeklyData, bottom, bottomData } = this.state;
-    const { loading, date, employees,
-      projects, employeeProjectsSavedNotification } = this.props;
+    const { loading, date, employees, projects, employeeProjectsSavedNotification } = this.props;
 
     const userData = userDataExtractor(weeklyData);
 
@@ -147,13 +142,10 @@ export default class WeeklyMatrix extends Component {
                     onClick={this.weekNumberOnClick.bind(this, week, year)}
                   >
                     {week}
-                  </th>
+                  </th>,
                 )}
                 <th className={cx(styles.th, styles.weekAlignLeft)}>
-                  <FormattedMessage
-                      id='matrix_week'
-                      defaultMessage='Week'
-                  />
+                  <FormattedMessage id="matrix_week" defaultMessage="Week" />
                 </th>
               </tr>
             </thead>
@@ -165,7 +157,7 @@ export default class WeeklyMatrix extends Component {
                   <td className={styles.employee}>
                     <EmployeeName name={normalizedName} />
                   </td>
-                </tr>
+                </tr>,
               )}
             </tbody>
           </table>
@@ -181,13 +173,10 @@ export default class WeeklyMatrix extends Component {
   }
 }
 
-
-
 const isFormEnabled = (loading, date) => {
   const now = moment();
 
-  return !loading && (
-    now.format('GGGG') == date.format('GGGG') &&
-    now.format('WW') == date.format('WW')
+  return (
+    !loading && (now.format('GGGG') == date.format('GGGG') && now.format('WW') == date.format('WW'))
   );
 };

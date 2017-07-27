@@ -1,15 +1,22 @@
 const storage = window.localStorage || {
   setItem() {},
-  getItem() {}
+  getItem() {},
 };
 
-const statusFromLocalStorage = ({ name, description, color, flagged, employeeId, activeProjects }) => ({
+const statusFromLocalStorage = ({
+  name,
+  description,
+  color,
+  flagged,
+  employeeId,
+  activeProjects,
+}) => ({
   name: name || '',
   description: description || '',
   color: color || 'green',
   flagged: flagged || false,
-  activeProjects: activeProjects || [],
-  employeeId: employeeId || undefined
+  activeProjects: activeProjects || [],
+  employeeId: employeeId || undefined,
 });
 
 export default {
@@ -21,5 +28,5 @@ export default {
     const ret = storage.getItem('status');
     const json = ret ? JSON.parse(ret) : {};
     return statusFromLocalStorage(json);
-  }
+  },
 };

@@ -7,7 +7,7 @@ import Button from 'components/Button';
 
 import styles from './style.pcss';
 
-const preventDefault = (event) => {
+const preventDefault = event => {
   event.preventDefault();
   event.stopPropagation();
 };
@@ -19,7 +19,7 @@ export default ({ type, handleClose, ...props }) => {
 
   const types = {
     'weekly-data': WeeklyData,
-    'user-weekly-data': UserWeeklyData
+    'user-weekly-data': UserWeeklyData,
   };
 
   const Element = types[type];
@@ -29,10 +29,7 @@ export default ({ type, handleClose, ...props }) => {
       <div className={styles.modalContent} onClick={preventDefault}>
         <Element {...props} />
         <Button className="button-info" onClick={handleClose}>
-          <FormattedMessage 
-              id='matrix_closeModal'
-              defaultMessage='Close'
-          />
+          <FormattedMessage id="matrix_closeModal" defaultMessage="Close" />
         </Button>
       </div>
     </section>

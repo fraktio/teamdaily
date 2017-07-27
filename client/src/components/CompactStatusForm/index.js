@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
-import { injectIntl } from 'react-intl'; 
+import { injectIntl } from 'react-intl';
 import { name } from 'services/employee.js';
 import colors from '../../colors';
 
@@ -15,27 +15,27 @@ class CompactStatusForm extends Component {
 
   changeName = ({ target: { value: name } }) => {
     this.setState({ name });
-  }
+  };
 
   changeDescription = ({ target: { value: description } }) => {
     this.setState({ description });
-  }
+  };
 
   changeColor = ({ target: { value: color } }) => {
     this.setState({ color });
-  }
+  };
 
   submitStatus = event => {
     event.preventDefault();
 
     this.props.onSubmit({
-      ...this.state
+      ...this.state,
     });
 
     this.setState({
-      description: ''
+      description: '',
     });
-  }
+  };
 
   isSubmittable() {
     return this.state.name && this.props.enabled && this.state.description && this.state.color;
@@ -50,24 +50,26 @@ class CompactStatusForm extends Component {
       intl.messages.statusForm_ok,
       intl.messages.statusForm_busy,
       intl.messages.statusForm_tooMuch,
-      intl.messages.statusForm_notEnough
+      intl.messages.statusForm_notEnough,
     ];
 
     return (
       <div className={styles.container}>
         <div className={styles.userSelection}>
           <h3 className={styles.heading}>New post</h3>
-          <select disabled={!this.props.enabled} ref="name" value={this.state.name} onChange={this.changeName}>
+          <select
+            disabled={!this.props.enabled}
+            ref="name"
+            value={this.state.name}
+            onChange={this.changeName}
+          >
             <option key="empty-selection" value="">
-              <FormattedMessage 
-                  id='statusForm_emptySelection'
-                  defaultMessage='-- Select --'
-              />
+              <FormattedMessage id="statusForm_emptySelection" defaultMessage="-- Select --" />
             </option>
-            {employees.map((employee) =>
+            {employees.map(employee =>
               <option key={employee.name} value={employee.name}>
                 {name(employee.name)}
-              </option>
+              </option>,
             )}
           </select>
         </div>
@@ -83,11 +85,20 @@ class CompactStatusForm extends Component {
           />
 
           <div className={styles.statusCodes}>
-            {colors.map((color, i)=>
+            {colors.map((color, i) =>
               <label key={color} className={cx(styles.label, color)}>
-                <input type="radio" name="status-code" className={styles.input} checked={this.state.color === color} value={color} onChange={this.changeColor} />
-                <span className={styles.labelText}>{labelTexts[i]}</span>
-              </label>
+                <input
+                  type="radio"
+                  name="status-code"
+                  className={styles.input}
+                  checked={this.state.color === color}
+                  value={color}
+                  onChange={this.changeColor}
+                />
+                <span className={styles.labelText}>
+                  {labelTexts[i]}
+                </span>
+              </label>,
             )}
           </div>
 

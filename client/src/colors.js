@@ -1,6 +1,1 @@
-export default [
-  'green',
-  'yellow',
-  'red',
-  'blue'
-];
+export default ['green', 'yellow', 'red', 'blue'];

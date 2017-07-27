@@ -22,7 +22,7 @@ export default function reducer(state = List(), action) {
 function receiveProjects(projects) {
   return {
     type: LOAD,
-    projects
+    projects,
   };
 }
 
@@ -32,12 +32,12 @@ export function fetchProjects() {
       dispatch(receiveProjects(projects));
     });
   };
-};
+}
 
 function addNewProject(project) {
   return {
     type: CREATE,
-    project
+    project,
   };
 }
 
@@ -49,16 +49,18 @@ export function addProject(project) {
 
     // Always refetch projects to be sure we are in
     // sync with the server
-    return api.addProject(project)
+    return api
+      .addProject(project)
       .then(() => dispatch(fetchProjects()))
       .catch(() => dispatch(fetchProjects()));
   };
-};
+}
 
 export function deleteProject(id) {
   return dispatch => {
-    api.deleteProject(id)
+    api
+      .deleteProject(id)
       .then(() => dispatch(fetchProjects()))
       .catch(() => dispatch(fetchProjects()));
   };
-};
+}

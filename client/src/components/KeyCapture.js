@@ -13,12 +13,12 @@ const getKeys = combination => {
 
     return keyState;
   });
-}
+};
 
 export default class KeyCapture extends Component {
   state = {
     combination: [],
-  }
+  };
 
   combinationTraversal(keyState) {
     if (keyState.key === event.key) {
@@ -53,7 +53,7 @@ export default class KeyCapture extends Component {
         this.props.onFire();
       }
     });
-  }
+  };
 
   onKeyUp = event => {
     const { combination } = this.state;
@@ -67,7 +67,7 @@ export default class KeyCapture extends Component {
     });
 
     this.setState({ combination: newCombinationState });
-  }
+  };
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onKeyDown);

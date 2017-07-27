@@ -11,30 +11,33 @@ const now = moment();
 
 export default class MobileStatus extends Component {
   state = {
-    submitted: false
-  }
+    submitted: false,
+  };
 
   handleSubmit = state => {
     // TODO: actually make sure that it's received. Now it's kind of fire and forget.
     this.props.addEntry(state);
 
     this.setState({
-      submitted: true
+      submitted: true,
     });
-  }
+  };
 
   isFormEnabled = () => {
     const { loading, date } = this.props;
-    return !loading && (now.format('GGGG') == date.format('GGGG') && now.format('WW') == date.format('WW'));
-  }
+    return (
+      !loading &&
+      (now.format('GGGG') == date.format('GGGG') && now.format('WW') == date.format('WW'))
+    );
+  };
 
   enableForm = event => {
     event.preventDefault();
 
     this.setState({
       submitted: false,
-    })
-  }
+    });
+  };
 
   render() {
     const { date, employees, entries, now } = this.props;
@@ -43,8 +46,7 @@ export default class MobileStatus extends Component {
     return (
       <div className={styles.container}>
         {!submitted
-          ?
-            <CompactStatusForm
+          ? <CompactStatusForm
               initialValues={localstorage.load()}
               enabled={this.isFormEnabled()}
               now={now}
@@ -52,16 +54,14 @@ export default class MobileStatus extends Component {
               employees={employees}
               onSubmit={this.handleSubmit}
             />
-          :
-            <div className={styles.submitted}>
+          : <div className={styles.submitted}>
               <p>Your status was submitted, thanks!</p>
 
               <a onClick={this.enableForm}>Submit a new status</a>
 
               <h1>Week status:</h1>
               <StatusCounts messages={entries} />
-            </div>
-        }
+            </div>}
       </div>
     );
   }

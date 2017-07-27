@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import Message from 'components/Message';
 import styles from './style.pcss';
 
-export default ({ messages }) => (
+export default ({ messages }) =>
   <div className={styles.container}>
     {colors.map(color => {
       const classes = classnames(styles.box, color);
@@ -13,10 +13,9 @@ export default ({ messages }) => (
       return (
         <div key={'key-for-' + color} className={classes}>
           {filteredMessages.map((message, i) =>
-            <Message key={color + (message.id || i)} message={message} />
+            <Message key={color + (message.id || i)} message={message} />,
           )}
         </div>
       );
     })}
-  </div>
-);
+  </div>;

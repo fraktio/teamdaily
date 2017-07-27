@@ -6,15 +6,10 @@ import logger from 'redux-logger';
 import * as reducers from '../ducks';
 
 export function getMiddlewares() {
-  let middleware = [
-    thunk,
-    promiseMiddleware(),
-  ];
+  let middleware = [thunk, promiseMiddleware()];
 
   if (__DEVELOPMENT__) {
-    middleware = middleware.concat([
-      logger
-    ]);
+    middleware = middleware.concat([logger]);
   }
 
   return middleware;

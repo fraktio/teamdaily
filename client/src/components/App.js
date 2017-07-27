@@ -20,13 +20,7 @@ const fetchEntriesInterval = 60000;
 
 export default class App extends Component {
   componentDidMount() {
-    const {
-      date,
-      fetchEmployees,
-      fetchEntries,
-      fetchProjects,
-      fetchEmployeeProjects,
-    } = this.props;
+    const { date, fetchEmployees, fetchEntries, fetchProjects, fetchEmployeeProjects } = this.props;
 
     fetchEmployees();
     fetchEntries(date);
@@ -71,20 +65,11 @@ export default class App extends Component {
   }
 
   render() {
-    const {
-      date,
-      prevWeek,
-      nextWeek,
-      match,
-    } = this.props;
+    const { date, prevWeek, nextWeek, match } = this.props;
 
     const pathname = document.location.pathname;
 
-    const weekSelectorPaths = [
-      '/people',
-      '/projects',
-      '/week',
-    ];
+    const weekSelectorPaths = ['/people', '/projects', '/week'];
 
     const renderWeekSelector = weekSelectorPaths.find(path => pathname.includes(path));
 
@@ -99,23 +84,19 @@ export default class App extends Component {
 
         <Switch>
           <Route path="/matrix" component={WeeklyMatrix} exact />
-          <Route path='/week' component={Week} exact />
+          <Route path="/week" component={Week} exact />
           <Route path="/index" component={Menu} exact />
           <Route path="/info" component={Info} exact />
           <Route path="/projects" component={ProjectView} exact />
           <Route path="/admin" component={AdminView} exact />
           <Route path="/people/:week" component={PeopleView} exact />
           <Route path="/people" component={PeopleView} exact />
-          <Redirect from='/' to='/week' />
+          <Redirect from="/" to="/week" />
           <Route component={NotFound} />
         </Switch>
 
-        <KeyCapture
-          combination="ctrl+f"
-          onFire={this.toggleFullScreen}
-        />
+        <KeyCapture combination="ctrl+f" onFire={this.toggleFullScreen} />
       </div>
     );
   }
 }
-

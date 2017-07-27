@@ -13,6 +13,6 @@ export default connect(
   {
     prevWeek,
     nextWeek,
-    setWeek
+    setWeek,
   },
 )(PeopleView);

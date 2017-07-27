@@ -7,7 +7,7 @@ export default connect(
     date: state.entry.date,
     loading: state.entry.loading,
     employees: state.employees,
-    projects: state.projects
+    projects: state.projects,
   }),
   {},
 )(Info);

@@ -17,23 +17,23 @@ class StatusForm extends Component {
     };
   }
 
-  changeEmployee = (evt) => {
+  changeEmployee = evt => {
     const employee = this.props.employees.find(e => e.name === evt.target.value);
 
     this.setState({
       name: employee.name || '',
       employeeId: employee.id || null,
-      activeProjects: employee.projects || []
+      activeProjects: employee.projects || [],
     });
-  }
+  };
 
   changeDescription = ({ target: { value: description } }) => {
     this.setState({ description });
-  }
+  };
 
   changeColor = color => {
     this.setState({ color });
-  }
+  };
 
   toggleActiveProject = (id, e) => {
     e.preventDefault();
@@ -47,12 +47,10 @@ class StatusForm extends Component {
       activeProjects.push(id);
     }
 
-    this.setState({ activeProjects }, () =>
-      this.saveProject(id, !isProjectActive)
-    );
-  }
+    this.setState({ activeProjects }, () => this.saveProject(id, !isProjectActive));
+  };
 
-  submitStatus = (e) => {
+  submitStatus = e => {
     const { name, employeeId } = this.state;
 
     e.preventDefault();
@@ -60,76 +58,86 @@ class StatusForm extends Component {
     if (name && !employeeId) {
       const employee = this.props.employees.find(e => e.name === name);
 
-      this.setState({
-        employeeId: employee.id
-      }, () =>
-        this.doSubmit()
+      this.setState(
+        {
+          employeeId: employee.id,
+        },
+        () => this.doSubmit(),
       );
 
       return;
     }
 
     this.doSubmit();
-  }
+  };
 
   doSubmit = () => {
     this.props.onSubmit({
-      ...this.state
+      ...this.state,
     });
 
     this.setState({
-      description: ''
+      description: '',
     });
-  }
+  };
 
   saveProject = (projectId, newProjectState) => {
     const { onSaveProject } = this.props;
 
     onSaveProject(this.state, this.state.employeeId, projectId, newProjectState);
-  }
+  };
 
   isSubmittable = () => {
     return this.state.name && this.props.enabled && this.state.description;
-  }
+  };
 
   setFlagged = () => {
     this.setState({ flagged: !this.state.flagged });
-  }
+  };
 
   render() {
     const fields = {
-      ...this.state
+      ...this.state,
     };
 
     const { employees, projects, employeeProjectsSavedNotification, intl } = this.props;
 
     return (
-      <form className={styles.container} onSubmit={(e) => this.submitStatus(e)}>
+      <form className={styles.container} onSubmit={e => this.submitStatus(e)}>
         <div className={styles.floatLeft}>
-          <select disabled={!this.props.enabled} ref="name" value={fields.name} onChange={this.changeEmployee}>
+          <select
+            disabled={!this.props.enabled}
+            ref="name"
+            value={fields.name}
+            onChange={this.changeEmployee}
+          >
             <option value="">
               {intl.messages.statusForm_emptySelection}
             </option>
-              {employees.map(employee =>
-                <option key={employee.name} value={employee.name}>{name(employee.name)}</option>
-              )}
+            {employees.map(employee =>
+              <option key={employee.name} value={employee.name}>
+                {name(employee.name)}
+              </option>,
+            )}
           </select>
         </div>
         <div className={styles.control}>
           <div className={styles.label}>
-            <FormattedMessage
-              id='statusForm_doing'
-              defaultMessage='What are you working on?'
-            />
+            <FormattedMessage id="statusForm_doing" defaultMessage="What are you working on?" />
           </div>
-          <input disabled={!this.props.enabled} type="text" ref="description" className={styles.input} value={fields.description} onChange={this.changeDescription} placeholder={intl.messages.statusForm_whatAreYouDoingPlaceholder}/>
+          <input
+            disabled={!this.props.enabled}
+            type="text"
+            ref="description"
+            className={styles.input}
+            value={fields.description}
+            onChange={this.changeDescription}
+            placeholder={intl.messages.statusForm_whatAreYouDoingPlaceholder}
+          />
         </div>
         <div className={styles.control}>
           <div className={styles.label}>
-            <FormattedMessage
-              id='statusForm_feeling'
-              defaultMessage='How are you?'
-            />
+            <FormattedMessage id="statusForm_feeling" defaultMessage="How are you?" />
           </div>
           <div className={styles.buttonGroup}>
             <Button
@@ -140,10 +148,7 @@ class StatusForm extends Component {
               className="green"
               title={intl.messages.statusForm_ok}
             >
-              <FormattedMessage
-                id='statusForm_ok'
-                defaultMessage='Doing good'
-              />
+              <FormattedMessage id="statusForm_ok" defaultMessage="Doing good" />
             </Button>
             <Button
               type="button"
@@ -153,10 +158,7 @@ class StatusForm extends Component {
               className="yellow"
               title={intl.messages.statusForm_busy}
             >
-              <FormattedMessage
-                id='statusForm_busy'
-                defaultMessage='Pretty busy'
-              />
+              <FormattedMessage id="statusForm_busy" defaultMessage="Pretty busy" />
             </Button>
             <Button
               type="button"
@@ -166,10 +168,7 @@ class StatusForm extends Component {
               className="red"
               title={intl.messages.statusForm_tooMuch}
             >
-              <FormattedMessage
-                id='statusForm_tooMuch'
-                defaultMessage='Too much to do'
-              />
+              <FormattedMessage id="statusForm_tooMuch" defaultMessage="Too much to do" />
             </Button>
             <Button
               type="button"
@@ -179,52 +178,55 @@ class StatusForm extends Component {
               className="blue"
               title={intl.messages.statusForm_notEnough}
             >
-              <FormattedMessage
-                id='statusForm_notEnough'
-                defaultMessage='Not enough to do'
-              />
+              <FormattedMessage id="statusForm_notEnough" defaultMessage="Not enough to do" />
             </Button>
           </div>
         </div>
         <div>
           <label>
-            <input type="checkbox" className={styles.checkbox} checked={fields.flagged} onChange={this.setFlagged}/>
+            <input
+              type="checkbox"
+              className={styles.checkbox}
+              checked={fields.flagged}
+              onChange={this.setFlagged}
+            />
             <FormattedMessage
-              id='statusForm_attention'
-              defaultMessage='My situation requires attention'
+              id="statusForm_attention"
+              defaultMessage="My situation requires attention"
             />
           </label>
         </div>
         <div className={styles.control}>
           <div className={styles.label}>
             <FormattedMessage
-              id='statusForm_projects'
-              defaultMessage='Which projects will you participate in to?'
+              id="statusForm_projects"
+              defaultMessage="Which projects will you participate in to?"
             />
-            <span className={styles.projectsSaved}>{employeeProjectsSavedNotification ? 'Projektit tallennettu!' : ''}</span>
+            <span className={styles.projectsSaved}>
+              {employeeProjectsSavedNotification ? 'Projektit tallennettu!' : ''}
+            </span>
           </div>
           <div className={styles.smallButtons}>
-            {projects.sort((a, b) => alphabeticalSort(a.name,b.name)).map(project =>
+            {projects.sort((a, b) => alphabeticalSort(a.name, b.name)).map(project =>
               <Button
                 key={project.id}
                 onClick={this.toggleActiveProject.bind(this, project.id)}
-                active={this.state.activeProjects && this.state.activeProjects.indexOf(project.id) != -1}
+                active={
+                  this.state.activeProjects && this.state.activeProjects.indexOf(project.id) != -1
+                }
                 title={project.name}
                 disabled={project.disabled}
                 type="button"
               >
                 {project.name}
-              </Button>
+              </Button>,
             )}
             <AddProjectForm onSubmit={this.props.onAddNewProject} />
           </div>
         </div>
 
         <Button type="submit" disabled={!this.isSubmittable()} id="submitter" className="orange">
-            <FormattedMessage
-              id='statusForm_sendButtonText'
-              defaultMessage='SUBMIT'
-            />
+          <FormattedMessage id="statusForm_sendButtonText" defaultMessage="SUBMIT" />
         </Button>
       </form>
     );
