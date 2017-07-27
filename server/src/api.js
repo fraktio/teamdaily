@@ -8,6 +8,8 @@ import bcrypt from 'bcrypt';
 import morgan from 'morgan';
 import express from 'express';
 import dotenv from 'dotenv';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import schema from './graphql/schema';
 
 dotenv.config();
 
@@ -37,6 +39,9 @@ registerHealthCheckMiddleware(app);
 registerSecureOnlyMiddleware(app);
 registerTrustProxy(app);
 registerAuthMiddleware(app);
+
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 function asyncWrap(fn) {
   return (req, res, next) => {
