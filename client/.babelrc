@@ -6,7 +6,8 @@
         "node": "current"
       },
       "modules": "commonjs"
-    }]
+    },
+    "flow"]
   ],
   "plugins": [
     "babel-plugin-transform-decorators-legacy",
