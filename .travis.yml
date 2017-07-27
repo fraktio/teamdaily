@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "6.0"
+
+install:
+  - npm -g install prettier
+
+script:
+  - prettier --list-different --single-quote --print-width 100 --trailing-comma all "**/*.js"
+  - prettier --list-different --single-quote --print-width 100 --trailing-comma all --parser postcss "client/**/*.pcss"
