@@ -5,8 +5,7 @@ import localstorage from 'services/localstorage';
 
 const PREV_WEEK = 'teamdaily/entry/PREV_WEEK';
 const NEXT_WEEK = 'teamdaily/entry/NEXT_WEEK';
-const SET_WEEK = 'teamdaily/entry/SET_WEEK';
-const RESET_WEEK = 'teamdaily/entry/RESET_WEEK';
+const SET_DATE = 'teamdaily/entry/SET_DATE';
 const REQUEST_ENTRIES = 'teamdaily/entry/REQUEST_ENTRIES';
 const RECEIVE_ENTRIES = 'teamdaily/entry/RECEIVE_ENTRIES';
 const REQUEST_NEW_ENTRY = 'teamdaily/entry/REQUEST_NEW_ENTRY';
@@ -20,16 +19,12 @@ const defaultState = {
 
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
-    case SET_WEEK:
+    case SET_DATE:
       return {
         ...state,
-        date: moment().day("Monday").week(action.week)
+        date: action.date
       }
-    case RESET_WEEK:
-      return {
-        ...state,
-        date: moment()
-      }
+
     case PREV_WEEK:
       return {
         ...state,
@@ -73,8 +68,8 @@ export default function reducer(state = defaultState, action) {
 
 export function setWeek(week) {
   return {
-    type: SET_WEEK,
-    week
+    type: SET_DATE,
+    date: moment().day("Monday").week(week)
   };
 }
 
@@ -105,7 +100,8 @@ export function nextWeek() {
 
 export function resetWeek() {
   return {
-    type: RESET_WEEK
+    type: SET_DATE,
+    date: moment()
   }
 }
 
