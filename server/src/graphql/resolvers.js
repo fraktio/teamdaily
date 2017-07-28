@@ -5,12 +5,22 @@ const database = connectDatabase();
 const resolvers = {
   Query: {
     people(root, args) {
-      return database.query('SELECT id, name FROM employees WHERE deleted = 0');
+      return database.query(
+        `
+          SELECT id, name FROM employees
+          WHERE deleted = 0
+          ORDER BY name ASC
+        `,
+      );
     },
 
     async person(root, args) {
       const r = await database.query(
-        'SELECT id, name FROM employees WHERE name = ? AND deleted = 0',
+        `
+          SELECT id, name FROM employees
+          WHERE name = ? AND deleted = 0
+          ORDER BY name ASC
+        `,
         args.name,
       );
 
@@ -18,12 +28,22 @@ const resolvers = {
     },
 
     projects(root, args) {
-      return database.query('SELECT id, name FROM projects WHERE deleted = 0');
+      return database.query(
+        `
+          SELECT id, name FROM projects
+          WHERE deleted = 0
+          ORDER BY name ASC
+        `,
+      );
     },
 
     async project(root, args) {
       const r = await database.query(
-        'SELECT id, name FROM projects WHERE name = ? AND deleted = 0',
+        `
+          SELECT id, name FROM projects
+          WHERE name = ? AND deleted = 0
+          ORDER BY name ASC
+        `,
         args.name,
       );
 
@@ -34,7 +54,9 @@ const resolvers = {
       return database.query(
         `
           SELECT id, year, week, name, message, status, created, color, flagged
-          FROM logs WHERE year = ? AND week = ?
+          FROM logs
+          WHERE year = ? AND week = ?
+          ORDER BY created DESC
         `,
         [year, week],
       );
@@ -46,7 +68,9 @@ const resolvers = {
       return database.query(
         `
           SELECT p.id, p.name FROM projects p INNER JOIN employee_projects ep
-          ON p.id = ep.project_id WHERE ep.employee_id = ? AND p.deleted = 0
+          ON p.id = ep.project_id
+          WHERE ep.employee_id = ? AND p.deleted = 0
+          ORDER BY p.name ASC
         `,
         person.id,
       );
@@ -55,7 +79,9 @@ const resolvers = {
       return database.query(
         `
           SELECT id, year, week, name, message, status, created, color, flagged
-          FROM logs WHERE year = ? AND week = ? AND name = ?
+          FROM logs
+          WHERE year = ? AND week = ? AND name = ?
+          ORDER BY created DESC
         `,
         [year, week, person.name],
       );
@@ -68,6 +94,7 @@ const resolvers = {
         `
           SELECT e.id, e.name FROM employees e INNER JOIN employee_projects ep
           ON e.id = ep.employee_id WHERE ep.project_id = ? AND e.deleted = 0
+          ORDER BY e.name ASC
         `,
         project.id,
       );
