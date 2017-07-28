@@ -6,6 +6,7 @@ type Person {
   id: Int
   name: String
   projects: [Project]
+  entries(year: Int! week: Int!): [Entry]
 }
 
 type Project {
@@ -20,7 +21,6 @@ type Entry {
   week: Int
   name: String
   message: String
-  status: Int
   created: String
   color: String
   flagged: Boolean

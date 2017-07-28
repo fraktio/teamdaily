@@ -30,9 +30,7 @@ const resolvers = {
       return r[0];
     },
 
-    entries(root, args) {
-      const { year, week } = args;
-
+    entries(root, { year, week }) {
       return database.query(
         `
           SELECT id, year, week, name, message, status, created, color, flagged
@@ -51,6 +49,15 @@ const resolvers = {
           ON p.id = ep.project_id WHERE ep.employee_id = ? AND p.deleted = 0
         `,
         person.id,
+      );
+    },
+    entries(person, { year, week }) {
+      return database.query(
+        `
+          SELECT id, year, week, name, message, status, created, color, flagged
+          FROM logs WHERE year = ? AND week = ? AND name = ?
+        `,
+        [year, week, person.name],
       );
     },
   },
