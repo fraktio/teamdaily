@@ -63,6 +63,48 @@ const resolvers = {
     },
   },
 
+  Mutation: {
+    async addProject(root, { name }) {
+      const insertResult = await database.query('INSERT INTO projects SET ?', { name });
+
+      const result = await database.query(
+        'SELECT id, name FROM projects WHERE id = ?',
+        insertResult.insertId,
+      );
+
+      return result[0];
+    },
+
+    async deleteProject(root, { id }) {
+      const result = await database.query(
+        'UPDATE projects SET deleted = ? WHERE id = ? AND deleted = 0',
+        [1, id],
+      );
+
+      return result.affectedRows;
+    },
+
+    async addPerson(root, { name }) {
+      const insertResult = await database.query('INSERT INTO employees SET ?', { name });
+
+      const result = await database.query(
+        'SELECT id, name FROM employees WHERE id = ?',
+        insertResult.insertId,
+      );
+
+      return result[0];
+    },
+
+    async deletePerson(root, { id }) {
+      const result = await database.query(
+        'UPDATE employees SET deleted = ? WHERE id = ? AND deleted = 0',
+        [1, id],
+      );
+
+      return result.affectedRows;
+    },
+  },
+
   Person: {
     projects(person) {
       return database.query(

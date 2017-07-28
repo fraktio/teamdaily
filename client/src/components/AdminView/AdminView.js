@@ -3,12 +3,43 @@ import Button from 'components/Button';
 import Masonry from 'react-masonry-component';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
-import { alphabeticalSort } from '../../utils/helpers';
 import styles from './style.pcss';
 
 class AdminView extends Component {
+  handleAddProject = e => {
+    e.preventDefault();
+
+    const { addProject } = this.props;
+
+    addProject(this.projectName.value).then(() => (this.projectName.value = ''));
+  };
+
+  handleDeleteProject = id => () => {
+    const { deleteProject } = this.props;
+
+    deleteProject(id);
+  };
+
+  addPerson = e => {
+    const { addPerson } = this.props;
+
+    e.preventDefault();
+
+    addPerson(this.employeeName.value).then(() => (this.employeeName.value = ''));
+  };
+
+  deletePerson = id => () => {
+    const { deletePerson } = this.props;
+
+    deletePerson(id);
+  };
+
   render() {
-    const { projects, employees, intl } = this.props;
+    const { data: { loading, projects, people }, intl } = this.props;
+
+    if (loading) {
+      return null;
+    }
 
     const masonryOptions = {
       transitionDuration: 0,
@@ -17,7 +48,7 @@ class AdminView extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.formsContainer}>
-          <form onSubmit={e => this.addEmployee(e)} className={styles.form}>
+          <form onSubmit={this.addPerson} className={styles.form}>
             <input
               placeholder={intl.messages.admin_addEmployee}
               type="text"
@@ -28,7 +59,7 @@ class AdminView extends Component {
             </Button>
           </form>
 
-          <form onSubmit={e => this.addProject(e)} className={styles.form}>
+          <form onSubmit={this.handleAddProject} className={styles.form}>
             <input
               placeholder={intl.messages.admin_addProject}
               type="text"
@@ -45,7 +76,7 @@ class AdminView extends Component {
           <FormattedMessage id="admin_projects" defaultMessage="Projects" />
         </p>
         <Masonry options={masonryOptions}>
-          {projects.sort((a, b) => alphabeticalSort(a.name, b.name)).map(project =>
+          {projects.map(project =>
             <div key={project.id} className={styles.project}>
               <div>
                 {project.name}
@@ -53,7 +84,7 @@ class AdminView extends Component {
 
               <button
                 className={styles.deleteButton}
-                onClick={() => this.deleteProject(project.id)}
+                onClick={this.handleDeleteProject(project.id)}
               >
                 <FormattedMessage id="admin_delete" defaultMessage="Delete" />
               </button>
@@ -66,16 +97,13 @@ class AdminView extends Component {
           <FormattedMessage id="admin_employees" defaultMessage="Employees" />
         </p>
         <Masonry options={masonryOptions}>
-          {employees.sort((a, b) => alphabeticalSort(a.name, b.name)).map(employee =>
-            <div key={employee.id} className={styles.project}>
+          {people.map(people =>
+            <div key={people.id} className={styles.project}>
               <div>
-                {employee.name}
+                {people.name}
               </div>
 
-              <button
-                className={styles.deleteButton}
-                onClick={() => this.deleteEmployee(employee.id)}
-              >
+              <button className={styles.deleteButton} onClick={this.deletePerson(people.id)}>
                 <FormattedMessage id="admin_delete" defaultMessage="Delete" />
               </button>
             </div>,
@@ -84,34 +112,6 @@ class AdminView extends Component {
       </div>
     );
   }
-
-  addProject = e => {
-    const { addProject } = this.props;
-
-    e.preventDefault();
-
-    addProject(this.projectName.value).then(() => (this.projectName.value = ''));
-  };
-
-  addEmployee = e => {
-    const { addEmployee } = this.props;
-
-    e.preventDefault();
-
-    addEmployee(this.employeeName.value).then(() => (this.employeeName.value = ''));
-  };
-
-  deleteProject = id => {
-    const { deleteProject } = this.props;
-
-    deleteProject(id);
-  };
-
-  deleteEmployee = id => {
-    const { deleteEmployee } = this.props;
-
-    deleteEmployee(id);
-  };
 }
 
 export default injectIntl(AdminView);

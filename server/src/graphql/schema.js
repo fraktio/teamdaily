@@ -35,6 +35,14 @@ type Query {
 
   entries(year: Int! week: Int!): [Entry]
 }
+
+type Mutation {
+  addProject(name: String!): Project
+  deleteProject(id: Int!): Int
+
+  addPerson(name: String!): Person
+  deletePerson(id: Int!): Int
+}
 `;
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
