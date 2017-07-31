@@ -2,38 +2,17 @@ import React, { Component } from 'react';
 import groupBy from 'lodash/groupBy';
 import last from 'lodash/last';
 import sortBy from 'lodash/sortBy';
-import moment from 'moment';
-import { Range } from 'immutable';
 import cx from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
 import EmployeeName from 'components/EmployeeName';
 import UserWeeklyData from './UserWeeklyData';
 import Button from 'components/Button';
+import { calculateWeekNumbers } from 'utils/helpers';
 
 import styles from './style.pcss';
 
-function getNumberOfWeeksForYear(year) {
-  const lastDayOfPreviousYear = '31.12.' + year;
-
-  return parseInt(moment(lastDayOfPreviousYear, 'DD.MM.YYYY').format('W'), 10);
-}
-
-const now = moment();
-const currentWeek = parseInt(now.format('WW'), 10);
-const currentYear = parseInt(now.format('YYYY'), 10);
-
-const fromWeek = currentWeek - 25;
-const weekRangeFromCurrentDate = Range(fromWeek, currentWeek + 1);
-const numberOfWeeksLastYear = getNumberOfWeeksForYear(currentYear - 1);
-
-const weekNumbers = weekRangeFromCurrentDate.map(weekNumber => {
-  if (weekNumber > 0) {
-    return [weekNumber, currentYear];
-  }
-
-  return [numberOfWeeksLastYear + weekNumber, currentYear - 1];
-});
+const weekNumbers = calculateWeekNumbers(25);
 
 export default class WeeklyMatrix extends Component {
   state = {
@@ -55,7 +34,7 @@ export default class WeeklyMatrix extends Component {
   getWeeklyColors = person => {
     const groupedEntries = groupBy(person.entries, entry => `${entry.year}-${entry.week}`);
 
-    return weekNumbers.map(([week, year], i) => {
+    return weekNumbers.map(({ week, year }, i) => {
       const entries = groupedEntries[`${year}-${week}`];
 
       if (entries) {
@@ -101,7 +80,7 @@ export default class WeeklyMatrix extends Component {
           <table className={styles.table}>
             <thead>
               <tr>
-                {weekNumbers.map(([week, year]) =>
+                {weekNumbers.map(({ week, year }) =>
                   <th key={week + '-' + year} className={styles.fixedWidth}>
                     {week}
                   </th>,
