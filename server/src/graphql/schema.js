@@ -6,7 +6,7 @@ type Person {
   id: Int
   name: String
   projects: [Project]
-  entries(year: Int! week: Int!): [Entry]
+  entries(startYear: Int!, startWeek: Int!, endYear: Int!, endWeek: Int!): [Entry]
 }
 
 type Project {
@@ -33,7 +33,7 @@ type Query {
   projects: [Project]
   project(name: String): Project
 
-  entries(year: Int! week: Int!): [Entry]
+  entries(year: Int!, week: Int!): [Entry]
 }
 
 type Mutation {

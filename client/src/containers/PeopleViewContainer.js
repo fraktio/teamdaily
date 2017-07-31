@@ -26,7 +26,7 @@ export default compose(
             id
             name
           }
-          entries(year: $year, week: $week) {
+          entries(startYear: $year, startWeek: $week, endYear: $year, endWeek: $week) {
             id
             name
             message

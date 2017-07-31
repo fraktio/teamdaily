@@ -20,7 +20,7 @@ export default compose(
           people {
             id
             name
-            entries(year: $year, week: $week) {
+            entries(startYear: $year, startWeek: $week, endYear: $year, endWeek: $week) {
               color
             }
           }

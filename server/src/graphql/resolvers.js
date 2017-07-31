@@ -50,15 +50,15 @@ const resolvers = {
       return r[0];
     },
 
-    entries(root, { year, week }) {
+    entries(root, { startYear, startWeek, endYear, endWeek }) {
       return database.query(
         `
           SELECT id, year, week, name, message, status, created, color, flagged
           FROM logs
-          WHERE year = ? AND week = ?
+          WHERE year <= ? AND week <= ? AND year >= ? AND week >= ?
           ORDER BY created DESC
         `,
-        [year, week],
+        [startYear, startWeek, endYear, endWeek],
       );
     },
   },
@@ -117,15 +117,15 @@ const resolvers = {
         person.id,
       );
     },
-    entries(person, { year, week }) {
+    entries(person, { startYear, startWeek, endYear, endWeek }) {
       return database.query(
         `
           SELECT id, year, week, name, message, status, created, color, flagged
           FROM logs
-          WHERE year = ? AND week = ? AND name = ?
+          WHERE year <= ? AND week <= ? AND year >= ? AND week >= ? AND name = ?
           ORDER BY created DESC
         `,
-        [year, week, person.name],
+        [startYear, startWeek, endYear, endWeek, person.name],
       );
     },
   },
