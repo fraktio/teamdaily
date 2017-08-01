@@ -3,14 +3,13 @@ import screenfull from 'screenfull';
 import KeyCapture from 'components/KeyCapture';
 import Header from 'components/Header';
 import { Switch, Route, Redirect } from 'react-router';
-import Week from 'containers/WeekContainer';
-import NotFound from 'components/NotFound';
 
-import MobileStatus from 'containers/MobileStatusContainer';
+import NotFound from 'components/NotFound';
+import Menu from 'components/Menu';
+import Week from 'containers/WeekContainer';
 import Info from 'containers/InfoContainer';
 import PeopleView from 'containers/PeopleViewContainer';
 import ProjectView from 'containers/ProjectViewContainer';
-import Menu from 'components/Menu';
 import WeeklyMatrix from 'containers/WeeklyMatrixContainer';
 import AdminView from 'containers/AdminViewContainer';
 

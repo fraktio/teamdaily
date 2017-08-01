@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Icon } from 'react-fa';
-import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
 
 import styles from './style.pcss';
