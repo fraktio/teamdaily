@@ -42,6 +42,15 @@ type Mutation {
 
   addPerson(name: String!): Person
   deletePerson(id: Int!): Int
+
+  addEntry(
+    year: Int!
+    week: Int!
+    name: String!
+    message: String!
+    color: String!
+    flagged: Boolean!
+  ): Entry
 }
 `;
 
