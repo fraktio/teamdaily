@@ -7,7 +7,6 @@ import { Switch, Route, Redirect } from 'react-router';
 import NotFound from 'components/NotFound';
 import Menu from 'components/Menu';
 import Week from 'containers/WeekContainer';
-import Info from 'containers/InfoContainer';
 import PeopleView from 'containers/PeopleViewContainer';
 import ProjectView from 'containers/ProjectViewContainer';
 import WeeklyMatrix from 'containers/WeeklyMatrixContainer';
@@ -85,7 +84,6 @@ export default class App extends Component {
           <Route path="/matrix" component={WeeklyMatrix} exact />
           <Route path="/week" component={Week} exact />
           <Route path="/index" component={Menu} exact />
-          <Route path="/info" component={Info} exact />
           <Route path="/projects" component={ProjectView} exact />
           <Route path="/admin" component={AdminView} exact />
           <Route path="/people/:week" component={PeopleView} exact />
