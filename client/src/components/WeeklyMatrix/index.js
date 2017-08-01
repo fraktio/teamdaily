@@ -19,6 +19,14 @@ export default class WeeklyMatrix extends Component {
     modalData: undefined,
   };
 
+  componentDidMount() {
+    this.props.data.startPolling(10000 /* 10 seconds */);
+  }
+
+  componentWillUnmount() {
+    this.props.data.stopPolling();
+  }
+
   handleCellClick = data => () => {
     this.setState({
       modalData: data,
