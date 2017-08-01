@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import groupBy from 'lodash/groupBy';
-import last from 'lodash/last';
+import first from 'lodash/first';
 import sortBy from 'lodash/sortBy';
 import cx from 'classnames';
 import { FormattedMessage } from 'react-intl';
@@ -39,7 +39,7 @@ export default class WeeklyMatrix extends Component {
 
       if (entries) {
         const label = entries.length > 1 ? entries.length : '';
-        const color = last(entries).color;
+        const color = first(entries).color;
 
         return (
           <td
