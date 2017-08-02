@@ -200,7 +200,7 @@ class StatusForm extends Component {
           <div className={styles.label}>
             <FormattedMessage
               id="statusForm_projects"
-              defaultMessage="Which projects will you participate in to?"
+              defaultMessage="Which projects are you participating in?"
             />
             <span className={styles.projectsSaved}>
               {employeeProjectsSavedNotification ? 'Projektit tallennettu!' : ''}
