@@ -96,7 +96,7 @@ class StatusForm extends Component {
       people,
       projects,
       selectedPerson,
-      employeeProjectsSavedNotification,
+      projectsSavedNotification,
       onAddProject,
       intl,
     } = this.props;
@@ -215,9 +215,10 @@ class StatusForm extends Component {
               defaultMessage="Which projects are you participating in?"
             />
 
-            <span className={styles.projectsSaved}>
-              {employeeProjectsSavedNotification ? 'Projektit tallennettu!' : ''}
-            </span>
+            {projectsSavedNotification &&
+              <span className={styles.projectsSaved}>
+                <FormattedMessage id="statusForm_projectsSaved" defaultMessage="Projects saved!" />
+              </span>}
           </div>
 
           <div className={styles.smallButtons}>

@@ -73,7 +73,7 @@ export default class Week extends Component {
     const {
       date,
       data: { loading, people, projects, entries },
-      employeeProjectsSavedNotification, // TODO
+      projectsSavedNotification,
     } = this.props;
 
     if (loading) {
@@ -95,7 +95,7 @@ export default class Week extends Component {
           onChangeValue={this.handleChangeValue}
           onAddPersonToProject={this.handleAddPersonToProject}
           onRemovePersonFromProject={this.handleRemovePersonFromProject}
-          employeeProjectsSavedNotification={employeeProjectsSavedNotification}
+          projectsSavedNotification={projectsSavedNotification}
           onAddEntry={this.handleAddEntry}
           onAddProject={this.handleAddProject}
         />

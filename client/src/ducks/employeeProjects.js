@@ -7,7 +7,7 @@ const NOTIFICATION_SET = 'teamdaily/employeeProject/NOTIFICATION_SET';
 
 const defaultState = Map({
   employeeProjects: List(),
-  employeeProjectsSavedNotification: false,
+  projectsSavedNotification: false,
 });
 
 export default function reducer(state = defaultState, action) {
@@ -16,10 +16,7 @@ export default function reducer(state = defaultState, action) {
       return state.update('employeeProjects', () => action.employeeProjects);
 
     case NOTIFICATION_SET:
-      return state.update(
-        'employeeProjectsSavedNotification',
-        () => action.employeeProjectsSavedNotification,
-      );
+      return state.update('projectsSavedNotification', () => action.projectsSavedNotification);
 
     default:
       return state;
@@ -33,10 +30,10 @@ function receiveEmployeeProjects(employeeProjects) {
   };
 }
 
-function setEmployeeProjectsSavedNotificationState(employeeProjectsSavedNotification) {
+function projectsSavedNotification(projectsSavedNotification) {
   return {
     type: NOTIFICATION_SET,
-    employeeProjectsSavedNotification,
+    projectsSavedNotification,
   };
 }
 
@@ -57,13 +54,23 @@ export function saveProject(state, employeeId, projectId, newProjectState) {
     api
       .saveProject(employeeId, projectId, newProjectState)
       .then(employeeProjects => {
-        dispatch(setEmployeeProjectsSavedNotificationState(true));
+        dispatch(projectsSavedNotification(true));
         setTimeout(() => {
-          dispatch(setEmployeeProjectsSavedNotificationState(false));
+          dispatch(projectsSavedNotification(false));
         }, 2000);
       })
       .catch(() => {
         console.log('TODO fail handler');
       });
+  };
+}
+
+export function displayProjectsSavedNotification() {
+  return dispatch => {
+    dispatch(projectsSavedNotification(true));
+
+    setTimeout(() => {
+      dispatch(projectsSavedNotification(false));
+    }, 2000);
   };
 }

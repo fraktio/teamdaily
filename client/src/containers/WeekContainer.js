@@ -2,6 +2,7 @@ import { graphql, gql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 
 import { addProjectMutation } from '../graphql/mutations';
+import { displayProjectsSavedNotification } from '../ducks/employeeProjects';
 
 import Week from 'components/Week';
 
@@ -9,8 +10,11 @@ export default compose(
   connect(
     state => ({
       date: state.entry.date,
+      projectsSavedNotification: state.employeeProjects.get('projectsSavedNotification'),
     }),
-    {},
+    {
+      displayProjectsSavedNotification,
+    },
   ),
   graphql(
     gql`
@@ -83,6 +87,7 @@ export default compose(
           addPersonToProjectMutation,
           removePersonFromProjectMutation,
           addProjectMutation,
+          displayProjectsSavedNotification,
         } = ownProps;
 
         const addEntry = (year, week, name, message, color, flagged) => {
@@ -94,13 +99,17 @@ export default compose(
         const addPersonToProject = (personId, projectId) => {
           addPersonToProjectMutation({
             variables: { personId, projectId },
-          }).then(() => data.refetch());
+          })
+            .then(() => data.refetch())
+            .then(displayProjectsSavedNotification);
         };
 
         const removePersonFromProject = (personId, projectId) => {
           removePersonFromProjectMutation({
             variables: { personId, projectId },
-          }).then(() => data.refetch());
+          })
+            .then(() => data.refetch())
+            .then(displayProjectsSavedNotification);
         };
 
         const addProject = name => {
