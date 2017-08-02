@@ -3,30 +3,22 @@ const storage = window.localStorage || {
   getItem() {},
 };
 
-const statusFromLocalStorage = ({
-  name,
-  description,
-  color,
-  flagged,
-  employeeId,
-  activeProjects,
-}) => ({
-  name: name || '',
-  description: description || '',
+const statusFromLocalStorage = ({ selectedPersonId, message, color, flagged }) => ({
+  selectedPersonId: selectedPersonId || null,
+  message: message || '',
   color: color || 'green',
   flagged: flagged || false,
-  activeProjects: activeProjects || [],
-  employeeId: employeeId || undefined,
 });
 
 export default {
   save(status) {
-    return storage.setItem('status', JSON.stringify(status));
+    return storage.setItem('status', JSON.stringify(Object.assign({}, this.load(), status)));
   },
 
   load() {
-    const ret = storage.getItem('status');
-    const json = ret ? JSON.parse(ret) : {};
+    const status = storage.getItem('status');
+    const json = status ? JSON.parse(status) : {};
+
     return statusFromLocalStorage(json);
   },
 };
