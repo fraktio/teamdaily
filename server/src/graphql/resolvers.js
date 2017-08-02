@@ -103,6 +103,39 @@ const resolvers = {
 
       return result.affectedRows;
     },
+
+    async addEntry(root, { year, week, name, message, color, flagged }) {
+      const result = await database.query(
+        `
+          INSERT INTO logs (year, week, name, message, color, flagged)
+          VALUES (?, ?, ?, ?, ?, ?)
+        `,
+        [year, week, name, message, color, flagged],
+      );
+
+      return result.affectedRows;
+    },
+
+    async addPersonToProject(root, { personId, projectId }) {
+      const result = await database.query(
+        `
+          INSERT INTO employee_projects (employee_id, project_id)
+          VALUES (?, ?)
+        `,
+        [personId, projectId],
+      );
+
+      return result.affectedRows;
+    },
+
+    async removePersonFromProject(root, { personId, projectId }) {
+      const result = await database.query(
+        'DELETE FROM employee_projects WHERE employee_id = ? AND project_id = ?',
+        [personId, projectId],
+      );
+
+      return result.affectedRows;
+    },
   },
 
   Person: {
