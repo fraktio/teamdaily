@@ -33,7 +33,7 @@ type Query {
   projects: [Project]
   project(name: String): Project
 
-  entries(year: Int!, week: Int!): [Entry]
+  entries(startYear: Int!, startWeek: Int!, endYear: Int!, endWeek: Int!): [Entry]
 }
 
 type Mutation {
@@ -42,6 +42,18 @@ type Mutation {
 
   addPerson(name: String!): Person
   deletePerson(id: Int!): Int
+
+  addEntry(
+    year: Int!
+    week: Int!
+    name: String!
+    message: String!
+    color: String!
+    flagged: Boolean!
+  ): Entry
+
+  addPersonToProject(personId: Int!, projectId: Int!): Int
+  removePersonFromProject(personId: Int!, projectId: Int!): Int
 }
 `;
 

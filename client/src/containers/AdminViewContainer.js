@@ -1,19 +1,11 @@
 import { graphql, gql, compose } from 'react-apollo';
 
+import { addProjectMutation } from '../graphql/mutations';
+
 import AdminView from '../components/AdminView/AdminView';
 
 export default compose(
-  graphql(
-    gql`
-      mutation addProject($name: String!) {
-        addProject(name: $name) {
-          id
-          name
-        }
-      }
-    `,
-    { name: 'addProjectMutation' },
-  ),
+  graphql(addProjectMutation, { name: 'addProjectMutation' }),
   graphql(
     gql`
       mutation deleteProject($id: Int!) {

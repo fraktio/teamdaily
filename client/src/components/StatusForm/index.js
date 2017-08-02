@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { alphabeticalSort } from '../../utils/helpers';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Icon } from 'react-fa';
+
 import { name } from 'services/employee';
-import { Link } from 'react-router-dom';
+
 import AddProjectForm from 'components/AddProjectForm';
 import Button from 'components/Button';
+
 import styles from './style.pcss';
 
 class StatusForm extends Component {
@@ -13,168 +13,176 @@ class StatusForm extends Component {
     super(props);
 
     this.state = {
-      ...props.initialValues,
+      message: props.initialValues.message,
+      color: props.initialValues.color,
+      flagged: props.initialValues.flagged,
     };
   }
 
-  changeEmployee = evt => {
-    const employee = this.props.employees.find(e => e.name === evt.target.value);
+  handleChangeEmployee = event => {
+    const { onChangePerson } = this.props;
 
-    this.setState({
-      name: employee.name || '',
-      employeeId: employee.id || null,
-      activeProjects: employee.projects || [],
-    });
+    onChangePerson(event.target.value);
   };
 
-  changeDescription = ({ target: { value: description } }) => {
-    this.setState({ description });
+  handleChangeMessage = ({ target: { value: message } }) => {
+    const { onChangeValue } = this.props;
+
+    onChangeValue({ message });
+
+    this.setState({ message });
   };
 
-  changeColor = color => {
+  handleChangeColor = color => () => {
+    const { onChangeValue } = this.props;
+
+    onChangeValue({ color });
+
     this.setState({ color });
   };
 
-  toggleActiveProject = (id, e) => {
-    e.preventDefault();
+  handleChangeFlagged = () => {
+    const { onChangeValue } = this.props;
 
-    const activeProjects = this.state.activeProjects || [];
-    const isProjectActive = activeProjects.includes(id);
+    onChangeValue({ flagged: !this.state.flagged });
 
-    if (isProjectActive) {
-      activeProjects.splice(activeProjects.indexOf(id), 1);
-    } else {
-      activeProjects.push(id);
-    }
-
-    this.setState({ activeProjects }, () => this.saveProject(id, !isProjectActive));
-  };
-
-  submitStatus = e => {
-    const { name, employeeId } = this.state;
-
-    e.preventDefault();
-
-    if (name && !employeeId) {
-      const employee = this.props.employees.find(e => e.name === name);
-
-      this.setState(
-        {
-          employeeId: employee.id,
-        },
-        () => this.doSubmit(),
-      );
-
-      return;
-    }
-
-    this.doSubmit();
-  };
-
-  doSubmit = () => {
-    this.props.onSubmit({
-      ...this.state,
-    });
-
-    this.setState({
-      description: '',
-    });
-  };
-
-  saveProject = (projectId, newProjectState) => {
-    const { onSaveProject } = this.props;
-
-    onSaveProject(this.state, this.state.employeeId, projectId, newProjectState);
-  };
-
-  isSubmittable = () => {
-    return this.state.name && this.props.enabled && this.state.description;
-  };
-
-  setFlagged = () => {
     this.setState({ flagged: !this.state.flagged });
   };
 
-  render() {
-    const fields = {
-      ...this.state,
-    };
+  handleToggleProject = projectId => event => {
+    event.preventDefault();
 
-    const { employees, projects, employeeProjectsSavedNotification, intl } = this.props;
+    const { onAddPersonToProject, onRemovePersonFromProject } = this.props;
+
+    if (this.getActiveProjectIds().includes(projectId)) {
+      onRemovePersonFromProject(projectId);
+    } else {
+      onAddPersonToProject(projectId);
+    }
+  };
+
+  handleSubmitStatus = event => {
+    event.preventDefault();
+
+    const { onAddEntry } = this.props;
+
+    onAddEntry(this.state.message, this.state.color, this.state.flagged);
+
+    this.setState({ message: '' });
+  };
+
+  isSubmittable = () => {
+    const { selectedPerson, enabled } = this.props;
+    const { message, color } = this.state;
+
+    return enabled && selectedPerson && message && color;
+  };
+
+  getActiveProjectIds() {
+    const { selectedPerson } = this.props;
+
+    let activeProjectIds = [];
+
+    if (selectedPerson) {
+      activeProjectIds = selectedPerson.projects.map(p => p.id);
+    }
+
+    return activeProjectIds;
+  }
+
+  render() {
+    const {
+      enabled,
+      people,
+      projects,
+      selectedPerson,
+      employeeProjectsSavedNotification,
+      onAddProject,
+      intl,
+    } = this.props;
+
+    const { message, color, flagged } = this.state;
 
     return (
-      <form className={styles.container} onSubmit={e => this.submitStatus(e)}>
+      <form className={styles.container} onSubmit={this.handleSubmitStatus}>
         <div className={styles.floatLeft}>
           <select
-            disabled={!this.props.enabled}
-            ref="name"
-            value={fields.name}
-            onChange={this.changeEmployee}
+            disabled={!enabled}
+            value={selectedPerson ? selectedPerson.id : ''}
+            onChange={this.handleChangeEmployee}
           >
             <option value="">
               {intl.messages.statusForm_emptySelection}
             </option>
-            {employees.map(employee =>
-              <option key={employee.name} value={employee.name}>
-                {name(employee.name)}
+
+            {people.map(person =>
+              <option key={person.id} value={person.id}>
+                {name(person.name)}
               </option>,
             )}
           </select>
         </div>
+
         <div className={styles.control}>
           <div className={styles.label}>
             <FormattedMessage id="statusForm_doing" defaultMessage="What are you working on?" />
           </div>
+
           <input
-            disabled={!this.props.enabled}
+            disabled={!enabled}
             type="text"
-            ref="description"
+            ref="message"
             className={styles.input}
-            value={fields.description}
-            onChange={this.changeDescription}
+            value={message}
+            onChange={this.handleChangeMessage}
             placeholder={intl.messages.statusForm_whatAreYouDoingPlaceholder}
           />
         </div>
+
         <div className={styles.control}>
           <div className={styles.label}>
             <FormattedMessage id="statusForm_feeling" defaultMessage="How are you?" />
           </div>
+
           <div className={styles.buttonGroup}>
             <Button
               type="button"
-              disabled={!this.props.enabled}
-              onClick={() => this.changeColor('green')}
-              active={fields.color === 'green'}
+              disabled={!enabled}
+              onClick={this.handleChangeColor('green')}
+              active={color === 'green'}
               className="green"
               title={intl.messages.statusForm_ok}
             >
               <FormattedMessage id="statusForm_ok" defaultMessage="Doing good" />
             </Button>
+
             <Button
               type="button"
-              disabled={!this.props.enabled}
-              onClick={() => this.changeColor('yellow')}
-              active={fields.color === 'yellow'}
+              disabled={!enabled}
+              onClick={this.handleChangeColor('yellow')}
+              active={color === 'yellow'}
               className="yellow"
               title={intl.messages.statusForm_busy}
             >
               <FormattedMessage id="statusForm_busy" defaultMessage="Pretty busy" />
             </Button>
+
             <Button
               type="button"
-              disabled={!this.props.enabled}
-              onClick={() => this.changeColor('red')}
-              active={fields.color === 'red'}
+              disabled={!enabled}
+              onClick={this.handleChangeColor('red')}
+              active={color === 'red'}
               className="red"
               title={intl.messages.statusForm_tooMuch}
             >
               <FormattedMessage id="statusForm_tooMuch" defaultMessage="Too much to do" />
             </Button>
+
             <Button
               type="button"
-              disabled={!this.props.enabled}
-              onClick={() => this.changeColor('blue')}
-              active={fields.color === 'blue'}
+              disabled={!enabled}
+              onClick={this.handleChangeColor('blue')}
+              active={color === 'blue'}
               className="blue"
               title={intl.messages.statusForm_notEnough}
             >
@@ -182,46 +190,51 @@ class StatusForm extends Component {
             </Button>
           </div>
         </div>
+
         <div>
           <label>
             <input
               type="checkbox"
               className={styles.checkbox}
-              checked={fields.flagged}
-              onChange={this.setFlagged}
+              checked={flagged}
+              onChange={this.handleChangeFlagged}
+              disabled={!enabled}
             />
+
             <FormattedMessage
               id="statusForm_attention"
               defaultMessage="My situation requires attention"
             />
           </label>
         </div>
+
         <div className={styles.control}>
           <div className={styles.label}>
             <FormattedMessage
               id="statusForm_projects"
-              defaultMessage="Which projects will you participate in to?"
+              defaultMessage="Which projects are you participating in?"
             />
+
             <span className={styles.projectsSaved}>
               {employeeProjectsSavedNotification ? 'Projektit tallennettu!' : ''}
             </span>
           </div>
+
           <div className={styles.smallButtons}>
-            {projects.sort((a, b) => alphabeticalSort(a.name, b.name)).map(project =>
+            {projects.map(project =>
               <Button
                 key={project.id}
-                onClick={this.toggleActiveProject.bind(this, project.id)}
-                active={
-                  this.state.activeProjects && this.state.activeProjects.indexOf(project.id) != -1
-                }
+                onClick={this.handleToggleProject(project.id)}
+                active={this.getActiveProjectIds().includes(project.id)}
                 title={project.name}
-                disabled={project.disabled}
+                disabled={!enabled || !selectedPerson}
                 type="button"
               >
                 {project.name}
               </Button>,
             )}
-            <AddProjectForm onSubmit={this.props.onAddNewProject} />
+
+            <AddProjectForm onSubmit={onAddProject} />
           </div>
         </div>
 
