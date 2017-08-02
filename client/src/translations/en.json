@@ -1,12 +1,11 @@
 {
-    "compactStatusForm_whatAreYouDoing": "What are you doing this week?",
-    "statusForm_whatAreYouDoingPlaceholder": "What are you doing this week?",
-    "statusForm_ok": "Doing good",
-    "statusForm_busy": "Pretty busy",
-    "statusForm_tooMuch": "Too much to do",
-    "statusForm_notEnough": "Not enough to do",
-    "statusForm_emptySelection": "-- Select --",
-    "addProjectForm_addProject": "Add project",
-    "admin_addEmployee": "Add person",
-    "admin_addProject": "Add project"
+  "statusForm_whatAreYouDoingPlaceholder": "What are you doing this week?",
+  "statusForm_ok": "Doing good",
+  "statusForm_busy": "Pretty busy",
+  "statusForm_tooMuch": "Too much to do",
+  "statusForm_notEnough": "Not enough to do",
+  "statusForm_emptySelection": "-- Select --",
+  "addProjectForm_addProject": "Add project",
+  "admin_addEmployee": "Add person",
+  "admin_addProject": "Add project"
 }
