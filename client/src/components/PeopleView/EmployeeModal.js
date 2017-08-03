@@ -187,6 +187,11 @@ export default injectIntl(EmployeeModal);
 
 const MoodsList = [
   {
+    color: 'pink',
+    message: 'statusForm_onVacation',
+    icon: '🌴',
+  },
+  {
     color: 'blue',
     message: 'statusForm_notEnough',
     icon: '😪',

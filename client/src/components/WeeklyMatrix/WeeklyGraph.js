@@ -93,6 +93,7 @@ export default React.createClass({
     const googleArrayFormat = map(dailySpread, (statuses, key) => {
       return [
         translations[key],
+        counts('pink', statuses),
         counts('blue', statuses),
         counts('green', statuses),
         counts('yellow', statuses),
@@ -107,7 +108,14 @@ export default React.createClass({
     }
 
     const data = google.visualization.arrayToDataTable([
-      ['Day', 'Liian vähän töitä', 'Sopivasti töitä', 'Hieman liikaa töitä', 'Liian paljon töitä'],
+      [
+        'Day',
+        'Lomalla',
+        'Liian vähän töitä',
+        'Sopivasti töitä',
+        'Hieman liikaa töitä',
+        'Liian paljon töitä',
+      ],
       ...googleArrayFormat,
     ]);
 
@@ -138,7 +146,7 @@ export default React.createClass({
       },
       titleTextStyle: { color: 'white' },
       isStacked: 'true',
-      colors: ['blue', 'green', 'yellow', 'red'],
+      colors: ['pink', 'blue', 'green', 'yellow', 'red'],
       backgroundColor: '#2B2B2B',
       tooltip: {
         trigger: 'focus',
