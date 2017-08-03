@@ -2,7 +2,7 @@ import colors from '../src/colors';
 
 describe('Color constants', () => {
   test('Defined number of colors', () => {
-    expect(colors.length).toEqual(4);
+    expect(colors.length).toEqual(5);
   });
 
   test('Has color green', () => {
@@ -19,5 +19,9 @@ describe('Color constants', () => {
 
   test('Has color blue', () => {
     expect(colors.includes('blue')).toEqual(true);
+  });
+
+  test('Has color pink', () => {
+    expect(colors.includes('pink')).toEqual(true);
   });
 });
