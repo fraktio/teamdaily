@@ -38,7 +38,10 @@ function asyncWrap(fn) {
 }
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+}
 
 // REST API is Deprecated.
 app.get(

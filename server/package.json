@@ -15,7 +15,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "start": "cross-env babel-watch -L src/api.js",
+    "start": "cross-env NODE_ENV=development babel-watch -L src/api.js",
     "babel-watch": "babel-watch",
     "test": "jest"
   },
