@@ -35,6 +35,7 @@ Start from there!
 * `cd server`
 * `yarn`
 * `cp .env.example .env` <= configure
+* `yarn run db-migrate up` <= Migration MAGIC
 * `yarn run start`
 
 ### client
@@ -43,3 +44,4 @@ Start from there!
 * `yarn`
 * `cp .env.example .env` <= configure
 * `yarn run start`
+
