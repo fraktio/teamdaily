@@ -188,6 +188,17 @@ class StatusForm extends Component {
             >
               <FormattedMessage id="statusForm_notEnough" defaultMessage="Not enough to do" />
             </Button>
+
+            <Button
+              type="button"
+              disabled={!enabled}
+              onClick={this.handleChangeColor('pink')}
+              active={color === 'pink'}
+              className="pink"
+              title={intl.messages.statusForm_onVacation}
+            >
+              <FormattedMessage id="statusForm_onVacation" defaultMessage="On vacation" />
+            </Button>
           </div>
         </div>
 
