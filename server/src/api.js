@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import connectDatabase from './services/database';
 import auth from 'http-auth';
 import bcrypt from 'bcrypt';
 import morgan from 'morgan';
@@ -9,6 +10,8 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import schema from './graphql/schema';
 
 dotenv.config();
+
+const database = connectDatabase();
 
 const app = express();
 
@@ -28,8 +31,30 @@ registerSecureOnlyMiddleware(app);
 registerTrustProxy(app);
 registerAuthMiddleware(app);
 
+function asyncWrap(fn) {
+  return (req, res, next) => {
+    fn(req, res, next).catch(next);
+  };
+}
+
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+
+// REST API is Deprecated.
+app.get(
+  '/api/message/:year/:week',
+  asyncWrap(async (req, res) => {
+    const year = req.params.year;
+    const week = req.params.week;
+    const queryData = [year, week];
+
+    const result = await database.query(
+      'SELECT * FROM logs WHERE year = ? AND week = ?',
+      queryData,
+    );
+    res.json(result);
+  }),
+);
 
 app.listen(process.env.PORT, process.env.HOST, function(err) {
   if (err) {
