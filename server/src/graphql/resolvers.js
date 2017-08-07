@@ -53,7 +53,7 @@ const resolvers = {
     entries(root, { startYear, startWeek, endYear, endWeek }) {
       return database.query(
         `
-          SELECT id, year, week, name, message, status, created, color, flagged
+          SELECT id, year, week, name, message, created, color, flagged
           FROM logs
           WHERE year <= ? AND week <= ? AND year >= ? AND week >= ?
           ORDER BY created DESC
@@ -105,7 +105,7 @@ const resolvers = {
     },
 
     async addEntry(root, { year, week, name, message, color, flagged }) {
-      const result = await database.query(
+      const insertResult = await database.query(
         `
           INSERT INTO logs (year, week, name, message, color, flagged)
           VALUES (?, ?, ?, ?, ?, ?)
@@ -113,7 +113,15 @@ const resolvers = {
         [year, week, name, message, color, flagged],
       );
 
-      return result.affectedRows;
+      const result = await database.query(
+        `
+          SELECT id, year, week, name, message, created, color, flagged
+          FROM logs WHERE id = ?
+        `,
+        insertResult.insertId,
+      );
+
+      return result[0];
     },
 
     async addPersonToProject(root, { personId, projectId }) {
@@ -153,7 +161,7 @@ const resolvers = {
     entries(person, { startYear, startWeek, endYear, endWeek }) {
       return database.query(
         `
-          SELECT id, year, week, name, message, status, created, color, flagged
+          SELECT id, year, week, name, message, created, color, flagged
           FROM logs
           WHERE year <= ? AND week <= ? AND year >= ? AND week >= ? AND name = ?
           ORDER BY created DESC
