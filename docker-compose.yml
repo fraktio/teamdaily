@@ -33,7 +33,9 @@ services:
       ports:
         - "127.0.0.1:5678:5678"
       working_dir: /app
-      command: bash -c "cd /app && yarn && yarn start"
+      command: bash -c "cd /app && yarn && yarn run db-migrate up && yarn start"
+      depends_on:
+        - database
 
   # Database
   database:
