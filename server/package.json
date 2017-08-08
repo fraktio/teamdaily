@@ -10,10 +10,7 @@
         "./node_modules/.bin/prettier --single-quote --print-width 100 --trailing-comma all --write",
         "git add"
       ],
-      "*.json": [
-        "./node_modules/.bin/prettier --parser json --print-width 100 --write",
-        "git add"
-      ]
+      "*.json": ["./node_modules/.bin/prettier --parser json --print-width 100 --write", "git add"]
     }
   },
   "scripts": {
@@ -30,9 +27,7 @@
     "type": "git",
     "url": "https://github.com/fraktio/teamdaily-os"
   },
-  "keywords": [
-    "TeamDaily"
-  ],
+  "keywords": ["TeamDaily"],
   "author": "Fraktio",
   "license": "MIT",
   "dependencies": {
