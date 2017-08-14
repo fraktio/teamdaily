@@ -5,6 +5,27 @@ import { compose } from 'recompose';
 import PeopleView from '../components/PeopleView/PeopleView';
 import { prevWeek, nextWeek, setWeek } from 'ducks/entry';
 
+export const query = gql`
+  query PeopleWithProjectsAndEntries($year: Int!, $week: Int!) {
+    people {
+      id
+      name
+      projects {
+        id
+        name
+      }
+      entries(startYear: $year, startWeek: $week, endYear: $year, endWeek: $week) {
+        id
+        name
+        message
+        created
+        color
+        flagged
+      }
+    }
+  }
+`;
+
 export default compose(
   connect(
     state => ({
@@ -16,36 +37,16 @@ export default compose(
       setWeek,
     },
   ),
-  graphql(
-    gql`
-      query PeopleWithProjectsAndEntries($year: Int!, $week: Int!) {
-        people {
-          id
-          name
-          projects {
-            id
-            name
-          }
-          entries(startYear: $year, startWeek: $week, endYear: $year, endWeek: $week) {
-            id
-            name
-            message
-            created
-            color
-            flagged
-          }
-        }
-      }
-    `,
-    {
-      options: props => {
-        const { date } = props;
+  graphql(query, {
+    options: props => {
+      const { date } = props;
 
-        const year = date.year();
-        const week = date.week();
+      const year = date.year();
+      const week = date.week();
 
-        return { variables: { year, week } };
-      },
+      return {
+        variables: { year, week },
+      };
     },
-  ),
+  }),
 )(PeopleView);
