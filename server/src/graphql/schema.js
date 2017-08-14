@@ -5,14 +5,14 @@ const typeDefs = `
 type Person {
   id: Int
   name: String
-  projects: [Project]
-  entries(startYear: Int!, startWeek: Int!, endYear: Int!, endWeek: Int!): [Entry]
+  projects: [Project]!
+  entries(startYear: Int!, startWeek: Int!, endYear: Int!, endWeek: Int!): [Entry]!
 }
 
 type Project {
   id: Int
   name: String
-  people: [Person]
+  people: [Person]!
 }
 
 type Entry {
@@ -27,13 +27,13 @@ type Entry {
 }
 
 type Query {
-  people: [Person]
+  people: [Person]!
   person(name: String): Person
 
-  projects: [Project]
+  projects: [Project]!
   project(name: String): Project
 
-  entries(startYear: Int!, startWeek: Int!, endYear: Int!, endWeek: Int!): [Entry]
+  entries(startYear: Int!, startWeek: Int!, endYear: Int!, endWeek: Int!): [Entry]!
 }
 
 type Mutation {
