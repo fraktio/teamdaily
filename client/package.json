@@ -47,7 +47,7 @@
     "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-addons-perf": "^15.4.1",
-    "react-apollo": "^1.4.8",
+    "react-apollo": "^1.4.11",
     "react-dom": "^15.6.1",
     "react-fa": "^4.2.0",
     "react-immutable-proptypes": "^2.1.0",
