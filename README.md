@@ -26,11 +26,14 @@ To install hook, run the following:
 
 ## Manual installation
 
-### server
+### Server
 
 TeamDaily uses a MySQL database. You can find an example kekkonized
 database from [database_dump/teamdaily.sql](database_dump/teamdaily.sql).
 Start from there!
+
+> - In development environment you should use the example kekkonized database.
+> - In production create an empty database and run migrations.
 
 * `cd server`
 * `yarn`
@@ -38,7 +41,21 @@ Start from there!
 * `yarn run db-migrate up` <= Migration MAGIC
 * `yarn run start`
 
-### client
+#### Please note
+> If you installed Teamdaily before migrations were implemented, create migrations table by hand
+> ```
+> CREATE TABLE `migrations` (
+>   `id` int(11) NOT NULL AUTO_INCREMENT,
+>   `name` varchar(255) NOT NULL,
+>   `run_on` datetime NOT NULL,
+>   PRIMARY KEY (`id`)
+> ) DEFAULT CHARSET=utf8;
+> 
+> INSERT INTO `migrations` (name, run_on)  VALUES ('/20170728133556-initial', NOW());
+> ```
+
+
+### Client
 
 * `cd client`
 * `yarn`
