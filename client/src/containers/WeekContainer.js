@@ -7,7 +7,7 @@ import {
   removePersonFromProjectMutation,
   addEntryMutation,
 } from '../graphql/mutations';
-import { displayProjectsSavedNotification } from '../ducks/employeeProjects';
+import { displayProjectsSavedNotification, changeSelectedPerson } from '../ducks/employeeProjects';
 
 import Week from 'components/Week';
 
@@ -42,15 +42,17 @@ export default compose(
     state => ({
       date: state.entry.date,
       projectsSavedNotification: state.employeeProjects.get('projectsSavedNotification'),
+      selectedPersonId: state.employeeProjects.get('selectedPersonId'),
     }),
     {
       displayProjectsSavedNotification,
+      changeSelectedPerson,
     },
   ),
   graphql(addEntryMutation, {
     name: 'addEntryMutation',
     options: props => {
-      const { date } = props;
+      const { date, selectedPersonId } = props;
 
       const year = date.year();
       const week = date.week();
@@ -96,6 +98,7 @@ export default compose(
   graphql(query, {
     props: ({ ownProps, data }) => {
       const {
+        selectedPersonId,
         addEntryMutation,
         addPersonToProjectMutation,
         removePersonFromProjectMutation,
@@ -107,17 +110,17 @@ export default compose(
         addEntryMutation({ variables: { year, week, name, message, color, flagged } });
       };
 
-      const addPersonToProject = (personId, projectId) => {
+      const addPersonToProject = projectId => {
         addPersonToProjectMutation({
-          variables: { personId, projectId },
+          variables: { personId: selectedPersonId, projectId },
         })
           .then(() => data.refetch())
           .then(displayProjectsSavedNotification);
       };
 
-      const removePersonFromProject = (personId, projectId) => {
+      const removePersonFromProject = projectId => {
         removePersonFromProjectMutation({
-          variables: { personId, projectId },
+          variables: { personId: selectedPersonId, projectId },
         })
           .then(() => data.refetch())
           .then(displayProjectsSavedNotification);

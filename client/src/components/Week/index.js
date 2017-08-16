@@ -22,15 +22,13 @@ export default class Week extends Component {
 
     const initialValues = localstorage.load();
 
-    this.state = {
-      selectedPersonId: initialValues.selectedPersonId,
-    };
+    props.changeSelectedPerson(initialValues.selectedPersonId);
   }
 
   handleAddEntry = (message, color, flagged) => {
-    const { addEntry, date, data: { people } } = this.props;
+    const { addEntry, date, selectedPersonId, data: { people } } = this.props;
 
-    const selectedPerson = people.find(person => person.id === this.state.selectedPersonId);
+    const selectedPerson = people.find(person => person.id === selectedPersonId);
 
     addEntry(date.year(), date.week(), selectedPerson.name, message, color, flagged);
   };
@@ -38,25 +36,25 @@ export default class Week extends Component {
   handleAddPersonToProject = projectId => {
     const { addPersonToProject } = this.props;
 
-    addPersonToProject(this.state.selectedPersonId, projectId);
+    addPersonToProject(projectId);
   };
 
   handleRemovePersonFromProject = projectId => {
     const { removePersonFromProject } = this.props;
 
-    removePersonFromProject(this.state.selectedPersonId, projectId);
+    removePersonFromProject(projectId);
   };
 
   handleChangePerson = personId => {
-    const selectedPersonId = personId ? parseInt(personId, 10) : null;
+    const { changeSelectedPerson } = this.props;
 
-    this.setState({
-      selectedPersonId,
-    });
+    const selectedPersonId = personId ? parseInt(personId, 10) : null;
 
     localstorage.save({
       selectedPersonId,
     });
+
+    changeSelectedPerson(selectedPersonId);
   };
 
   handleChangeValue = value => {
@@ -72,6 +70,7 @@ export default class Week extends Component {
   render() {
     const {
       date,
+      selectedPersonId,
       data: { loading, people, projects, entries },
       projectsSavedNotification,
     } = this.props;
@@ -80,7 +79,7 @@ export default class Week extends Component {
       return null;
     }
 
-    const selectedPerson = people.find(person => person.id === this.state.selectedPersonId);
+    const selectedPerson = people.find(person => person.id === selectedPersonId);
 
     return (
       <div>
