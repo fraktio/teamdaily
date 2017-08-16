@@ -28,10 +28,8 @@ type Entry {
 
 type Query {
   people: [Person]!
-  person(name: String): Person
 
   projects: [Project]!
-  project(name: String): Project
 
   entries(startYear: Int!, startWeek: Int!, endYear: Int!, endWeek: Int!): [Entry]!
 }
@@ -52,8 +50,18 @@ type Mutation {
     flagged: Boolean!
   ): Entry
 
-  addPersonToProject(personId: Int!, projectId: Int!): Int
-  removePersonFromProject(personId: Int!, projectId: Int!): Int
+  addPersonToProject(personId: Int!, projectId: Int!): AddPersonToProjectOutput
+  removePersonFromProject(personId: Int!, projectId: Int!): RemovePersonFromProjectOutput
+}
+
+type AddPersonToProjectOutput {
+  person: Person
+  project: Project
+}
+
+type RemovePersonFromProjectOutput {
+  person: Person
+  project: Project
 }
 `;
 

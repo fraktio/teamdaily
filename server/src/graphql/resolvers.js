@@ -1,53 +1,17 @@
 import connectDatabase from '../services/database';
+import { getPeople, getPerson } from '../services/personRepository';
+import { getProjects, getProject } from '../services/projectRepository';
 
 const database = connectDatabase();
 
 const resolvers = {
   Query: {
     people(root, args) {
-      return database.query(
-        `
-          SELECT id, name FROM employees
-          WHERE deleted = 0
-          ORDER BY name ASC
-        `,
-      );
-    },
-
-    async person(root, args) {
-      const r = await database.query(
-        `
-          SELECT id, name FROM employees
-          WHERE name = ? AND deleted = 0
-          ORDER BY name ASC
-        `,
-        args.name,
-      );
-
-      return r[0];
+      return getPeople();
     },
 
     projects(root, args) {
-      return database.query(
-        `
-          SELECT id, name FROM projects
-          WHERE deleted = 0
-          ORDER BY name ASC
-        `,
-      );
-    },
-
-    async project(root, args) {
-      const r = await database.query(
-        `
-          SELECT id, name FROM projects
-          WHERE name = ? AND deleted = 0
-          ORDER BY name ASC
-        `,
-        args.name,
-      );
-
-      return r[0];
+      return getProjects();
     },
 
     entries(root, { startYear, startWeek, endYear, endWeek }) {
@@ -67,12 +31,7 @@ const resolvers = {
     async addProject(root, { name }) {
       const insertResult = await database.query('INSERT INTO projects SET ?', { name });
 
-      const result = await database.query(
-        'SELECT id, name FROM projects WHERE id = ?',
-        insertResult.insertId,
-      );
-
-      return result[0];
+      return getProject(insertResult.insertId);
     },
 
     async deleteProject(root, { id }) {
@@ -87,12 +46,7 @@ const resolvers = {
     async addPerson(root, { name }) {
       const insertResult = await database.query('INSERT INTO employees SET ?', { name });
 
-      const result = await database.query(
-        'SELECT id, name FROM employees WHERE id = ?',
-        insertResult.insertId,
-      );
-
-      return result[0];
+      return getPerson(insertResult.insertId);
     },
 
     async deletePerson(root, { id }) {
@@ -133,7 +87,13 @@ const resolvers = {
         [personId, projectId],
       );
 
-      return result.affectedRows;
+      const person = getPerson(personId);
+      const project = getProject(projectId);
+
+      return {
+        person,
+        project,
+      };
     },
 
     async removePersonFromProject(root, { personId, projectId }) {
@@ -142,7 +102,13 @@ const resolvers = {
         [personId, projectId],
       );
 
-      return result.affectedRows;
+      const person = getPerson(personId);
+      const project = getProject(projectId);
+
+      return {
+        person,
+        project,
+      };
     },
   },
 

@@ -13,6 +13,7 @@ export const query = gql`
         id
         name
         entries(startYear: $year, startWeek: $week, endYear: $year, endWeek: $week) {
+          id
           color
         }
       }

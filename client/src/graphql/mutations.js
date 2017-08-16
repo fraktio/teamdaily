@@ -32,13 +32,31 @@ export const deletePerson = gql`
 
 export const addPersonToProjectMutation = gql`
   mutation addPersonToProject($personId: Int!, $projectId: Int!) {
-    addPersonToProject(personId: $personId, projectId: $projectId)
+    addPersonToProject(personId: $personId, projectId: $projectId) {
+      person {
+        id
+        name
+      }
+      project {
+        id
+        name
+      }
+    }
   }
 `;
 
 export const removePersonFromProjectMutation = gql`
   mutation removePersonFromProject($personId: Int!, $projectId: Int!) {
-    removePersonFromProject(personId: $personId, projectId: $projectId)
+    removePersonFromProject(personId: $personId, projectId: $projectId) {
+      person {
+        id
+        name
+      }
+      project {
+        id
+        name
+      }
+    }
   }
 `;
 

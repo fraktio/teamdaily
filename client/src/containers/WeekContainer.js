@@ -1,5 +1,6 @@
 import { graphql, gql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
+import sortBy from 'lodash/sortBy';
 
 import {
   addProjectMutation,
@@ -37,6 +38,28 @@ const query = gql`
   }
 `;
 
+function updateStore(proxy, query, variables, callback) {
+  try {
+    const data = proxy.readQuery({ query, variables });
+
+    callback(data);
+
+    proxy.writeQuery({ query, variables, data });
+  } catch (e) {
+    // This is pretty bad. `proxy.readQuery` throws an exception if the query has not been
+    // exececuted previously. This can potentially hide some bugs.
+  }
+}
+
+function getYearAndWeek(props) {
+  const { date } = props;
+
+  const year = date.year();
+  const week = date.week();
+
+  return { year, week };
+}
+
 export default compose(
   connect(
     state => ({
@@ -52,49 +75,124 @@ export default compose(
   graphql(addEntryMutation, {
     name: 'addEntryMutation',
     options: props => {
-      const { date, selectedPersonId } = props;
+      const { selectedPersonId } = props;
 
-      const year = date.year();
-      const week = date.week();
-
-      const variables = { year, week };
-
+      const variables = getYearAndWeek(props);
       const { startTime, endTime } = getStartAndEndTimes();
 
       return {
-        refetchQueries: [
-          {
-            query: peopleViewQuery,
-            variables,
-          },
-          {
-            query: projectViewQuery,
-            variables,
-          },
-          {
-            query: weeklyMatrixQuery,
-            variables: {
+        update: (proxy, { data: { addEntry } }) => {
+          updateStore(proxy, query, variables, data => {
+            data.entries.unshift(addEntry);
+          });
+
+          updateStore(proxy, peopleViewQuery, variables, data => {
+            data.people.forEach(person => {
+              if (person.id === selectedPersonId) {
+                person.entries.unshift(addEntry);
+              }
+            });
+          });
+
+          updateStore(proxy, projectViewQuery, variables, data => {
+            data.projects.forEach(project => {
+              project.people.forEach(person => {
+                if (person.id === selectedPersonId) {
+                  person.entries.unshift(addEntry);
+                }
+              });
+            });
+          });
+
+          updateStore(
+            proxy,
+            weeklyMatrixQuery,
+            {
               startYear: startTime.year(),
               startWeek: startTime.week(),
               endYear: endTime.year(),
               endWeek: endTime.week(),
             },
-          },
-        ],
-
-        update: (proxy, { data: { addEntry } }) => {
-          const data = proxy.readQuery({ query, variables });
-
-          data.entries.unshift(addEntry);
-
-          proxy.writeQuery({ query, variables, data });
+            data => {
+              data.people.forEach(person => {
+                if (person.id === selectedPersonId) {
+                  person.entries.unshift(addEntry);
+                }
+              });
+            },
+          );
         },
       };
     },
   }),
-  graphql(addPersonToProjectMutation, { name: 'addPersonToProjectMutation' }),
-  graphql(removePersonFromProjectMutation, { name: 'removePersonFromProjectMutation' }),
-  graphql(addProjectMutation, { name: 'addProjectMutation' }),
+  graphql(addPersonToProjectMutation, {
+    name: 'addPersonToProjectMutation',
+    options: props => {
+      const variables = getYearAndWeek(props);
+
+      return {
+        update: (proxy, { data: { addPersonToProject } }) => {
+          updateStore(proxy, projectViewQuery, variables, data => {
+            data.projects
+              .find(project => project.id === addPersonToProject.project.id)
+              .people.push(addPersonToProject.person);
+          });
+
+          updateStore(proxy, query, variables, data => {
+            data.people
+              .find(person => person.id === addPersonToProject.person.id)
+              .projects.push(addPersonToProject.project);
+          });
+        },
+      };
+    },
+  }),
+  graphql(removePersonFromProjectMutation, {
+    name: 'removePersonFromProjectMutation',
+    options: props => {
+      const variables = getYearAndWeek(props);
+
+      return {
+        update: (proxy, { data: { removePersonFromProject } }) => {
+          updateStore(proxy, projectViewQuery, variables, data => {
+            const project = data.projects.find(
+              project => project.id === removePersonFromProject.project.id,
+            );
+
+            project.people = project.people.filter(
+              person => person.id !== removePersonFromProject.person.id,
+            );
+          });
+
+          updateStore(proxy, query, variables, data => {
+            const person = data.people.find(
+              person => person.id === removePersonFromProject.person.id,
+            );
+
+            person.projects = person.projects.filter(
+              project => project.id !== removePersonFromProject.project.id,
+            );
+          });
+        },
+      };
+    },
+  }),
+  graphql(addProjectMutation, {
+    name: 'addProjectMutation',
+    options: props => {
+      const variables = getYearAndWeek(props);
+
+      return {
+        update: (proxy, { data: { addProject } }) => {
+          updateStore(proxy, query, variables, data => {
+            data.projects.push(addProject);
+
+            data.projects = sortBy(data.projects, project => project.name.toLowerCase());
+          });
+        },
+      };
+    },
+  }),
   graphql(query, {
     props: ({ ownProps, data }) => {
       const {
@@ -113,32 +211,23 @@ export default compose(
       const addPersonToProject = projectId => {
         addPersonToProjectMutation({
           variables: { personId: selectedPersonId, projectId },
-        })
-          .then(() => data.refetch())
-          .then(displayProjectsSavedNotification);
+        }).then(displayProjectsSavedNotification);
       };
 
       const removePersonFromProject = projectId => {
         removePersonFromProjectMutation({
           variables: { personId: selectedPersonId, projectId },
-        })
-          .then(() => data.refetch())
-          .then(displayProjectsSavedNotification);
+        }).then(displayProjectsSavedNotification);
       };
 
       const addProject = name => {
-        return addProjectMutation({ variables: { name } }).then(() => data.refetch());
+        return addProjectMutation({ variables: { name } });
       };
 
       return { data, addEntry, addPersonToProject, removePersonFromProject, addProject };
     },
     options: props => {
-      const { date } = props;
-
-      const year = date.year();
-      const week = date.week();
-
-      return { variables: { year, week } };
+      return { variables: getYearAndWeek(props) };
     },
   }),
 )(Week);
