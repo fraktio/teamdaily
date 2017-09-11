@@ -3,6 +3,7 @@ import api from 'services/api';
 
 const LOAD = 'teamdaily/projects/LOAD';
 const CREATE = 'teamdaily/projects/CREATE';
+const UPDATE = 'teamdaily/projects/UPDATE';
 
 export default function reducer(state = List(), action) {
   switch (action.type) {
@@ -14,6 +15,9 @@ export default function reducer(state = List(), action) {
         id: `${action.project}-disabled`,
         disabled: true,
       });
+    case UPDATE:
+      // console.log(state.findIndex(item => item.id === action.project.id))
+      return state.set(state.findIndex(item => item.id === action.project.id), action.project);
     default:
       return state;
   }
@@ -61,6 +65,57 @@ export function deleteProject(id) {
     api
       .deleteProject(id)
       .then(() => dispatch(fetchProjects()))
+      .catch(() => dispatch(fetchProjects()));
+  };
+}
+
+export function setProjectStatus(project, status) {
+  return dispatch => {
+    project.status = status;
+    dispatch({
+      type: UPDATE,
+      project,
+    });
+  };
+
+  return dispatch => {
+    project.set('status', status);
+
+    return api
+      .updateProject(project)
+      .then(() =>
+        dispatch({
+          type: UPDATE,
+          project,
+        }),
+      )
+      .catch(() => dispatch(fetchProjects()));
+  };
+}
+
+export function setProjectDescription(project, description) {
+  return dispatch => {
+    project.description = description;
+
+    dispatch({
+      type: UPDATE,
+      project,
+    });
+
+    return Promise.resolve();
+  };
+
+  return dispatch => {
+    project.description = description;
+
+    return api
+      .updateProject(project)
+      .then(() =>
+        dispatch({
+          type: UPDATE,
+          project,
+        }),
+      )
       .catch(() => dispatch(fetchProjects()));
   };
 }

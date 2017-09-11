@@ -10,9 +10,16 @@ import ProjectBox from './ProjectBox';
 
 export default class ProjectView extends Component {
   render() {
-    const { employees, projects, entries, date } = this.props;
+    const {
+      employees,
+      projects,
+      entries,
+      date,
+      setProjectStatus,
+      setProjectDescription,
+    } = this.props;
 
-    const projectsWithEmployees = projects
+    const projectsWithEmployeesFirst = projects
       .sort((a, b) => alphabeticalSort(a.name, b.name))
       .map(p => {
         p.employees = employees.filter(e => e.projects).filter(e => e.projects.includes(p.id));
@@ -23,9 +30,17 @@ export default class ProjectView extends Component {
       <div>
         <div className={styles.projectsWrapper}>
           <div className={styles.cardContainer}>
-            {projectsWithEmployees.map(p => {
+            {projectsWithEmployeesFirst.map(p => {
               if (p.employees.size > 0) {
-                return <ProjectBox key={p.id} project={p} entries={entries} />;
+                return (
+                  <ProjectBox
+                    key={p.id}
+                    project={p}
+                    entries={entries}
+                    saveStatus={status => setProjectStatus(p, status)}
+                    saveDescription={desc => setProjectDescription(p, desc)}
+                  />
+                );
               }
             })};
           </div>
@@ -38,9 +53,17 @@ export default class ProjectView extends Component {
           </h4>
 
           <div className={styles.cardContainer}>
-            {projectsWithEmployees.map(p => {
+            {projectsWithEmployeesFirst.map(p => {
               if (p.employees.size < 1) {
-                return <ProjectBox key={p.id} project={p} entries={entries} />;
+                return (
+                  <ProjectBox
+                    key={p.id}
+                    project={p}
+                    entries={entries}
+                    saveStatus={status => setProjectStatus(p, status)}
+                    saveDescription={desc => setProjectDescription(p, desc)}
+                  />
+                );
               }
             })};
           </div>

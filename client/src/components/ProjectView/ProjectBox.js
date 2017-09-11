@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import styles from './style.pcss';
 
+import ProjectStatus from './ProjectStatus';
+import ProjectDescription from './ProjectDescription';
+
 export default class ProjectBox extends Component {
   render() {
-    const { project, entries } = this.props;
-
+    const { project, entries, saveStatus, saveDescription } = this.props;
+    console.log(project);
     return (
       <div className={styles.card}>
         <h4 className={styles.projectTitle}>
@@ -21,6 +24,9 @@ export default class ProjectBox extends Component {
             </span>
           );
         })}
+
+        <ProjectStatus status={project.status} saveStatus={saveStatus} />
+        <ProjectDescription description={project.description} saveDescription={saveDescription} />
       </div>
     );
   }
