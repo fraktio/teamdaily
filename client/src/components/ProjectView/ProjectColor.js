@@ -13,7 +13,11 @@ const COLOR_BLUE = 'blue';
 
 class ProjectColor extends Component {
   save = value => {
-    this.props.saveProjectColor(value);
+    if (this.props.color === value) {
+      this.props.saveProjectColor(null);
+    } else {
+      this.props.saveProjectColor(value);
+    }
   };
 
   red = () => this.save(COLOR_RED);
@@ -32,9 +36,9 @@ class ProjectColor extends Component {
           active={color === COLOR_BLUE}
           inactive={color !== COLOR_BLUE}
           className="blue"
-          title={intl.messages.project_maintenance}
+          title={intl.messages.project_shred}
         >
-          <FormattedMessage id="project_maintenance" defaultMessage="Maintenance" />
+          <FormattedMessage id="project_shred" defaultMessage="Shred" />
         </Button>
         <Button
           type="button"
@@ -52,9 +56,9 @@ class ProjectColor extends Component {
           active={color === COLOR_YELLOW}
           inactive={color !== COLOR_YELLOW}
           className="yellow"
-          title={intl.messages.project_challenges}
+          title={intl.messages.project_alarm}
         >
-          <FormattedMessage id="project_challenges" defaultMessage="Challenges" />
+          <FormattedMessage id="project_alarm" defaultMessage="Alarm" />
         </Button>
         <Button
           type="button"

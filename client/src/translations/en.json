@@ -9,8 +9,8 @@
   "addProjectForm_addProject": "Add project",
   "admin_addEmployee": "Add person",
   "admin_addProject": "Add project",
-  "project_maintenance": "Maintenance",
+  "project_shred": "Shred",
   "project_good": "Good",
-  "project_challenges": "Challenges",
+  "project_alarm": "Alarm",
   "project_panic": "Panic"
 }
