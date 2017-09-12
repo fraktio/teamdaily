@@ -28,6 +28,7 @@ Useful Docker commands:
 * `docker-compose exec [something]`
 * like `docker-compose exec server yarn run db-migrate up`
 * or go deeper inside `docker-compose exec database bash`
+* pass parameters with extra `--` like so `docker-compose exec server yarn run db-migrate create [migration-name] -- --sql-file`
 
 ## Manual installation
 
@@ -59,6 +60,14 @@ Start from there!
 > INSERT INTO `migrations` (name, run_on)  VALUES ('/20170728133556-initial', NOW());
 > ```
 
+
+## Migrations
+Create new migrations file with
+`yarn run db-migrate create project-status --sql-file`
+
+Run migrations with `yarn run db-migrate [up|down]`
+
+More at https://db-migrate.readthedocs.io
 
 ### Client
 
