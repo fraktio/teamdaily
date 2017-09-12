@@ -5,19 +5,22 @@ const LOAD = 'teamdaily/projects/LOAD';
 const CREATE = 'teamdaily/projects/CREATE';
 const UPDATE = 'teamdaily/projects/UPDATE';
 
-export default function reducer(state = List(), action) {
+export default function reducer(state = [], action) {
   switch (action.type) {
     case LOAD:
-      return action.projects;
+      return List(action.projects).toJS();
     case CREATE:
-      return state.push({
-        name: action.project,
-        id: `${action.project}-disabled`,
-        disabled: true,
-      });
+      return List(state)
+        .push({
+          name: action.project,
+          id: `${action.project}-disabled`,
+          disabled: true,
+        })
+        .toJS();
     case UPDATE:
-      // console.log(state.findIndex(item => item.id === action.project.id))
-      return state.set(state.findIndex(item => item.id === action.project.id), action.project);
+      return List(state)
+        .set(state.findIndex(item => item.id === action.project.id), action.project)
+        .toJS();
     default:
       return state;
   }
