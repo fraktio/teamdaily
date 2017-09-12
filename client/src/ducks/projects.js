@@ -69,17 +69,9 @@ export function deleteProject(id) {
   };
 }
 
-export function setProjectStatus(project, status) {
+export function setProjectColor(project, color) {
   return dispatch => {
-    project.status = status;
-    dispatch({
-      type: UPDATE,
-      project,
-    });
-  };
-
-  return dispatch => {
-    project.set('status', status);
+    project.color = color;
 
     return api
       .updateProject(project)
@@ -93,20 +85,9 @@ export function setProjectStatus(project, status) {
   };
 }
 
-export function setProjectDescription(project, description) {
+export function setProjectMessage(project, message) {
   return dispatch => {
-    project.description = description;
-
-    dispatch({
-      type: UPDATE,
-      project,
-    });
-
-    return Promise.resolve();
-  };
-
-  return dispatch => {
-    project.description = description;
+    project.message = message;
 
     return api
       .updateProject(project)

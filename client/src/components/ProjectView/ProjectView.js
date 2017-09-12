@@ -10,14 +10,7 @@ import ProjectBox from './ProjectBox';
 
 export default class ProjectView extends Component {
   render() {
-    const {
-      employees,
-      projects,
-      entries,
-      date,
-      setProjectStatus,
-      setProjectDescription,
-    } = this.props;
+    const { employees, projects, entries, date, setProjectColor, setProjectMessage } = this.props;
 
     const projectsWithEmployeesFirst = projects
       .sort((a, b) => alphabeticalSort(a.name, b.name))
@@ -37,8 +30,8 @@ export default class ProjectView extends Component {
                     key={p.id}
                     project={p}
                     entries={entries}
-                    saveStatus={status => setProjectStatus(p, status)}
-                    saveDescription={desc => setProjectDescription(p, desc)}
+                    saveProjectColor={status => setProjectColor(p, status)}
+                    saveProjectMessage={desc => setProjectMessage(p, desc)}
                   />
                 );
               }
@@ -60,8 +53,8 @@ export default class ProjectView extends Component {
                     key={p.id}
                     project={p}
                     entries={entries}
-                    saveStatus={status => setProjectStatus(p, status)}
-                    saveDescription={desc => setProjectDescription(p, desc)}
+                    saveProjectColor={status => setProjectColor(p, status)}
+                    saveProjectMessage={desc => setProjectMessage(p, desc)}
                   />
                 );
               }

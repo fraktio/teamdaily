@@ -50,7 +50,7 @@ export default {
   saveProject: (employeeId, projectId, newProjectState) =>
     axios.post(url('/api/saveemployeeproject'), { employeeId, projectId, newProjectState }),
 
-  updateProject: project => axios.put(url('/api/project'), { project }),
+  updateProject: project => axios.put(url('/api/project'), project),
 
   getEmployeeProjects: () => wrapMany(axios.get(url('/api/employeeprojects'))),
 };

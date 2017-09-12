@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import ProjectView from '../components/ProjectView/ProjectView';
-import { setProjectStatus, setProjectDescription } from '../ducks/projects';
+import { setProjectColor, setProjectMessage } from '../ducks/projects';
 
 export default connect(
   state => ({
@@ -11,7 +11,7 @@ export default connect(
     date: state.entry.date,
   }),
   {
-    setProjectStatus,
-    setProjectDescription,
+    setProjectColor,
+    setProjectMessage,
   },
 )(ProjectView);
