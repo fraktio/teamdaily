@@ -33,12 +33,28 @@ export default class ProjectMessage extends Component {
     this.debouncedSave();
   };
 
+  onBlur = event => {
+    this.setState(
+      {
+        message: event.target.value,
+      },
+      () => {
+        this.save();
+      },
+    );
+  };
+
   render() {
     const { message } = this.props;
 
     return (
       <div>
-        <textarea className={styles.message} onChange={this.onChange} value={this.state.message} />
+        <textarea
+          className={styles.message}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+          value={this.state.message}
+        />
       </div>
     );
   }
