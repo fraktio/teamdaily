@@ -38,7 +38,7 @@ export default class ProjectMessage extends Component {
 
     return (
       <div>
-        <textarea onChange={this.onChange} value={this.state.message} />
+        <textarea className={styles.message} onChange={this.onChange} value={this.state.message} />
       </div>
     );
   }

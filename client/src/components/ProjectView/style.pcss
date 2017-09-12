@@ -68,6 +68,39 @@
   float: right;
 }
 
+.separator {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.75),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.active {
+  border: 2px solid white;
+}
+
+.colors {
+  font-size: 12px;
+}
+
+.message {
+  margin-top: 8px;
+  width: 100%;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #4c4c4c;
+  color: white;
+}
+
+.message:focus {
+  background-color: white;
+  color: #222;
+}
+
 @media only screen and (min-width: 400px) {
   .cardContainer {
     -moz-column-count: 1;

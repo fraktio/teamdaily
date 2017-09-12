@@ -28,5 +28,9 @@
   "matrix_closeModal": "Sulje",
   "matrix_week": "Viikko",
   "userWeeklyData_week": "Viikko",
-  "weekSelector_week": "Viikko {week}"
+  "weekSelector_week": "Viikko {week}",
+  "project_maintenance": "Ylläpito",
+  "project_good": "Hyvä",
+  "project_challenges": "Haasteita",
+  "project_panic": "Paniikki"
 }

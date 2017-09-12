@@ -25,7 +25,7 @@ export default class ProjectBox extends Component {
           );
         })}
 
-        <hr />
+        <hr className={styles.separator} />
 
         <ProjectColor color={project.color} saveProjectColor={saveProjectColor} />
         <ProjectMessage message={project.message} saveProjectMessage={saveProjectMessage} />
