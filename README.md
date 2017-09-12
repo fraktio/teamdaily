@@ -24,6 +24,11 @@ To install hook, run the following:
 * `docker-compose up`
 * `curl http://localhost:8765`
 
+Useful Docker commands:
+* `docker-compose exec [something]`
+* like `docker-compose exec server yarn run db-migrate up`
+* or go deeper inside `docker-compose exec database bash`
+
 ## Manual installation
 
 ### Server
