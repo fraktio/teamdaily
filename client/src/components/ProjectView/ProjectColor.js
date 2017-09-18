@@ -1,18 +1,28 @@
 import React from 'react';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import classnames from 'classnames';
+import { injectIntl } from 'react-intl';
 import Select from 'react-select';
 
-import Button from 'components/Button';
 import styles from './style.pcss';
-import statusFormStyles from '../StatusForm/style.pcss';
 
 const COLOR_RED = 'red';
 const COLOR_YELLOW = 'yellow';
 const COLOR_GREEN = 'green';
 const COLOR_BLUE = 'blue';
 
+const ProjectColorOption = props => {
+  const { value, label } = props;
+
+  return (
+    <div className={styles.projectColorOption}>
+     <span className={classnames(styles.projectColorOptionBall, value)} />
+     <span>{label}</span>
+   </div>
+  );
+}
+
 const ProjectColor = props => {
-  const { color, entries, intl, saveProjectColor } = props;
+  const { color, saveProjectColor } = props;
 
   const options = [
     { value: COLOR_BLUE, label: 'Shred' },
@@ -31,6 +41,7 @@ const ProjectColor = props => {
     className="project-color-select"
     name="project-color"
     onChange={save}
+    optionRenderer={ProjectColorOption}
     options={options}
     placeholder="Status"
     value={options[selectedOption]}

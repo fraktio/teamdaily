@@ -61,6 +61,7 @@
   color: white;
   text-align: center;
 }
+
 .employeeAmount {
   font-family: RobotoCondensed-Regular;
   font-size: 12px;
@@ -74,6 +75,26 @@
   border-radius: 4px;
 
   float: right;
+}
+
+.projectColorOption {
+  background-color: white;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  padding: 1em;
+
+  &:hover {
+    background-color: rgb(242, 242, 242);
+  }
+}
+
+.projectColorOptionBall {
+  border-radius: 50%;
+  display: inline-block;
+  height: 1rem;
+  margin-right: 0.5em;
+  vertical-align: top;
+  width: 1rem;
 }
 
 .message {
@@ -122,6 +143,7 @@
     column-count: 4;
   }
 }
+
 @media only screen and (min-width: 1280px) {
   .employeesWrapper {
     width: 1260px;
