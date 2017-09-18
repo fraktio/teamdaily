@@ -15,6 +15,11 @@ export default class ProjectBox extends Component {
           <h4 className={styles.projectTitle}>
             {project.name}
           </h4>
+          <ProjectColor color={project.color} saveProjectColor={saveProjectColor} />
+          <ProjectMessage message={project.message} saveProjectMessage={saveProjectMessage} />
+
+          <br />
+
           {project.employees.map(e => {
             const entry = entries.filter(entry => entry.name === e.name);
             const latestEntry = entry ? entry.get(-1) : null;
@@ -26,11 +31,6 @@ export default class ProjectBox extends Component {
               </span>
             );
           })}
-
-          <hr className={styles.separator} />
-
-          <ProjectColor color={project.color} saveProjectColor={saveProjectColor} />
-          <ProjectMessage message={project.message} saveProjectMessage={saveProjectMessage} />
         </div>
       </div>
     );
