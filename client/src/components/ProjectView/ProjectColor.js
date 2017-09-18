@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import classnames from 'classnames';
+import React from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import Select from 'react-select';
 
 import Button from 'components/Button';
 import styles from './style.pcss';
@@ -11,68 +11,30 @@ const COLOR_YELLOW = 'yellow';
 const COLOR_GREEN = 'green';
 const COLOR_BLUE = 'blue';
 
-class ProjectColor extends Component {
-  save = value => {
-    if (this.props.color === value) {
-      this.props.saveProjectColor(null);
-    } else {
-      this.props.saveProjectColor(value);
-    }
+const ProjectColor = props => {
+  const { color, entries, intl, saveProjectColor } = props;
+
+  const options = [
+    { value: COLOR_BLUE, label: 'Shred' },
+    { value: COLOR_GREEN, label: 'Good' },
+    { value: COLOR_YELLOW, label: 'Alarm' },
+    { value: COLOR_RED, label: 'Panic' },
+  ];
+
+  const selectedOption = options.findIndex(option => option.value === color);
+
+  const save = selected => {
+    selected ? saveProjectColor(selected.value) : saveProjectColor(null);
   };
 
-  red = () => this.save(COLOR_RED);
-  green = () => this.save(COLOR_GREEN);
-  yellow = () => this.save(COLOR_YELLOW);
-  blue = () => this.save(COLOR_BLUE);
-
-  render() {
-    const { color, entries, intl } = this.props;
-
-    return (
-      <div className={classnames(statusFormStyles.buttonGroup, styles.colors)}>
-        <Button
-          type="button"
-          onClick={() => this.save(COLOR_BLUE)}
-          active={color === COLOR_BLUE}
-          inactive={color !== COLOR_BLUE}
-          className="blue"
-          title={intl.messages.project_shred}
-        >
-          <FormattedMessage id="project_shred" defaultMessage="Shred" />
-        </Button>
-        <Button
-          type="button"
-          onClick={() => this.save(COLOR_GREEN)}
-          active={color === COLOR_GREEN}
-          inactive={color !== COLOR_GREEN}
-          className="green"
-          title={intl.messages.project_good}
-        >
-          <FormattedMessage id="project_good" defaultMessage="Good" />
-        </Button>
-        <Button
-          type="button"
-          onClick={() => this.save(COLOR_YELLOW)}
-          active={color === COLOR_YELLOW}
-          inactive={color !== COLOR_YELLOW}
-          className="yellow"
-          title={intl.messages.project_alarm}
-        >
-          <FormattedMessage id="project_alarm" defaultMessage="Alarm" />
-        </Button>
-        <Button
-          type="button"
-          onClick={() => this.save(COLOR_RED)}
-          active={color === COLOR_RED}
-          inactive={color !== COLOR_RED}
-          className="red"
-          title={intl.messages.project_panic}
-        >
-          <FormattedMessage id="project_panic" defaultMessage="Panic" />
-        </Button>
-      </div>
-    );
-  }
+  return <Select
+    className="project-color-select"
+    name="project-color"
+    onChange={save}
+    options={options}
+    placeholder="Status"
+    value={options[selectedOption]}
+  />;
 }
 
 export default injectIntl(ProjectColor);
