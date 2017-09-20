@@ -15,11 +15,13 @@ const ProjectColorOption = props => {
 
   return (
     <div className={styles.projectColorOption}>
-     <span className={classnames(styles.projectColorOptionBall, value)} />
-     <span>{label}</span>
-   </div>
+      <span className={classnames(styles.projectColorOptionBall, value)} />
+      <span>
+        {label}
+      </span>
+    </div>
   );
-}
+};
 
 const ProjectColor = props => {
   const { color, saveProjectColor } = props;
@@ -37,15 +39,17 @@ const ProjectColor = props => {
     selected ? saveProjectColor(selected.value) : saveProjectColor(null);
   };
 
-  return <Select
-    className="project-color-select"
-    name="project-color"
-    onChange={save}
-    optionRenderer={ProjectColorOption}
-    options={options}
-    placeholder="Status"
-    value={options[selectedOption]}
-  />;
-}
+  return (
+    <Select
+      className="project-color-select"
+      name="project-color"
+      onChange={save}
+      optionRenderer={ProjectColorOption}
+      options={options}
+      placeholder="Status"
+      value={options[selectedOption]}
+    />
+  );
+};
 
 export default injectIntl(ProjectColor);
