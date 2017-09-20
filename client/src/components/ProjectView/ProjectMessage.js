@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { debounce } from 'lodash';
+import classnames from 'classnames';
 
 import styles from './style.pcss';
 
 export default class ProjectMessage extends Component {
   state = {
     message: '',
+    focused: false,
   };
 
   componentDidMount = () => {
@@ -37,9 +39,21 @@ export default class ProjectMessage extends Component {
     this.setState(
       {
         message: event.target.value,
+        focused: false,
       },
       () => {
         this.save();
+      },
+    );
+  };
+
+  focus = () => {
+    this.setState(
+      {
+        focused: true,
+      },
+      () => {
+        this.textarea.focus();
       },
     );
   };
@@ -49,12 +63,28 @@ export default class ProjectMessage extends Component {
 
     return (
       <div>
-        <textarea
-          className={styles.message}
-          onChange={this.onChange}
-          onBlur={this.onBlur}
-          value={this.state.message}
-        />
+        {this.state.focused &&
+          <textarea
+            ref={textarea => {
+              this.textarea = textarea;
+            }}
+            className={classnames([styles.message, styles.messageInput])}
+            onChange={this.onChange}
+            onBlur={this.onBlur}
+            value={this.state.message}
+          />}
+
+        {!this.state.focused &&
+          this.state.message.length > 0 &&
+          <pre className={styles.message} onClick={this.focus}>
+            {this.state.message}
+          </pre>}
+
+        {!this.state.focused &&
+          this.state.message.length === 0 &&
+          <button className={classnames([styles.message, styles.setMessage])} onClick={this.focus}>
+            +
+          </button>}
       </div>
     );
   }
