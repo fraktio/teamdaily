@@ -10,7 +10,9 @@ export default class ProjectBox extends Component {
     const { project, entries, saveProjectColor, saveProjectMessage } = this.props;
 
     return (
-      <div className={classnames(styles.outerCard, project.color)}>
+      <div className={classnames(styles.outerCard)}>
+        <div className={classnames(styles.cahrdHeader, project.color)} />
+
         <div className={classnames(styles.card)}>
           <h4 className={styles.projectTitle}>
             {project.name}
