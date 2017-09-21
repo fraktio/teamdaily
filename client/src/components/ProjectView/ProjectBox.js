@@ -11,7 +11,7 @@ export default class ProjectBox extends Component {
 
     return (
       <div className={classnames(styles.outerCard)}>
-        <div className={classnames(styles.cahrdHeader, project.color)} />
+        <div className={classnames(styles.cardHeader, project.color)} />
 
         <div className={classnames(styles.card)}>
           <h4 className={styles.projectTitle}>
