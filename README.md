@@ -29,6 +29,7 @@ Useful Docker commands:
 * like `docker-compose exec server yarn run db-migrate up`
 * or go deeper inside `docker-compose exec database bash`
 * pass parameters with extra `--` like so `docker-compose exec server yarn run db-migrate create [migration-name] -- --sql-file`
+* `docker-compose logs -f`
 
 ## Manual installation
 
