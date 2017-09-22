@@ -6,22 +6,22 @@ describe('Color constants', () => {
   });
 
   test('Has color green', () => {
-    expect(colors.includes(colors.COLOR_GREEN)).toEqual(true);
+    expect(colors.includes('green')).toEqual(true);
   });
 
   test('Has color yellow', () => {
-    expect(colors.includes(colors.COLOR_YELLOW)).toEqual(true);
+    expect(colors.includes('yellow')).toEqual(true);
   });
 
   test('Has color red', () => {
-    expect(colors.includes(colors.COLOR_RED)).toEqual(true);
+    expect(colors.includes('red')).toEqual(true);
   });
 
   test('Has color blue', () => {
-    expect(colors.includes(colors.COLOR_BLUE)).toEqual(true);
+    expect(colors.includes('blue')).toEqual(true);
   });
 
   test('Has color pink', () => {
-    expect(colors.includes(colors.COLOR_PINK)).toEqual(true);
+    expect(colors.includes('pink')).toEqual(true);
   });
 });
