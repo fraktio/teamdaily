@@ -1,0 +1,42 @@
+:global .loadingDots {
+  font-size: 1em;
+  line-height: 1;
+}
+
+:global .loadingDots span {
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  height: 0.6em;
+  width: 0.6em;
+
+  -webkit-animation: loadingDots 1.5s linear infinite;
+  -moz-animation: loadingDots 1.5s linear infinite;
+  -ms-animation: loadingDots 1.5s linear infinite;
+  animation: loadingDots 1.5s linear infinite;
+}
+:global .loadingDots span:nth-child(2) {
+  -webkit-animation-delay: 0.5s;
+  -moz-animation-delay: 0.5s;
+  -ms-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+:global .loadingDots span:nth-child(1) {
+  -webkit-animation-delay: 1.0s;
+  -moz-animation-delay: 1.0s;
+  -ms-animation-delay: 1.0s;
+  animation-delay: 1.0s;
+}
+
+@keyframes :global(loadingDots) {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #e4e4e4;
+  }
+  100% {
+    background: transparent;
+  }
+}

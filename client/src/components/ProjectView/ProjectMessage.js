@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { debounce } from 'lodash';
 import classnames from 'classnames';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import styles from './style.pcss';
 
@@ -58,6 +59,14 @@ export default class ProjectMessage extends Component {
     );
   };
 
+  isDirty = () => {
+    return (
+      (this.state.message.length > 0 || this.props.message) &&
+      (this.props.message || this.state.focused) &&
+      this.props.message !== this.state.message
+    );
+  };
+
   render() {
     const { message } = this.props;
 
@@ -79,6 +88,15 @@ export default class ProjectMessage extends Component {
           <pre className={styles.message} onClick={this.focus}>
             {this.state.message}
           </pre>}
+
+        <div className={styles.messageDirty}>
+          {this.isDirty() &&
+            <div className="loadingDots">
+              <span />
+              <span />
+              <span />
+            </div>}
+        </div>
 
         {!this.state.focused &&
           this.state.message.length === 0 &&
