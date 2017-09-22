@@ -12,5 +12,6 @@
   "project_shred": "Shred",
   "project_good": "Good",
   "project_alarm": "Alarm",
-  "project_panic": "Panic"
+  "project_panic": "Panic",
+  "project_status": "Status"
 }

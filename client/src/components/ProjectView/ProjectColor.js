@@ -21,13 +21,25 @@ const ProjectColorOption = props => {
 };
 
 const ProjectColor = props => {
-  const { color, saveProjectColor } = props;
+  const { color, saveProjectColor, intl } = props;
 
   const options = [
-    { value: colors.COLOR_BLUE, label: 'Shred' },
-    { value: colors.COLOR_GREEN, label: 'Good' },
-    { value: colors.COLOR_YELLOW, label: 'Alarm' },
-    { value: colors.COLOR_RED, label: 'Panic' },
+    {
+      value: colors.COLOR_BLUE,
+      label: intl.formatMessage({ id: 'project_shred', defaultMessage: 'Shred' }),
+    },
+    {
+      value: colors.COLOR_GREEN,
+      label: intl.formatMessage({ id: 'project_good', defaultMessage: 'Good' }),
+    },
+    {
+      value: colors.COLOR_YELLOW,
+      label: intl.formatMessage({ id: 'project_alarm', defaultMessage: 'Alarm' }),
+    },
+    {
+      value: colors.COLOR_RED,
+      label: intl.formatMessage({ id: 'project_panic', defaultMessage: 'Panic' }),
+    },
   ];
 
   const selectedOption = options.findIndex(option => option.value === color);
@@ -43,7 +55,7 @@ const ProjectColor = props => {
       onChange={save}
       optionRenderer={ProjectColorOption}
       options={options}
-      placeholder="Status"
+      placeholder={intl.formatMessage({ id: 'project_status', defaultMessage: 'Status' })}
       value={options[selectedOption]}
     />
   );

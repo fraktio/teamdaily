@@ -32,5 +32,6 @@
   "project_shred": "Silppu",
   "project_good": "Hyvä",
   "project_alarm": "Häly",
-  "project_panic": "Paniikki"
+  "project_panic": "Paniikki",
+  "project_status": "Status"
 }
