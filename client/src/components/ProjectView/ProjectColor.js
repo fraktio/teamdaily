@@ -3,12 +3,9 @@ import classnames from 'classnames';
 import { injectIntl } from 'react-intl';
 import Select from 'react-select';
 
-import styles from './style.pcss';
+import * as colors from '../../colors';
 
-const COLOR_RED = 'red';
-const COLOR_YELLOW = 'yellow';
-const COLOR_GREEN = 'green';
-const COLOR_BLUE = 'blue';
+import styles from './style.pcss';
 
 const ProjectColorOption = props => {
   const { value, label } = props;
@@ -27,10 +24,10 @@ const ProjectColor = props => {
   const { color, saveProjectColor } = props;
 
   const options = [
-    { value: COLOR_BLUE, label: 'Shred' },
-    { value: COLOR_GREEN, label: 'Good' },
-    { value: COLOR_YELLOW, label: 'Alarm' },
-    { value: COLOR_RED, label: 'Panic' },
+    { value: colors.COLOR_BLUE, label: 'Shred' },
+    { value: colors.COLOR_GREEN, label: 'Good' },
+    { value: colors.COLOR_YELLOW, label: 'Alarm' },
+    { value: colors.COLOR_RED, label: 'Panic' },
   ];
 
   const selectedOption = options.findIndex(option => option.value === color);

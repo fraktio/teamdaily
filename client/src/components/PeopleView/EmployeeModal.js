@@ -10,6 +10,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 
 import WeekSelection from '../WeekSelection';
 import Modal from 'react-modal';
+import * as colors from '../../colors';
 
 import { Icon } from 'react-fa';
 import keydown from 'react-keydown';
@@ -187,27 +188,27 @@ export default injectIntl(EmployeeModal);
 
 const MoodsList = [
   {
-    color: 'pink',
+    color: colors.COLOR_PINK,
     message: 'statusForm_onVacation',
     icon: '🌴',
   },
   {
-    color: 'blue',
+    color: colors.COLOR_BLUE,
     message: 'statusForm_notEnough',
     icon: '😪',
   },
   {
-    color: 'green',
+    color: colors.COLOR_GREEN,
     message: 'statusForm_ok',
     icon: '😁',
   },
   {
-    color: 'yellow',
+    color: colors.COLOR_YELLOW,
     message: 'statusForm_busy',
     icon: '😕',
   },
   {
-    color: 'red',
+    color: colors.COLOR_RED,
     message: 'statusForm_tooMuch',
     icon: '😵',
   },

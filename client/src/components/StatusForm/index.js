@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { alphabeticalSort } from '../../utils/helpers';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Icon } from 'react-fa';
-import { name } from 'services/employee';
+
 import { Link } from 'react-router-dom';
+
+import { alphabeticalSort } from '../../utils/helpers';
+import { name } from 'services/employee';
 import AddProjectForm from 'components/AddProjectForm';
 import Button from 'components/Button';
+import * as colors from '../../colors';
 import styles from './style.pcss';
 
 class StatusForm extends Component {
@@ -143,8 +146,8 @@ class StatusForm extends Component {
             <Button
               type="button"
               disabled={!this.props.enabled}
-              onClick={() => this.changeColor('green')}
-              active={fields.color === 'green'}
+              onClick={() => this.changeColor(colors.COLOR_GREEN)}
+              active={fields.color === colors.COLOR_GREEN}
               className="green"
               title={intl.messages.statusForm_ok}
             >
@@ -153,8 +156,8 @@ class StatusForm extends Component {
             <Button
               type="button"
               disabled={!this.props.enabled}
-              onClick={() => this.changeColor('yellow')}
-              active={fields.color === 'yellow'}
+              onClick={() => this.changeColor(colors.COLOR_YELLOW)}
+              active={fields.color === colors.COLOR_YELLOW}
               className="yellow"
               title={intl.messages.statusForm_busy}
             >
@@ -163,8 +166,8 @@ class StatusForm extends Component {
             <Button
               type="button"
               disabled={!this.props.enabled}
-              onClick={() => this.changeColor('red')}
-              active={fields.color === 'red'}
+              onClick={() => this.changeColor(colors.COLOR_RED)}
+              active={fields.color === colors.COLOR_RED}
               className="red"
               title={intl.messages.statusForm_tooMuch}
             >
@@ -173,8 +176,8 @@ class StatusForm extends Component {
             <Button
               type="button"
               disabled={!this.props.enabled}
-              onClick={() => this.changeColor('blue')}
-              active={fields.color === 'blue'}
+              onClick={() => this.changeColor(colors.COLOR_BLUE)}
+              active={fields.color === colors.COLOR_BLUE}
               className="blue"
               title={intl.messages.statusForm_notEnough}
             >
@@ -183,8 +186,8 @@ class StatusForm extends Component {
             <Button
               type="button"
               disabled={!this.props.enabled}
-              onClick={() => this.changeColor('pink')}
-              active={fields.color === 'pink'}
+              onClick={() => this.changeColor(colors.COLOR_PINK)}
+              active={fields.color === colors.COLOR_PINK}
               className="pink"
               title={intl.messages.statusForm_onVacation}
             >
