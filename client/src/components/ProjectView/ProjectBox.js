@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './style.pcss';
+import peopleStyles from '../PeopleView/style.pcss';
 import classnames from 'classnames';
 
 import ProjectColor from './ProjectColor';
@@ -10,7 +11,7 @@ export default class ProjectBox extends Component {
     const { project, entries, saveProjectColor, saveProjectMessage } = this.props;
 
     return (
-      <div className={classnames(styles.outerCard)}>
+      <div className={classnames([peopleStyles.masonryCard])}>
         <div className={classnames(styles.cardHeader, project.color)} />
 
         <div className={classnames(styles.card)}>

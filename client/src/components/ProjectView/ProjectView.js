@@ -3,6 +3,7 @@ import { alphabeticalSort } from '../../utils/helpers';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
+import Masonry from 'react-masonry-component';
 
 import styles from './style.pcss';
 
@@ -19,10 +20,14 @@ export default class ProjectView extends Component {
         return p;
       });
 
+    const masonryOptions = {
+      transitionDuration: 0,
+    };
+
     return (
       <div>
         <div className={styles.projectsWrapper}>
-          <div className={styles.cardContainer}>
+          <Masonry options={masonryOptions}>
             {projectsWithEmployeesFirst.map(p => {
               if (p.employees.size > 0) {
                 return (
@@ -36,7 +41,7 @@ export default class ProjectView extends Component {
                 );
               }
             })};
-          </div>
+          </Masonry>
 
           <h4 className={styles.title}>
             <FormattedMessage
@@ -45,7 +50,7 @@ export default class ProjectView extends Component {
             />
           </h4>
 
-          <div className={styles.cardContainer}>
+          <Masonry options={masonryOptions}>
             {projectsWithEmployeesFirst.map(p => {
               if (p.employees.size < 1) {
                 return (
@@ -59,7 +64,7 @@ export default class ProjectView extends Component {
                 );
               }
             })};
-          </div>
+          </Masonry>
         </div>
       </div>
     );
