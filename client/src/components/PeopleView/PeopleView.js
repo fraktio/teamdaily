@@ -7,6 +7,7 @@ import { Icon } from 'react-fa';
 import { OrderedSet } from 'immutable';
 import { push } from '../ReduxRouter';
 import Masonry from 'react-masonry-component';
+import { cloneDeep } from 'lodash';
 
 import EmployeeCard from './EmployeeCard';
 import styles from './style.pcss';
@@ -86,7 +87,11 @@ export default class PeopleView extends Component {
 
   render() {
     const { employees, projects, entries, date, prevWeek, nextWeek } = this.props;
-    const sortedEmployees = sortEmployeesByImportance(employees, entries, projects);
+    const sortedEmployees = sortEmployeesByImportance(
+      cloneDeep(employees),
+      cloneDeep(entries),
+      cloneDeep(projects),
+    );
 
     const orderedEmployees = OrderedSet(
       sortedEmployees.attention.concat(sortedEmployees.green).concat(sortedEmployees.withoutEntry),

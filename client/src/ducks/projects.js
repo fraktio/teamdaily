@@ -84,7 +84,10 @@ export function setProjectColor(project, color) {
           project,
         }),
       )
-      .catch(() => dispatch(fetchProjects()));
+      .catch(e => {
+        console.log(e);
+        dispatch(fetchProjects());
+      });
   };
 }
 
@@ -100,6 +103,9 @@ export function setProjectMessage(project, message) {
           project,
         }),
       )
-      .catch(() => dispatch(fetchProjects()));
+      .catch(e => {
+        console.log(e);
+        dispatch(fetchProjects());
+      });
   };
 }
