@@ -8,5 +8,10 @@
   "statusForm_emptySelection": "-- Select --",
   "addProjectForm_addProject": "Add project",
   "admin_addEmployee": "Add person",
-  "admin_addProject": "Add project"
+  "admin_addProject": "Add project",
+  "project_shred": "Shred",
+  "project_good": "Good",
+  "project_alarm": "Alarm",
+  "project_panic": "Panic",
+  "project_status": "Status"
 }

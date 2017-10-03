@@ -194,15 +194,20 @@ app.post(
   }),
 );
 
-app.post(
+app.put(
   '/api/project',
   asyncWrap(async (req, res) => {
-    const { project } = req.body;
-    if (!project || !project.length) {
+    const project = req.body;
+
+    if (!project || !project.id) {
       res.json({ error: 'Invalidos projecteros!' });
       return;
     }
-    const result = await database.query('INSERT INTO projects SET ?', { name: project });
+
+    const result = await database.query(
+      'UPDATE projects SET name = ?, color = ?, message = ? WHERE id = ?',
+      [project.name, project.color, project.message, project.id],
+    );
     res.json({ error: null });
   }),
 );

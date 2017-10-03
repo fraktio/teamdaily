@@ -10,6 +10,8 @@ import forEach from 'lodash/forEach';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
 
+import * as colors from '../../colors';
+
 const weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
 // TODO: Use i18n library for translations
@@ -93,11 +95,11 @@ export default React.createClass({
     const googleArrayFormat = map(dailySpread, (statuses, key) => {
       return [
         translations[key],
-        counts('pink', statuses),
-        counts('blue', statuses),
-        counts('green', statuses),
-        counts('yellow', statuses),
-        counts('red', statuses),
+        counts(colors.COLOR_P, statuses),
+        counts(colors.COLOR_BLUE, statuses),
+        counts(colors.COLOR_GREEN, statuses),
+        counts(colors.COLOR_YELLOW, statuses),
+        counts(colors.COLOR_RED, statuses),
       ];
     });
 
@@ -146,7 +148,13 @@ export default React.createClass({
       },
       titleTextStyle: { color: 'white' },
       isStacked: 'true',
-      colors: ['pink', 'blue', 'green', 'yellow', 'red'],
+      colors: [
+        colors.COLOR_PINK,
+        colors.COLOR_BLUE,
+        colors.COLOR_GREEN,
+        colors.COLOR_YELLOW,
+        colors.COLOR_RED,
+      ],
       backgroundColor: '#2B2B2B',
       tooltip: {
         trigger: 'focus',

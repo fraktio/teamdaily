@@ -11,10 +11,12 @@ cache:
   yarn: true
 
 install:
-  - yarn global add prettier
+  - cd client && yarn && cd ..
+  - cd server && yarn && cd ..
 
 script:
-  - prettier --list-different --single-quote --print-width 100 --trailing-comma all "**/*.js"
-  - prettier --list-different --single-quote --print-width 100 --trailing-comma all --parser postcss "client/**/*.pcss"
+  - ./client/node_modules/.bin/prettier --list-different --single-quote --print-width 100 --trailing-comma all "**/*.js"
+  - ./server/node_modules/.bin/prettier --list-different --single-quote --print-width 100 --trailing-comma all "**/*.js"
+  - ./client/node_modules/.bin/prettier --list-different --single-quote --print-width 100 --trailing-comma all --parser postcss "client/**/*.pcss"
   - cd client && yarn && yarn run test && cd ..
   - cd server && yarn && yarn run test && cd ..

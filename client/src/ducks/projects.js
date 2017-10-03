@@ -3,17 +3,24 @@ import api from 'services/api';
 
 const LOAD = 'teamdaily/projects/LOAD';
 const CREATE = 'teamdaily/projects/CREATE';
+const UPDATE = 'teamdaily/projects/UPDATE';
 
-export default function reducer(state = List(), action) {
+export default function reducer(state = [], action) {
   switch (action.type) {
     case LOAD:
-      return action.projects;
+      return List(action.projects).toJS();
     case CREATE:
-      return state.push({
-        name: action.project,
-        id: `${action.project}-disabled`,
-        disabled: true,
-      });
+      return List(state)
+        .push({
+          name: action.project,
+          id: `${action.project}-disabled`,
+          disabled: true,
+        })
+        .toJS();
+    case UPDATE:
+      return List(state)
+        .set(state.findIndex(item => item.id === action.project.id), action.project)
+        .toJS();
     default:
       return state;
   }
@@ -62,5 +69,43 @@ export function deleteProject(id) {
       .deleteProject(id)
       .then(() => dispatch(fetchProjects()))
       .catch(() => dispatch(fetchProjects()));
+  };
+}
+
+export function setProjectColor(project, color) {
+  return dispatch => {
+    project.color = color;
+
+    return api
+      .updateProject(project)
+      .then(() =>
+        dispatch({
+          type: UPDATE,
+          project,
+        }),
+      )
+      .catch(e => {
+        console.log(e);
+        dispatch(fetchProjects());
+      });
+  };
+}
+
+export function setProjectMessage(project, message) {
+  return dispatch => {
+    project.message = message;
+
+    return api
+      .updateProject(project)
+      .then(() =>
+        dispatch({
+          type: UPDATE,
+          project,
+        }),
+      )
+      .catch(e => {
+        console.log(e);
+        dispatch(fetchProjects());
+      });
   };
 }
