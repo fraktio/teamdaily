@@ -29,9 +29,9 @@
   "matrix_week": "Viikko",
   "userWeeklyData_week": "Viikko",
   "weekSelector_week": "Viikko {week}",
-  "project_shred": "Silppu",
+  "project_passive": "Passiivinen",
   "project_good": "Hyvä",
-  "project_alarm": "Häly",
-  "project_panic": "Paniikki",
+  "project_hurry": "Kiireinen",
+  "project_understaffed": "Alimiehitetty",
   "project_status": "Status"
 }
