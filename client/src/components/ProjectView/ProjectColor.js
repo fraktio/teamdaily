@@ -26,7 +26,7 @@ const ProjectColor = props => {
   const options = [
     {
       value: colors.COLOR_BLUE,
-      label: intl.formatMessage({ id: 'project_shred', defaultMessage: 'Shred' }),
+      label: intl.formatMessage({ id: 'project_passive', defaultMessage: 'Passive' }),
     },
     {
       value: colors.COLOR_GREEN,
@@ -34,11 +34,11 @@ const ProjectColor = props => {
     },
     {
       value: colors.COLOR_YELLOW,
-      label: intl.formatMessage({ id: 'project_alarm', defaultMessage: 'Alarm' }),
+      label: intl.formatMessage({ id: 'project_hurry', defaultMessage: 'Hurry' }),
     },
     {
       value: colors.COLOR_RED,
-      label: intl.formatMessage({ id: 'project_panic', defaultMessage: 'Panic' }),
+      label: intl.formatMessage({ id: 'project_understaffed', defaultMessage: 'Understaffed' }),
     },
   ];
 
