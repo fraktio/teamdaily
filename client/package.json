@@ -10,7 +10,10 @@
         "./node_modules/.bin/prettier --single-quote --print-width 100 --trailing-comma all --write",
         "git add"
       ],
-      "*.json": ["./node_modules/.bin/prettier --parser json --print-width 100 --write", "git add"],
+      "*.json": [
+        "./node_modules/.bin/prettier --parser json --print-width 100 --write",
+        "git add"
+      ],
       "*.css": [
         "./node_modules/.bin/prettier --parser postcss --print-width 100 --write",
         "git add"
@@ -36,19 +39,24 @@
     "type": "git",
     "url": "https://github.com/fraktio/teamdaily-os"
   },
-  "keywords": ["TeamDaily"],
+  "keywords": [
+    "TeamDaily"
+  ],
   "author": "Fraktio",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
     "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
+    "firebase": "^4.6.1",
+    "firebaseui": "^2.4.1",
     "immutable": "^3.8.1",
     "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-addons-perf": "^15.4.1",
     "react-dom": "^15.6.1",
     "react-fa": "^4.2.0",
+    "react-firebaseui": "^1.0.1",
     "react-immutable-proptypes": "^2.1.0",
     "react-intl": "^2.4.0",
     "react-keydown": "^1.7.7",

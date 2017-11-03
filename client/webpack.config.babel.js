@@ -125,6 +125,8 @@ export function getCommonPlugins() {
       __DEVTOOLS__: false,
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.API': JSON.stringify(process.env.API),
+      'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
+      'process.env.FIREBASE_AUTH_DOMAIN': JSON.stringify(process.env.FIREBASE_AUTH_DOMAIN)
     }),
     new CopyWebpackPlugin([{ from: 'assets/web/*.*', flatten: true }]),
     new HtmlWebpackPlugin({
