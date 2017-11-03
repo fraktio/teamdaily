@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import moment from 'moment';
 import WeekSelection from 'components/WeekSelection';
+import classnames from 'classnames';
+import auth from 'services/auth';
 
 import styles from './style.pcss';
 
@@ -32,6 +33,10 @@ export default class Header extends Component {
             <Link to="/admin" className={styles.navItem}>
               <FormattedMessage id="header_admin" defaultMessage="Admin Panel" />
             </Link>
+            {auth.isEnabled &&
+              <a onClick={auth.logout} className={classnames(styles.navItem, styles.navItemRight)}>
+                <FormattedMessage id="header_logout" defaultMessage="Logout" />
+              </a>}
           </nav>
         </div>
 

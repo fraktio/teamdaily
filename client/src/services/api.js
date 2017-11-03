@@ -2,12 +2,26 @@ import moment from 'moment';
 import axios from 'axios';
 import uuid from 'uuid';
 import { List } from 'immutable';
+import auth from './auth';
 
 const url = url => process.env.API + url;
 
 const wrapMany = req => req.then(res => List(res.data));
 
-axios.defaults.withCredentials = true;
+axios.interceptors.request.use(config => {
+  if (!auth.isEnabled) {
+    return config;
+  }
+
+  return auth.firebaseApp.auth().currentUser.getIdToken().then(token => {
+    return {
+      ...config,
+      headers: {
+        'X-Firebase-Token': token,
+      },
+    };
+  });
+});
 
 export default {
   getEntries: date =>
