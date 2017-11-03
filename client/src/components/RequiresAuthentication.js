@@ -1,6 +1,7 @@
-import React from 'react'
-import firebase from 'firebase'
-import FirebaseAuth from 'react-firebaseui/dist/FirebaseAuth'
+import React from 'react';
+import firebase from 'firebase';
+import FirebaseAuth from 'react-firebaseui/dist/FirebaseAuth';
+import auth from 'services/auth';
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -10,29 +11,45 @@ const uiConfig = {
   ],
 }
 
-class RequiresAuthentication extends React.Component {
+class RequiresAuthentication extends React.PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       authenticated: false,
       initialized: false
     };
   }
 
+  removeAuthStateChangeObserver = null;
+
   componentDidMount = () => {
-    this.props.firebaseApp.auth().onAuthStateChanged((user) => {
-      this.setState({ authenticated: !!user, initialized: true });
-    })
+    if (auth.isEnabled) {
+      const remove = auth.firebaseApp.auth().onAuthStateChanged((user) => {
+        this.setState({ authenticated: !!user, initialized: true });
+      });
+
+      this.removeAuthStateChangeObserver = remove;
+    }
+  }
+
+  componentWillUnmount = () => {
+    if (this.removeAuthStateChangeObserver) {
+      this.removeAuthStateChangeObserver();
+    }
   }
 
   render = () => {
+    if (!auth.isEnabled) {
+      return this.props.children;
+    }
+
     if (!this.state.initialized) {
       return null;
     }
 
     return this.state.authenticated
       ? this.props.children
-      : <FirebaseAuth uiConfig={uiConfig} firebaseAuth={this.props.firebaseApp.auth()} />;
+      : <FirebaseAuth uiConfig={uiConfig} firebaseAuth={auth.firebaseApp.auth()} />;
   }
 }
 

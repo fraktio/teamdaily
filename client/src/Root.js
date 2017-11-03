@@ -4,7 +4,6 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import App from 'containers/AppContainer';
 import ReduxRouter from 'components/ReduxRouter';
 import RequiresAuthentication from 'components/RequiresAuthentication'
-import firebaseApp from './firebaseApp';
 
 import en from 'react-intl/locale-data/en';
 import fi from 'react-intl/locale-data/fi';
@@ -22,11 +21,11 @@ const Root = ({ store }) => {
   return (
     <Provider store={store}>
       <IntlProvider locale={DEFAULT_LOCALE} messages={messages[DEFAULT_LOCALE]}>
-        <ReduxRouter dispatch={store.dispatch}>
-          <RequiresAuthentication firebaseApp={firebaseApp}>
+        <RequiresAuthentication>
+          <ReduxRouter dispatch={store.dispatch}>
             <App />
-          </RequiresAuthentication>
-        </ReduxRouter>
+          </ReduxRouter>
+        </RequiresAuthentication>
       </IntlProvider>
     </Provider>
   );
