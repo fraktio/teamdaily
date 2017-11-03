@@ -1,6 +1,6 @@
 import admin from 'firebase-admin'
 
-if (process.env.FIREBASE_AUTH_ENABLED) {
+if (process.env.FIREBASE_AUTH_ENABLED === 'true') {
   admin.initializeApp({
     credential: admin.credential.cert({
       projectId: process.env.FIREBASE_PROJECT_ID,
@@ -11,7 +11,7 @@ if (process.env.FIREBASE_AUTH_ENABLED) {
 }
 
 export default (req, res, next) => {
-  if (!process.env.FIREBASE_AUTH_ENABLED) {
+  if (process.env.FIREBASE_AUTH_ENABLED !== 'true') {
     next();
     return;
   }
