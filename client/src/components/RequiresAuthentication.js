@@ -9,14 +9,14 @@ const uiConfig = {
     // add more auth providers here!
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
   ],
-}
+};
 
 class RequiresAuthentication extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       authenticated: false,
-      initialized: false
+      initialized: false,
     };
   }
 
@@ -24,19 +24,19 @@ class RequiresAuthentication extends React.PureComponent {
 
   componentDidMount = () => {
     if (auth.isEnabled) {
-      const remove = auth.firebaseApp.auth().onAuthStateChanged((user) => {
+      const remove = auth.firebaseApp.auth().onAuthStateChanged(user => {
         this.setState({ authenticated: !!user, initialized: true });
       });
 
       this.removeAuthStateChangeObserver = remove;
     }
-  }
+  };
 
   componentWillUnmount = () => {
     if (this.removeAuthStateChangeObserver) {
       this.removeAuthStateChangeObserver();
     }
-  }
+  };
 
   render = () => {
     if (!auth.isEnabled) {
@@ -50,7 +50,7 @@ class RequiresAuthentication extends React.PureComponent {
     return this.state.authenticated
       ? this.props.children
       : <FirebaseAuth uiConfig={uiConfig} firebaseAuth={auth.firebaseApp.auth()} />;
-  }
+  };
 }
 
 export default RequiresAuthentication;

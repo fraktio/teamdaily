@@ -33,9 +33,10 @@ export default class Header extends Component {
             <Link to="/admin" className={styles.navItem}>
               <FormattedMessage id="header_admin" defaultMessage="Admin Panel" />
             </Link>
-            {auth.isEnabled && <a onClick={auth.logout} className={classnames(styles.navItem, styles.navItemRight)}>
-              <FormattedMessage id="header_logout" defaultMessage="Logout" />
-            </a>}
+            {auth.isEnabled &&
+              <a onClick={auth.logout} className={classnames(styles.navItem, styles.navItemRight)}>
+                <FormattedMessage id="header_logout" defaultMessage="Logout" />
+              </a>}
           </nav>
         </div>
 

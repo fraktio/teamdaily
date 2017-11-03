@@ -17,10 +17,10 @@ axios.interceptors.request.use(config => {
     return {
       ...config,
       headers: {
-        'X-Firebase-Token': token
-      }
-    }
-  })
+        'X-Firebase-Token': token,
+      },
+    };
+  });
 });
 
 export default {

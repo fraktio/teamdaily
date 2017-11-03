@@ -321,5 +321,3 @@ function registerTrustProxy(app) {
     app.set('trust proxy', process.env.TRUST_PROXY);
   }
 }
-
-
