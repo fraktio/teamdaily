@@ -27,6 +27,7 @@ export default (req, res, next) => {
     .auth()
     .verifyIdToken(token)
     .then(decodedToken => {
+      console.log(decodedToken);
       if (
         decodedToken.email_verified &&
         decodedToken.email.endsWith(process.env.FIREBASE_AUTH_EMAIL_WHITELIST)
