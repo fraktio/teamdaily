@@ -46,7 +46,6 @@ services:
         - MYSQL_PASSWORD=dockerpassu
         - MYSQL_ROOT_PASSWORD=lamantiini
       volumes:
-        - ./database_dump:/docker-entrypoint-initdb.d
         - mariadb:/var/lib/mysql
       networks:
         - server-database
