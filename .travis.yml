@@ -15,8 +15,5 @@ install:
   - cd server && yarn && cd ..
 
 script:
-  - ./client/node_modules/.bin/prettier --list-different --single-quote --print-width 100 --trailing-comma all "**/*.js"
-  - ./server/node_modules/.bin/prettier --list-different --single-quote --print-width 100 --trailing-comma all "**/*.js"
-  - ./client/node_modules/.bin/prettier --list-different --single-quote --print-width 100 --trailing-comma all --parser postcss "client/**/*.pcss"
   - cd client && yarn && yarn run test && cd ..
   - cd server && yarn && yarn run test && cd ..
