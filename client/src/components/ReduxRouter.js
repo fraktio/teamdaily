@@ -1,17 +1,12 @@
-import React from 'react';
-import { Router } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import React from "react";
+import { Router } from "react-router-dom";
+import createBrowserHistory from "history/createBrowserHistory";
 
-const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
+const LOCATION_CHANGE = "@@router/LOCATION_CHANGE";
 
 export const history = createBrowserHistory();
 
 class ReduxRouter extends React.Component {
-  static propTypes = {
-    children: React.PropTypes.node.isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-  };
-
   componentDidMount() {
     this.unsubscribe = history.listen(this.handleLocationChange);
   }
@@ -26,7 +21,7 @@ class ReduxRouter extends React.Component {
     dispatch({
       type: LOCATION_CHANGE,
       location,
-      action,
+      action
     });
   };
 

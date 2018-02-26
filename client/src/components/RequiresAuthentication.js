@@ -1,14 +1,14 @@
-import React from 'react';
-import firebase from 'firebase';
-import FirebaseAuth from 'react-firebaseui/dist/FirebaseAuth';
-import auth from 'services/auth';
+import React from "react";
+import firebase from "firebase";
+import { FirebaseAuth } from "react-firebaseui";
+import auth from "services/auth";
 
 const uiConfig = {
-  signInFlow: 'popup',
+  signInFlow: "popup",
   signInOptions: [
     // add more auth providers here!
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-  ],
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+  ]
 };
 
 class RequiresAuthentication extends React.PureComponent {
@@ -16,7 +16,7 @@ class RequiresAuthentication extends React.PureComponent {
     super(props);
     this.state = {
       authenticated: false,
-      initialized: false,
+      initialized: false
     };
   }
 
@@ -49,7 +49,10 @@ class RequiresAuthentication extends React.PureComponent {
 
     return this.state.authenticated
       ? this.props.children
-      : <FirebaseAuth uiConfig={uiConfig} firebaseAuth={auth.firebaseApp.auth()} />;
+      : <FirebaseAuth
+          uiConfig={uiConfig}
+          firebaseAuth={auth.firebaseApp.auth()}
+        />;
   };
 }
 

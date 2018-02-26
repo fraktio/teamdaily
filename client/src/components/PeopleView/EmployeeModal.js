@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   alphabeticalSort,
   getLatestEntry,
   getEntryColor,
-  doesFlaggedExist,
-} from '../../utils/helpers';
-import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import { FormattedMessage, injectIntl } from 'react-intl';
+  doesFlaggedExist
+} from "../../utils/helpers";
+import { FormattedMessage, injectIntl } from "react-intl";
 
-import WeekSelection from '../WeekSelection';
-import Modal from 'react-modal';
-import * as colors from '../../colors';
+import WeekSelection from "../WeekSelection";
+import Modal from "react-modal";
+import * as colors from "../../colors";
 
-import { Icon } from 'react-fa';
-import keydown from 'react-keydown';
+import { Icon } from "react-fa";
+import keydown from "react-keydown";
 
-import FlaggedIcon from 'assets/flagged.svg';
+import FlaggedIcon from "assets/flagged.svg";
 
-import styles from './style.pcss';
-import menuStyles from './menuStyle.pcss';
-import modalStyles from './modalStyle.pcss';
+import styles from "./style.pcss";
+import menuStyles from "./menuStyle.pcss";
+import modalStyles from "./modalStyle.pcss";
 
 class EmployeeModal extends React.Component {
   selectColor = color => this.setState({ color: color });
   handleCloseClick = () => this.props.handleClose();
 
   componentWillMount() {
-    const latestEntry = this.props.e.entry.size > 0 ? this.props.e.entry.get(-1) : null;
+    const latestEntry =
+      this.props.e.entry.size > 0 ? this.props.e.entry.get(-1) : null;
     if (latestEntry) {
       this.selectColor(latestEntry.color);
     }
@@ -86,7 +86,7 @@ class EmployeeModal extends React.Component {
       date,
       intl,
       onPrevWeek,
-      onNextWeek,
+      onNextWeek
     } = this.props;
 
     if (!e) {
@@ -101,7 +101,11 @@ class EmployeeModal extends React.Component {
       <div>
         <div className={menuStyles.menu}>
           <div className={menuStyles.header}>
-            <WeekSelection date={date} onPrevWeek={onPrevWeek} onNextWeek={onNextWeek} />
+            <WeekSelection
+              date={date}
+              onPrevWeek={onPrevWeek}
+              onNextWeek={onNextWeek}
+            />
           </div>
           {orderedEmployees.map(employee => {
             const isSelected = employee.id === e.id;
@@ -115,12 +119,13 @@ class EmployeeModal extends React.Component {
               <div
                 className={`${menuStyles.employee} ${isSelected
                   ? menuStyles.selected
-                  : ''} ${menuColor}`}
+                  : ""} ${menuColor}`}
                 key={employee.id}
                 onClick={() => handleSelectEmployee(employee)}
               >
                 {employee.name}
-                {flagged && <img className={menuStyles.flagged} src={FlaggedIcon} />}
+                {flagged &&
+                  <img className={menuStyles.flagged} src={FlaggedIcon} />}
               </div>
             );
           })}
@@ -130,13 +135,16 @@ class EmployeeModal extends React.Component {
           contentLabel="Modal"
           onRequestClose={this.closeModal}
           className={{
-            base: modalStyles.modal,
+            base: modalStyles.modal
           }}
           overlayClassName={{
-            base: modalStyles.overlay,
+            base: modalStyles.overlay
           }}
         >
-          <button className={modalStyles.closeButton} onClick={this.handleCloseClick}>
+          <button
+            className={modalStyles.closeButton}
+            onClick={this.handleCloseClick}
+          >
             X
           </button>
           <div className={`${modalStyles.header} ${color}`}>
@@ -157,7 +165,9 @@ class EmployeeModal extends React.Component {
 
                 return (
                   <div
-                    className={`${modalStyles.mood} ${isActive ? modalStyles.activeMood : ''}`}
+                    className={`${modalStyles.mood} ${isActive
+                      ? modalStyles.activeMood
+                      : ""}`}
                     key={m.color}
                   >
                     {m.icon}
@@ -168,14 +178,19 @@ class EmployeeModal extends React.Component {
                 );
               })}
             </div>
-            <FormattedMessage id="people_participating" defaultMessage="Projects" />
+            <FormattedMessage
+              id="people_participating"
+              defaultMessage="Projects"
+            />
             <div className={modalStyles.projects}>
               {e.employeeProjects &&
-                e.employeeProjects.sort((a, b) => alphabeticalSort(a.name, b.name)).map(p =>
-                  <button className={styles.project} key={p.id}>
-                    {p.name}
-                  </button>,
-                )}
+                e.employeeProjects
+                  .sort((a, b) => alphabeticalSort(a.name, b.name))
+                  .map(p =>
+                    <button className={styles.project} key={p.id}>
+                      {p.name}
+                    </button>
+                  )}
             </div>
           </div>
         </Modal>
@@ -189,32 +204,32 @@ export default injectIntl(EmployeeModal);
 const MoodsList = [
   {
     color: colors.COLOR_PINK,
-    message: 'statusForm_onVacation',
-    icon: '🌴',
+    message: "statusForm_onVacation",
+    icon: "🌴"
   },
   {
     color: colors.COLOR_BLUE,
-    message: 'statusForm_notEnough',
-    icon: '😪',
+    message: "statusForm_notEnough",
+    icon: "😪"
   },
   {
     color: colors.COLOR_GREEN,
-    message: 'statusForm_ok',
-    icon: '😁',
+    message: "statusForm_ok",
+    icon: "😁"
   },
   {
     color: colors.COLOR_YELLOW,
-    message: 'statusForm_busy',
-    icon: '😕',
+    message: "statusForm_busy",
+    icon: "😕"
   },
   {
     color: colors.COLOR_RED,
-    message: 'statusForm_tooMuch',
-    icon: '😵',
-  },
+    message: "statusForm_tooMuch",
+    icon: "😵"
+  }
 ];
 
 function getColor(e) {
   const latestEntry = e.entry.size > 0 ? e.entry.get(-1) : null;
-  return latestEntry ? latestEntry.color : 'empty';
+  return latestEntry ? latestEntry.color : "empty";
 }

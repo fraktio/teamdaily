@@ -1,10 +1,12 @@
-import moment from 'moment';
-import axios from 'axios';
-import uuid from 'uuid';
-import { List } from 'immutable';
-import auth from './auth';
+import moment from "moment";
+import axios from "axios";
+import uuid from "uuid";
+import { List } from "immutable";
+import auth from "./auth";
 
-const url = url => process.env.API + url;
+console.log(process.env);
+
+const url = url => process.env.REACT_APP_API + url;
 
 const wrapMany = req => req.then(res => List(res.data));
 
@@ -13,19 +15,26 @@ axios.interceptors.request.use(config => {
     return config;
   }
 
-  return auth.firebaseApp.auth().currentUser.getIdToken().then(token => {
-    return {
-      ...config,
-      headers: {
-        'X-Firebase-Token': token,
-      },
-    };
-  });
+  return auth.firebaseApp
+    .auth()
+    .currentUser.getIdToken()
+    .then(token => {
+      return {
+        ...config,
+        headers: {
+          "X-Firebase-Token": token
+        }
+      };
+    });
 });
 
 export default {
   getEntries: date =>
-    wrapMany(axios.get(url('/api/message/') + date.format('GGGG') + '/' + date.format('WW'))),
+    wrapMany(
+      axios.get(
+        url("/api/message/") + date.format("GGGG") + "/" + date.format("WW")
+      )
+    ),
 
   submitStatus: (status, date) => {
     const json = {
@@ -34,37 +43,44 @@ export default {
       employeeId: status.employeeId,
       color: status.color,
       activeProjects: status.activeProjects.filter(Boolean),
-      flagged: status.flagged,
+      flagged: status.flagged
     };
 
     return axios
-      .post(url(`/api/message/${date.format('GGGG')}/${date.format('WW')}`), json)
+      .post(
+        url(`/api/message/${date.format("GGGG")}/${date.format("WW")}`),
+        json
+      )
       .then(res => res.data)
       .then(data => ({
         ...json,
         uuid: uuid.v4(),
-        created: moment(),
+        created: moment()
       }));
   },
 
-  getYearlyStats: year => wrapMany(axios.get(url('/api/message/latest'))),
+  getYearlyStats: year => wrapMany(axios.get(url("/api/message/latest"))),
 
-  getEmployees: () => wrapMany(axios.get(url('/api/employee'))),
+  getEmployees: () => wrapMany(axios.get(url("/api/employee"))),
 
-  getProjects: () => wrapMany(axios.get(url('/api/project'))),
+  getProjects: () => wrapMany(axios.get(url("/api/project"))),
 
-  addProject: project => axios.post(url('/api/project'), { project }),
+  addProject: project => axios.post(url("/api/project"), { project }),
 
-  deleteProject: id => axios.post(url('/api/deleteproject'), { id }),
+  deleteProject: id => axios.post(url("/api/deleteproject"), { id }),
 
-  addEmployee: employee => axios.post(url('/api/employee'), { employee }),
+  addEmployee: employee => axios.post(url("/api/employee"), { employee }),
 
-  deleteEmployee: id => axios.post(url('/api/deleteemployee'), { id }),
+  deleteEmployee: id => axios.post(url("/api/deleteemployee"), { id }),
 
   saveProject: (employeeId, projectId, newProjectState) =>
-    axios.post(url('/api/saveemployeeproject'), { employeeId, projectId, newProjectState }),
+    axios.post(url("/api/saveemployeeproject"), {
+      employeeId,
+      projectId,
+      newProjectState
+    }),
 
-  updateProject: project => axios.put(url('/api/project'), project),
+  updateProject: project => axios.put(url("/api/project"), project),
 
-  getEmployeeProjects: () => wrapMany(axios.get(url('/api/employeeprojects'))),
+  getEmployeeProjects: () => wrapMany(axios.get(url("/api/employeeprojects")))
 };

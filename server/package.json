@@ -24,15 +24,13 @@
     "db-migrate": "db-migrate"
   },
   "engines": {
-    "node": "8.x"
+    "node": ">= 8"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/fraktio/teamdaily-os"
   },
-  "keywords": [
-    "TeamDaily"
-  ],
+  "keywords": ["TeamDaily"],
   "author": "Fraktio",
   "license": "MIT",
   "dependencies": {

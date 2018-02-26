@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
-import { alphabeticalSort } from '../../utils/helpers';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import { Icon } from 'react-fa';
-import { OrderedSet } from 'immutable';
-import { push } from '../ReduxRouter';
-import Masonry from 'react-masonry-component';
-import { cloneDeep } from 'lodash';
+import React, { Component } from "react";
+import { alphabeticalSort } from "../../utils/helpers";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import { Icon } from "react-fa";
+import { OrderedSet } from "immutable";
+import { push } from "../ReduxRouter";
+import Masonry from "react-masonry-component";
+import { cloneDeep } from "lodash";
 
-import EmployeeCard from './EmployeeCard';
-import styles from './style.pcss';
-import EmployeeModal from './EmployeeModal';
-import menuStyles from './menuStyle.pcss';
-import modalStyles from './modalStyle.pcss';
+import EmployeeCard from "./EmployeeCard";
+import styles from "./style.pcss";
+import EmployeeModal from "./EmployeeModal";
+import menuStyles from "./menuStyle.pcss";
+import modalStyles from "./modalStyle.pcss";
 
 const changeWeekInterval = 60000;
 
 export default class PeopleView extends Component {
   state = {
     isShowingModal: false,
-    selectedEmployee: null,
+    selectedEmployee: null
   };
 
   handleSelectEmployee = (e, p) => this.setState({ selectedEmployee: e });
-  handleClick = (e, p) => this.setState({ isShowingModal: true, selectedEmployee: e });
+  handleClick = (e, p) =>
+    this.setState({ isShowingModal: true, selectedEmployee: e });
   handleClose = () => this.setState({ isShowingModal: false });
 
   componentDidMount() {
@@ -78,27 +78,36 @@ export default class PeopleView extends Component {
     const weekNumberNow = moment().week();
 
     if (weekNumber !== weekNumberNow) {
-      push('/people/' + weekNumber);
+      push("/people/" + weekNumber);
       return;
     }
 
-    push('/people');
+    push("/people");
   }
 
   render() {
-    const { employees, projects, entries, date, prevWeek, nextWeek } = this.props;
+    const {
+      employees,
+      projects,
+      entries,
+      date,
+      prevWeek,
+      nextWeek
+    } = this.props;
     const sortedEmployees = sortEmployeesByImportance(
       cloneDeep(employees),
       cloneDeep(entries),
-      cloneDeep(projects),
+      cloneDeep(projects)
     );
 
     const orderedEmployees = OrderedSet(
-      sortedEmployees.attention.concat(sortedEmployees.green).concat(sortedEmployees.withoutEntry),
+      sortedEmployees.attention
+        .concat(sortedEmployees.green)
+        .concat(sortedEmployees.withoutEntry)
     );
 
     const masonryOptions = {
-      transitionDuration: 0,
+      transitionDuration: 0
     };
 
     return (
@@ -136,15 +145,17 @@ function sortEmployeesByImportance(employees, entries, projects) {
   return employees.reduce(
     (list, e, r) => {
       e.entry = entries.filter(entry => entry.name === e.name);
-      e.employeeProjects = projects.sort((a, b) => alphabeticalSort(a.name, b.name)).filter(p => {
-        if (!e.projects) return null;
-        return e.projects.includes(p.id);
-      });
+      e.employeeProjects = projects
+        .sort((a, b) => alphabeticalSort(a.name, b.name))
+        .filter(p => {
+          if (!e.projects) return null;
+          return e.projects.includes(p.id);
+        });
       const entry = e.entry.get(-1);
       if (!entry) {
         list.withoutEntry.push(e);
       } else {
-        if (entry.color === 'green') {
+        if (entry.color === "green") {
           list.green.push(e);
         } else {
           list.attention.push(e);
@@ -152,6 +163,6 @@ function sortEmployeesByImportance(employees, entries, projects) {
       }
       return list;
     },
-    { attention: [], green: [], withoutEntry: [] },
+    { attention: [], green: [], withoutEntry: [] }
   );
 }

@@ -1,29 +1,29 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
 
 // @TODO Use native functions wheneven possible
-import keys from 'lodash/keys';
-import mapValues from 'lodash/mapValues';
-import zipObject from 'lodash/zipObject';
-import reduce from 'lodash/reduce';
-import forEach from 'lodash/forEach';
-import map from 'lodash/map';
-import filter from 'lodash/filter';
+import keys from "lodash/keys";
+import mapValues from "lodash/mapValues";
+import zipObject from "lodash/zipObject";
+import reduce from "lodash/reduce";
+import forEach from "lodash/forEach";
+import map from "lodash/map";
+import filter from "lodash/filter";
 
-import * as colors from '../../colors';
+import * as colors from "../../colors";
 
-const weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+const weekDays = ["monday", "tuesday", "wednesday", "thursday", "friday"];
 
 // TODO: Use i18n library for translations
 const translations = {
-  monday: 'Maanantai',
-  tuesday: 'Tiistai',
-  wednesday: 'Keskiviikko',
-  thursday: 'Torstai',
-  friday: 'Perjantai',
+  monday: "Maanantai",
+  tuesday: "Tiistai",
+  wednesday: "Keskiviikko",
+  thursday: "Torstai",
+  friday: "Perjantai"
 };
 
-export default React.createClass({
+class WeeklyGraph extends React.Component {
   // TODO: make it responsive and (pseudo-)reactive!
   render() {
     return (
@@ -32,27 +32,27 @@ export default React.createClass({
           <div
             id="chart-div"
             style={{
-              width: '900px',
-              height: '500px',
+              width: "900px",
+              height: "500px"
             }}
           />
         </div>
       </div>
     );
-  },
+  }
 
   componentDidMount() {
-    google.load('visualization', '1', {
-      packages: ['corechart'],
+    google.load("visualization", "1", {
+      packages: ["corechart"],
       callback: () => {
         this.drawChart(this.props.week, this.props.year, this.props.userData);
-      },
+      }
     });
-  },
+  }
 
   componentDidUpdate() {
     this.drawChart(this.props.week, this.props.year, this.props.userData);
-  },
+  }
 
   drawChart(week, year, userData) {
     const users = keys(userData);
@@ -64,10 +64,12 @@ export default React.createClass({
     const dailySpread = reduce(
       userData,
       (dayUserStatusMap, user, name) => {
-        let selectedWeekStatuses = user.weeks[week + '_' + year];
+        let selectedWeekStatuses = user.weeks[week + "_" + year];
 
         forEach(selectedWeekStatuses, status => {
-          let day = moment(status.created).format('dddd').toLowerCase();
+          let day = moment(status.created)
+            .format("dddd")
+            .toLowerCase();
 
           // Paskofix if day is weekend
           if (dayUserStatusMap[day] !== undefined) {
@@ -89,17 +91,17 @@ export default React.createClass({
 
         return dayUserStatusMap;
       },
-      dayUserMap,
+      dayUserMap
     );
 
     const googleArrayFormat = map(dailySpread, (statuses, key) => {
       return [
         translations[key],
-        counts(colors.COLOR_P, statuses),
+        counts(colors.COLOR_PINK, statuses),
         counts(colors.COLOR_BLUE, statuses),
         counts(colors.COLOR_GREEN, statuses),
         counts(colors.COLOR_YELLOW, statuses),
-        counts(colors.COLOR_RED, statuses),
+        counts(colors.COLOR_RED, statuses)
       ];
     });
 
@@ -111,58 +113,62 @@ export default React.createClass({
 
     const data = google.visualization.arrayToDataTable([
       [
-        'Day',
-        'Lomalla',
-        'Liian vähän töitä',
-        'Sopivasti töitä',
-        'Hieman liikaa töitä',
-        'Liian paljon töitä',
+        "Day",
+        "Lomalla",
+        "Liian vähän töitä",
+        "Sopivasti töitä",
+        "Hieman liikaa töitä",
+        "Liian paljon töitä"
       ],
-      ...googleArrayFormat,
+      ...googleArrayFormat
     ]);
 
     const options = {
-      title: 'Työtaakka - viikko ' + week,
+      title: "Työtaakka - viikko " + week,
       hAxis: {
-        title: 'Viikonpäivä',
-        titleTextStyle: { color: 'white' },
-        textStyle: { color: 'white' },
+        title: "Viikonpäivä",
+        titleTextStyle: { color: "white" },
+        textStyle: { color: "white" },
         gridlines: {
-          color: 'gray',
-          count: 7,
-        },
+          color: "gray",
+          count: 7
+        }
       },
       vAxis: {
-        title: 'Työntekijöiden lkm',
+        title: "Työntekijöiden lkm",
         minValue: 0,
-        titleTextStyle: { color: 'white' },
-        textStyle: { color: 'white' },
+        titleTextStyle: { color: "white" },
+        textStyle: { color: "white" },
         gridlines: {
-          color: 'gray',
-          count: 7,
+          color: "gray",
+          count: 7
         },
-        format: '',
+        format: ""
       },
       legend: {
-        textStyle: { color: 'white' },
+        textStyle: { color: "white" }
       },
-      titleTextStyle: { color: 'white' },
-      isStacked: 'true',
+      titleTextStyle: { color: "white" },
+      isStacked: "true",
       colors: [
         colors.COLOR_PINK,
         colors.COLOR_BLUE,
         colors.COLOR_GREEN,
         colors.COLOR_YELLOW,
-        colors.COLOR_RED,
+        colors.COLOR_RED
       ],
-      backgroundColor: '#2B2B2B',
+      backgroundColor: "#2B2B2B",
       tooltip: {
-        trigger: 'focus',
+        trigger: "focus"
       },
-      focusTarget: 'category',
+      focusTarget: "category"
     };
 
-    var chart = new google.visualization.SteppedAreaChart(document.getElementById('chart-div'));
+    var chart = new google.visualization.SteppedAreaChart(
+      document.getElementById("chart-div")
+    );
     chart.draw(data, options);
-  },
-});
+  }
+}
+
+export default WeeklyGraph;
