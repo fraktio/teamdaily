@@ -6,12 +6,14 @@ const {
   defaultFeatures,
   defaultPaths,
   defaultBaseConfig,
-  removeFeature,
+  removeFeatures,
+  addFeatures,
   compile,
   override,
   run,
   toJS
 } = require("@dr-kobros/broilerplate");
+const postCssFeature = require("@dr-kobros/broilerplate-postcss");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -25,7 +27,8 @@ module.exports = target => {
     defaultPaths(env, target, __dirname),
     defaultBaseConfig(env, target),
     defaultFeatures,
-    removeFeature("serverRenderFeature"),
+    addFeatures(postCssFeature),
+    removeFeatures("serverRenderFeature"),
     ensureFiles(false),
     compile(env, target),
     override(path.join(__dirname, "./src/config/overrides")),

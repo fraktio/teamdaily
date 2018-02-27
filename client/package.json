@@ -29,11 +29,9 @@
     "clean": "rimraf ./dist",
     "lint": "eslint src --ext js",
     "babel-node": "babel-node",
-    "build:client":
-      "cross-env NODE_ENV=production webpack --progress --display-optimization-bailout",
+    "build:client": "cross-env NODE_ENV=production webpack --progress --display-optimization-bailout",
     "build": "yarn run clean && yarn run build:client",
-    "start":
-      "cross-env NODE_ENV=development webpack-dev-server --port 8765 --history-api-fallback --hot --inline --progress",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --port 8765 --history-api-fallback --hot --inline --progress",
     "test": "jest",
     "flow": "flow"
   },
@@ -41,7 +39,9 @@
     "type": "git",
     "url": "https://github.com/fraktio/teamdaily"
   },
-  "keywords": ["TeamDaily"],
+  "keywords": [
+    "TeamDaily"
+  ],
   "author": "Fraktio",
   "license": "MIT",
   "dependencies": {
@@ -77,9 +77,10 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "@dr-kobros/broilerplate": "^0.12.3",
+    "@dr-kobros/broilerplate": "^0.13.4",
+    "@dr-kobros/broilerplate-postcss": "^0.13.6",
     "@firebase/app-types": "^0.1.0",
-    "autoprefixer": "^7.2.5",
+    "autoprefixer": "^8.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "6",
     "babel-eslint": "^7.2.3",
@@ -110,9 +111,11 @@
     "postcss": "^6.0.16",
     "postcss-advanced-variables": "^2.3.0",
     "postcss-color-function": "^4.0.1",
+    "postcss-loader": "^2.1.1",
     "postcss-nested": "^3.0.0",
     "postcss-nesting": "^4.2.1",
     "postcss-partial-import": "^4.1.0",
+    "postcss-preset-env": "^2.1.0",
     "prettier": "^1.10.2",
     "react-inspector": "^2.2.2",
     "redux-devtools-extension": "^2.13.2",
