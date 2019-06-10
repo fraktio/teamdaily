@@ -22,7 +22,8 @@ To install hook, run the following:
 ### Dockerized installation
 
 * `docker-compose up`
-* `curl http://localhost:8765`
+* `docker-compose exec -T database mysql -u docker -pdockerpassu teamdaily < database_dump/teamdaily.sql` for loading the dev dummy data
+* open http://localhost:8765
 
 Useful Docker commands:
 * `docker-compose exec [something]`
